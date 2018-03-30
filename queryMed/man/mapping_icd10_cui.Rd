@@ -2,10 +2,10 @@
 \alias{mapping_icd10_cui}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+From ICD10 codes to CUI
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Mapping ICD10 codes to CUI based on sparql() function \url{http://sparql.bioontology.org/sparql/}
 }
 \usage{
 mapping_icd10_cui(api_key = "")

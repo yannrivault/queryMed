@@ -22,5 +22,4 @@ export("uri2norm",
        "mapping_icd10_cui", 
        "mapping_atc_db",
        "get_DID", 
-       "atc_icd10_DID",
        "get_DIKB","NDFRT_CI_with")

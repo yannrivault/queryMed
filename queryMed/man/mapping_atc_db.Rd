@@ -2,10 +2,10 @@
 \alias{mapping_atc_db}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+From ATC codes to DrugBank codes
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Mapping ATC codes to DrugBank codes based on sparql() function \url{bio2rdf.org/sparql/}
 }
 \usage{
 mapping_atc_db()
