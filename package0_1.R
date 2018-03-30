@@ -139,67 +139,18 @@ search_endpoint(term = c("C43","J00-J99"), ontologies = "ICD10", service = "biop
 
 
 
-##########################################################################################
-#### Fonction that returns ancestors of a class from an ontology on Bioportal or SIFR ####
-  # Works for only one class ...
-  # A sparql querry could do the same for several class
-  # But the ATC is'nt available on the bioportal sparql endpoint ...
-  # maybe could be done with http://linked.opendata.cz/sparql/ ?
-  # Also with sparql endpoints, transitivity is rarely available, so we can get parents, not ancestors
+#####################################################################
+#### Fonction that returns ancestors of a class from an ontology ####
 
-### Ancestors
-get_ancestors <- function(term="",ontology="",api_key=""){
-  
-  if(length(c("",ontology))!=2 || !is.character(ontology)){
-    warning("Give an unique character for ontology parameter")
-    return(NULL)
-  }
-  
-  if(term==""){
-    warning("Give a term")
-    return(NULL)
-  }
-  
-  if (ontology=="ATC") {
-    url=paste("http://data.bioontology.org/ontologies/ATC/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FUATC%2F",term,"/ancestors",sep="")
-  }
-  else {
-    url=paste("http://data.bioontology.org/ontologies/",ontology,"/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2F",ontology,"%2F",term,"/ancestors",sep="")
-  }
-  results<-GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep="")))
-  content <- content(results)
-  
-  
-  if (any(grepl("error",names(content)))){
-    warning(content$error)
-    return(NULL)
-  }
-  else if (length(content)==0){
-    warning("Term unknown or no ancestors")
-    return(NULL)
-  }
-  
-  ancestors_df=setNames(data.frame(matrix(ncol = 2, nrow = 0)), c("id", "prefLabel"))
-  for(j in 1:length(content)){
-    ancestors_df[dim(ancestors_df)[1]+1,]=c(content[[j]]$"@id",content[[j]]$prefLabel)
-  }
-  
-  return(ancestors_df)
-}
+get_ancestors <- function()
 
-api_key="your_api_key"
+query="PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+       SELECT *
+       WHERE {?code skos:broaderTransitive ?ancestor
+       FILTER(strStarts(str(?code),\"http://linked.opendata.cz/resource/atc/\"))
+       }"
+uri2norm(sparql(url="http://linked.opendata.cz/sparql/",query=query))
 
-example1 <- get_ancestors("A05AA",ontology="ATC",api_key = api_key)
-example1
-
-example2 <- get_ancestors("C50",ontology="ICD10",api_key = api_key)
-example2
-
-example3 <- get_ancestors("N0000153235",ontology="NDFRT",api_key = api_key)
-example3
-
-example3 <- get_ancestors("test",ontology="NDFRT",api_key = api_key)
-# error test
 
 
 # Similar functions
@@ -366,23 +317,14 @@ head(DIKB[DIKB$source=="FrenchDB",])
 
 
 
-############################################################################################
-#### Fonction qui pour un ensemble de code atc retourne leurs indications selon NDF-RT: ####
-# Basée sur la fonction sparql
-# Arguments : des codes ATC (vecteur/liste de char) et une clef api necessaire
-# Retourne
-# Il y a une limite de la taille de la requête sur les sparql endpoint
-# Il faudrait donc fixer une limite du nombre de code atc, et couper la liste en plusieurs listes sur lesquelles on applique la fonction
-# Puis tout concaténer
-
-
-## A changer, il y a eu des modifs d'autres fonctions qui sont des dépendances
+#########################################################################
+#### Functions that returns all the CI from NDF-RT (drug-diagnostic) ####
+  # Based on sparql()
+  # Have to deal with transitivity at the end
 
 NDFRT_CI_with <- function(atc=NULL, api_key=""){
   
-  cui_atc=atc2cui(atc,api_key = api_key)
-  
-  query_part1="
+  query="
   prefix owl: <http://www.w3.org/2002/07/owl#>
   prefix ndf: <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl#>
   prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -409,25 +351,22 @@ NDFRT_CI_with <- function(atc=NULL, api_key=""){
   UNION
   {?sc_diag_1 rdfs:subClassOf ?ndf_diag .
   ?sc_diag_1 ndf:UMLS_CUI ?cui_diag .}
-  
+  }
   "
   
-  query_part2=paste("\nFILTER(?cui_drug IN (",paste("\"",paste(cui_atc$cui,collapse="\",\""),"\"",sep=""),"))}",sep="")
-  query=paste(query_part1,query_part2,sep="")
   results=sparql(url="http://sparql.bioontology.org/sparql/",query=query, api_key = api_key)
-  results=merge(results,unique(merge(results,cui_atc,by.x="cui_drug",by.y="cui")))
+  
+  cui_atc=mapping_atc_cui(codes=results$cui_drug,source="cui",api_key=api_key)
+  cui_icd10=mapping_icd10_cui(api_key=api_key)
+
+  results=merge(results,unique(merge(results,cui_atc,by.x="cui_drug",by.y="cui")),all.x=T)
+  results=merge(results,unique(merge(results,cui_icd10,by.x="cui_diag",by.y="cui")),all.x=T)
   
   return(results)
   }
 
 
-bioportal_api_key="your_api_key_here"
-NDFRT_CI_with(atc=c("B01AA02","B01AC13","N06AB08","N05AD01"),api_key = bioportal_api_key)
+CI <- NDFRT_CI_with(api_key = api_key)
+CI[,c("atc","icd10")]
 
 
-# gérer la transitivité
-# ça commence à faire beaucoup, ça met du temps ...
-
-# Les causes :
-#Atc n'est pas sur le sparql endpoint
-#Les requêtes fédérées sur plusieurs ontologies (NDF-RT, CIM10) prennent beaucoup trop de temps ...
