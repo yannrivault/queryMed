@@ -78,14 +78,14 @@ sparql(query=query,url="https://dbpedia.org/sparql")
 
 
 ############################################################################################
-#### Fonction that send a "querry" on bioportal search services on bioportal and SIFR : ####
+#### Fonction that send a "query" on bioportal search services on bioportal and SIFR : ####
   # Alternative to sparql endpoint querying
   # For example, the ATC is not avaiblable on the bioportal sparql endpoint, but it is on the search service
   # Nevertheless, the information is poorer and execution time for retriving an equivalent information can be longer
   # Arguments : terms (vector/list), an optional filter by cui (vector/list), the search service (bioportal or sifr), api key if need be, and optional argument(s)
   # Return the result as a JSON document
 
-search <- function(term="",cui="",ontologies="",service="bioportal",api_key="",extra_args=""){
+search_endpoint <- function(term="",cui="",ontologies="",service="bioportal",api_key="",extra_args=""){
   
   if(service=="bioportal"){service <- "http://data.bioontology.org/search?"}
   else if (service=="sifr"){service <- "http://data.bioportal.lirmm.fr/search?"}
@@ -125,9 +125,9 @@ search <- function(term="",cui="",ontologies="",service="bioportal",api_key="",e
 #examples
 
 
-search(term = c("B01AA02","N06AB08"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+search_endpoint(term = c("B01AA02","N06AB08"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
 
-search(term = c("C43","J00-J99"), ontologies = "ICD10", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+search_endpoint(term = c("C43","J00-J99"), ontologies = "ICD10", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
 # Results can potentialy be larger than what is expected. For example with J00-J99 ICD10, it returns also informations about J00 class, and for C43, it returns also informations about C43's ancestor.
 
 
@@ -141,6 +141,11 @@ search(term = c("C43","J00-J99"), ontologies = "ICD10", service = "bioportal", a
 
 ##########################################################################################
 #### Fonction that returns ancestors of a class from an ontology on Bioportal or SIFR ####
+  # Works for only one class ...
+  # A sparql querry could do the same for several class
+  # But the ATC is'nt available on the bioportal sparql endpoint ...
+  # maybe could be done with http://linked.opendata.cz/sparql/ ?
+  # Also with sparql endpoints, transitivity is rarely available, so we can get parents, not ancestors
 
 ### Ancestors
 get_ancestors <- function(term="",ontology="",api_key=""){
@@ -224,7 +229,7 @@ mapping_atc_cui <- function(codes=NULL,source="cui",api_key=""){
   
   if (n>0){
     for(i in 1:n){
-      S=search(term = paste(codes[((i-1)*800):(i*800-1)],collapse="+"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+      S=search_endpoint(term = paste(codes[((i-1)*800):(i*800-1)],collapse="+"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
       for(j in 1:length(S$collection)){
         results[dim(results)[1]+1,"atc"]=S$collection[[j]]$"@id"
         results[dim(results)[1],"cui"]=S$collection[[j]]$cui
@@ -232,7 +237,7 @@ mapping_atc_cui <- function(codes=NULL,source="cui",api_key=""){
     }
   }
   if (rest>0){
-    S=search(term = paste(codes[(n*800):(n*800+rest)],collapse="+"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+    S=search_endpoint(term = paste(codes[(n*800):(n*800+rest)],collapse="+"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
     for(j in 1:length(S$collection)){
       results[dim(results)[1]+1,"atc"]=S$collection[[j]]$"@id"
       results[dim(results)[1],"cui"]=S$collection[[j]]$cui
