@@ -6,7 +6,7 @@ importFrom(RCurl, getURL)
 
 importFrom(jsonlite, fromJSON)
 
-importFrom(httr, GET, content, add_headers, set_config, write_disk)
+importFrom(httr, GET, content, add_headers, set_config, write_disk, config)
 
 importFrom(stringr, str_extract_all)
 
