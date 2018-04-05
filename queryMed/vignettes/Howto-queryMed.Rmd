@@ -11,17 +11,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Context
 
-In the era massive open-data access and big data in general, pharmaco-epidemiology and public health sciences are in need for bioinformatics tools. Researchers can now query large medical information systems such as medico-administrative databases and claim databases. They thus need batch translation of drug and disease codes to filter out known and trivial associations but also identify critical interactions for patient safety. 
+In the era of massive open-data access and big data in general, pharmaco-epidemiology and public health sciences are in need for bioinformatics tools. Researchers can now query large medical information systems such as medico-administrative databases and claim databases. They thus need batch translation of drug and disease codes to filter out known and trivial associations but also identify critical interactions for patient safety. 
 
 Standard medical terminologies/ontologies facilitates 
 
-We propose a tool to integrate ontologies programmatically in the R environment.
+Using ontologies in R has proven to be 
+
+We propose a tool to integrate ontologies programmatically in the R environment. The queryMed package:
 
 
-
-```{r cars, eval=F}
-library(queryMed)
-```
 
 ## Material and Methods
 
@@ -35,5 +33,88 @@ List of accessible ontologies
 
 
 
+```{r load, eval=F}
+library(queryMed)
+```
+
+```{r load, eval=F}
+DIKB <- get_DIKB(path="/tmp",mapping="ATC")
+clop = DIKB[DIKB$object=="CLOPIDOGREL",]
+clop = as.data.table(clop)
+
+clop2 <- clop 
+clop2$atc2   <- substr(clop$atc2, 24, 30)
+clop2$root  <- substr(clop2$atc2,1, 4)
+clop2<- clop2[!is.na(clop2$atc2),]
+
+statclop = clop2[, .N,by=list(precipitant, atc2, root)]
+```
+
+
+```{r igraph, eval=F}
+mypalette<-brewer.pal(11,"Spectral")
+mypalette = cbind(mypalette, "root"=unique(statclop$root))
+statclop<- merge(statclop, mypalette, by="root")
+
+library(igraph)
+g1 <- graph_from_edgelist(as.matrix(cbind("CLOPIDOGREL", statclop[,2])), directed=T ) 
+statclop$N[statclop$N == 1 ] <- 0
+E(g1)$weight <- statclop$N         
+E(g1)$width <- 1+E(g1)$weight*2
+V(g1)$size <- 20
+V(g1)$frame.color <- "white"
+V(g1)$color <-  c("lightgrey", statclop$mypalette)
+l1 <- layout_as_star(g1)
+plot(g1, edge.color="orange", layout=l1)
+
+# ancestor I
+res1<-c()
+res2<-c()
+for (i in 1:nrow(clop2)){
+temp<- get_ancestors(clop2$atc2[i], ontology="ATC", api_key="e6f2d058-f206-4ac7-a8f9-60b84c9e57dc")
+res1[i] <- temp[1,2]
+res2[i] <- temp[2,2]
+}
+clop2$anc1 <- res1 
+clop2$anc2 <- res2 
+statclop1 = clop2[, .N, by=list(anc1,root)]
+statclop2 = clop2[, .N, by=list(anc2,root)]
+
+statclop1<- merge(statclop1, mypalette, by="root")
+statclop2<- merge(statclop2, mypalette, by="root")
+
+g2 <- graph_from_edgelist(as.matrix(cbind("CLOPIDOGREL", statclop1[,2])), directed=T ) 
+statclop1$N[statclop1$N == 1 ] <- 0
+E(g2)$weight <- statclop1$N         
+E(g2)$width <- 1+E(g2)$weight*2
+V(g2)$size <- 20
+V(g2)$frame.color <- "white"
+V(g2)$color <-  c("lightgrey", statclop1$mypalette)
+#V(g2)$color <- "orange"
+l2 <- layout_as_star(g2)
+#plot(g2, layout=l2)
+
+# ancestor II
+g3 <- graph_from_edgelist(as.matrix(cbind("CLOPIDOGREL", statclop2[,2])), directed=T ) 
+statclop2$N[statclop2$N == 1 ] <- 0
+E(g3)$weight <- statclop2$N         
+E(g3)$width <- 1+E(g3)$weight*2
+V(g3)$size <- 20
+V(g3)$vertex.label.cex <-0.5
+V(g3)$frame.color <- "white"
+V(g3)$color <-  c("lightgrey", statclop2$mypalette)
+l3 <- layout_as_star(g3)
+#plot(g3, vertex.label.cex= 0.8, layout=l)
+
+par(mfrow=c(2,2), mar=c(1,1,1,1)) 
+plot(g1, vertex.label.cex= 0.8, layout=l1*0.6, main="Drug")
+plot(g2, vertex.label.cex= 0.8, layout=l2*0.6, main="Ancestor I")
+plot(g3, vertex.label.cex= 0.8, layout=l3*0.6, main="Ancestor II")
+dev.off()
+```
+
+
 ## References
-Natalja Kurbatova, Tomasz Adamusiak, Pavel Kurnosov, Morris A. Swertz, Misha Kapushesky; ontoCAT: an R package for ontology traversal and search, Bioinformatics, Volume 27, Issue 17, 1 September 2011, Pages 2468–2470, https://doi.org/10.1093/bioinformatics/btr375
+\begin{thebibliography}{}
+
+\bibitem[Kurbatova {\it et~al}., 2011]{Kurbatova11} Kurbatova, N. , Adamusiak, T., Kurnosov, P., Swertz, MA., Kapushesky, M. ontoCAT: an R package for ontology traversal and search, {\it Bioinformatics}, {\bf 27}(17), 2468–2470.

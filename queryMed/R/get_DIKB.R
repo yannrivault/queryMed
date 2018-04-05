@@ -27,6 +27,13 @@ function(path=getwd(),url=NULL,mapping=NULL){
     DIKB=merge(DIKB,atc_db,by.x="drug2",by.y="db",all.x=T)
     colnames(DIKB)[28:29]=c("atc1","atc2")
   }
+  
+  DIKB$object<- toupper(DIKB$object)
+  DIKB$precipitant <- toupper(DIKB$precipitant)
+  DIKB$drug1<- substr(DIKB$drug1, 29, 35)
+  DIKB$drug2<- substr(DIKB$drug1, 29, 35)
+  
+  #FrenchDB - severity PC -AD??
 
   return(DIKB)
 }
