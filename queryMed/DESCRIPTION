@@ -6,6 +6,6 @@ Date: 2018-03-30
 Author: Y. Rivault, O. Dameron, N. Le Meur
 Maintainer: Y. Rivault <yann.rivault@ehesp.fr>
 Depends: R (>= 3.4.3)
-Imports: jsonlite, httr, openxlsx, RCurl, hash, stringr
+Imports: jsonlite, httr, openxlsx, RCurl, hash, stringr, xml2
 Description:  Query Bioportal SPARQL endpoints to annotate drugs and diseases codes and retrieve their potential relationships, interaction etc.
 License: Artistic-2.0
