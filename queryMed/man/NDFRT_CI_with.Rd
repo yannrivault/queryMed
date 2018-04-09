@@ -2,21 +2,24 @@
 \alias{NDFRT_CI_with}
 
 \title{
-Retrieve NDFRT indication from ATC codes
+NDFRT_CI_with
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Retrieve NDFRT contre-indication from drugs to diagnostics. NDF-RT codes can be mapped to CUI codes, then to ATC and ICD10 codes.
 }
 \usage{
-NDFRT_CI_with(atc = NULL, api_key = "")
+NDFRT_CI_with(drug_mapping = NULL, diagnostic_mapping = NULL, api_key= "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{atc}{
-%%     ~~Describe \code{atc} here~~
+  \item{drug_mapping}{
+If you want to mapp NDF-RT drug codes to other drug classification available on BIOPORTAL (e.g. "ATC").
+}
+  \item{diagnostic_mapping}{
+If you want to mapp NDF-RT diagnostic codes to other diagnostic classification available on BIOPORTAL (e.g. "ICD10").
 }
   \item{api_key}{
-%%     ~~Describe \code{api_key} here~~
+An API Key is required to access any API call on Bioportal. To have one, you need to register at http://bioportal.bioontology.org/.
 }
 }
 \details{
@@ -45,8 +48,6 @@ NDFRT_CI_with(atc = NULL, api_key = "")
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-bioportal_api_key="e6f2d058-f206-4ac7-a8f9-60b84c9e57dc"
-NDFRT_CI_with(atc=c("B01AA02","B01AC13","N06AB08","N05AD01"),api_key = bioportal_api_key)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,4 +1,4 @@
-NDFRT_CI_with <- function(api_key=""){
+NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   
   query="
   prefix owl: <http://www.w3.org/2002/07/owl#>
@@ -22,11 +22,19 @@ NDFRT_CI_with <- function(api_key=""){
   
   results=sparql(url="http://sparql.hegroup.org/sparql/",query=query)
   
-  cui_atc=mapping_cui_search(codes=results$cui_drug,ontology="ATC",source="cui",api_key=api_key)
-  cui_icd10=mapping_cui_search(codes=results$cui_diag,ontology="ICD10",source="cui",api_key=api_key)
+  if(!is.null(drug_mapping)){
+    drugs=mapping_cui_search(codes=results$cui_drug,ontology=drug_mapping,source="cui",api_key=api_key)
+    if("cui" %in% colnames(drugs)){
+      results=merge(results,unique(merge(results,drugs,by.x="cui_drug",by.y="cui")),all.x=T)
+    }
+  }
   
-  results=merge(results,unique(merge(results,cui_atc,by.x="cui_drug",by.y="cui")),all.x=T)
-  results=merge(results,unique(merge(results,cui_icd10,by.x="cui_diag",by.y="cui")),all.x=T)
+  if(!is.null(diagnostic_mapping)){
+    diagnostics=mapping_cui_search(codes=results$cui_diag,ontology=diagnostic_mapping,source="cui",api_key=api_key)
+    if("cui" %in% colnames(diagnostics)){
+      results=merge(results,unique(merge(results,diagnostics,by.x="cui_diag",by.y="cui")),all.x=T)
+    }
+  }
   
   return(results)
   }
