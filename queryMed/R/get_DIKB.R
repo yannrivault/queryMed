@@ -1,3 +1,5 @@
+# I don't know yet if it is preferable to load the database in the package, instead of having a function that load it.
+
 get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
   # In case of replaced url, user can specify the new url
   if(is.null(url)) url="https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/CombinedDatasetNotConservative.csv.bz2"

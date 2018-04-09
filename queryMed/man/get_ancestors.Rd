@@ -2,7 +2,7 @@
 \alias{get_ancestors}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Retrieving ancestors of a class from an ontology
+get_ancestors
 }
 \description{
 Retrieving ancestors of a class from an ontology on Bioportal or SIFR
