@@ -14,12 +14,13 @@ importFrom(openxlsx, read.xlsx)
 
 importFrom(stats, setNames)
 
-export("uri2norm",
+"uri2norm",
        "sparql",
        "search_endpoint",
        "get_ancestors",
-       "mapping_cui_search", 
+       "mapping_atc_cui",
+       "mapping_icd10_cui", 
        "mapping_atc_db",
        "get_DID", 
-       "get_DIKB",
-       "NDFRT_CI_with")
+       "atc_icd10_DID",
+       "get_DIKB","NDFRT_CI_with")
