@@ -2,10 +2,10 @@
 \alias{get_DID}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-~~function to do ... ~~
+get_DID
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Fonction that load Drug Indication Database (DID)
 }
 \usage{
 get_DID(mapping_atc = TRUE, mapping_icd10 = TRUE)
@@ -33,7 +33,7 @@ get_DID(mapping_atc = TRUE, mapping_icd10 = TRUE)
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Y. Rivault
 }
 \note{
 %%  ~~further notes~~

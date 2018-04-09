@@ -2,10 +2,10 @@
 \alias{uri2norm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-URI standardisation
+uri2norm
 }
 \description{
-fonction that turns URI in exploitable data
+fonction that turn URI(s) into exploitable data:
 }
 \usage{
 uri2norm(X)

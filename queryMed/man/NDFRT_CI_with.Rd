@@ -36,7 +36,7 @@ An API Key is required to access any API call on Bioportal. To have one, you nee
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Y. Rivault
 }
 \note{
 %%  ~~further notes~~

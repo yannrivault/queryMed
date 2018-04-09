@@ -25,7 +25,7 @@ mapping_atc_db()
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Y. Rivault
 }
 \note{
 %%  ~~further notes~~

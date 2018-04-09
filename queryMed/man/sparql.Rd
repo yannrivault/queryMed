@@ -36,7 +36,7 @@ sparql(query = "", url = "", api_key = "")
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Y. Rivault
 }
 \note{
 %%  ~~further notes~~
