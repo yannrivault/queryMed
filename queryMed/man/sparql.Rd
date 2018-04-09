@@ -2,7 +2,7 @@
 \alias{sparql}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+~~function to do ... ~~
 }
 \description{
 send queries on sparql endpoints
