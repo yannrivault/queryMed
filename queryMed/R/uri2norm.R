@@ -1,4 +1,4 @@
-uri2norm <-
+uri2norm <- 
 function(X){
   X <- as.matrix(X)
   for(i in 1:length(X)){

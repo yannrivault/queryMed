@@ -1,5 +1,4 @@
-search_endpoint <-
-function(term="",cui="",ontologies="",service="bioportal",api_key="",extra_args=""){
+search_endpoint <- function(term="",cui="",ontologies="",service="bioportal",api_key="",extra_args=""){
   
   if(service=="bioportal"){service <- "http://data.bioontology.org/search?"}
   else if (service=="sifr"){service <- "http://data.bioportal.lirmm.fr/search?"}
@@ -21,17 +20,22 @@ function(term="",cui="",ontologies="",service="bioportal",api_key="",extra_args=
     cui=paste("&cui={",paste(cui,collapse=","),"}",sep="")
   }
   
-  url <- paste(service,term,cui,ontologies,extra_args,sep="")
+  url <- paste(service,term,cui,ontologies,extra_args="&pagesize=1",sep="")
   results<-GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep="")))
-  content <- content(results)
+  pagesize <- content(results)$totalCount
+  
   
   if ("error" %in% names(content)){
     warning(content$error)
     return(NULL)
   }
-  else if (content$totalCount==0){
-    warning("Term, CUI or CUI and term combination unknown")
+  else if (pagesize==0){
     return(NULL)
   }
-  else return(content)
+  else{
+    url <- paste(service,term,cui,ontologies,extra_args=paste("&pagesize=",pagesize,sep=""),sep="")
+    results<-GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep="")))
+    content <- content(results)
+    return(content)
+  }
 }

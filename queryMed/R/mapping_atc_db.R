@@ -1,5 +1,4 @@
-mapping_atc_db <-
-function(){
+mapping_atc_db <- function(){
   
   query="SELECT DISTINCT ?atc ?db
          WHERE  {?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .}"
