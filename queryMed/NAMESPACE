@@ -18,8 +18,8 @@ export("uri2norm",
        "sparql",
        "search_endpoint",
        "get_ancestors",
-       "mapping_atc_cui",
-       "mapping_icd10_cui", 
+       "mapping_cui_search", 
        "mapping_atc_db",
        "get_DID", 
-       "get_DIKB","NDFRT_CI_with")
+       "get_DIKB",
+       "NDFRT_CI_with")
