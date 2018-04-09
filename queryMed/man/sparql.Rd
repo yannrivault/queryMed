@@ -2,10 +2,10 @@
 \alias{sparql}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-~~function to do ... ~~
+sparql
 }
 \description{
-send queries on sparql endpoints
+Fonction that allow to send queries on sparql endpoints. Alternative to SPARQL() from SPARQL package, by allowing retrieving JSON.
 }
 \usage{
 sparql(query = "", url = "", api_key = "")
