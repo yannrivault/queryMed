@@ -15,5 +15,4 @@ mapping_atc_db <- function(){
   
   return(unique(rbind(dbpedia,bio2rdf)))
   
-  }
 }
