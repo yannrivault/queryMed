@@ -21,13 +21,15 @@ get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
   
   # keeping the db drugs only :
   DIKB <- DIKB[grepl("http://bio2rdf.org/drugbank:DB",DIKB$drug1) & grepl("http://bio2rdf.org/drugbank:DB",DIKB$drug2),]
+  DIKB$drug1=uri2norm(DIKB$drug1)
+  DIKB$drug2=uri2norm(DIKB$drug2)
   
-  if(mapping=="ATC"){
+  if(!is.null(mapping) && mapping=="ATC"){
     atc_db <- mapping_atc_db()
     DIKB=merge(DIKB,atc_db,by.x="drug1",by.y="db",all.x=T)
     DIKB=merge(DIKB,atc_db,by.x="drug2",by.y="db",all.x=T)
     colnames(DIKB)[28:29]=c("atc1","atc2")
   }
   
-  return(DIKB)
+  return(subset(DIKB,slect=-c("dateAnnotated","ddiPkEffect","homepage","numericVal","objectUri","pathway","precipUri","whoAnnotated","ddiType","evidence","evidenceSource","researchStatementLabel","researchStatement")))
 }
