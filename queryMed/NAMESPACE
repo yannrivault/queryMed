@@ -21,4 +21,5 @@ export("uri2norm",
        "mapping_atc_db",
        "get_DID", 
        "get_DIKB",
-       "NDFRT_CI_with")
+       "NDFRT_CI_with",
+       "mapping_cui_search.R")
