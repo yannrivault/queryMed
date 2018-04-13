@@ -31,5 +31,5 @@ get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
     colnames(DIKB)[28:29]=c("atc1","atc2")
   }
   
-  return(subset(DIKB,select=-c("dateAnnotated","ddiPkEffect","homepage","numericVal","objectUri","pathway","precipUri","whoAnnotated","ddiType","evidence","evidenceSource","researchStatementLabel","researchStatement")))
+  return(subset(DIKB,select=-c(dateAnnotated,ddiPkEffect,homepage,numericVal,objectUri,pathway,precipUri,whoAnnotated,ddiType,evidence,evidenceSource,researchStatementLabel,researchStatement)))
 }
