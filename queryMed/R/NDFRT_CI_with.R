@@ -26,6 +26,7 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
     drugs=mapping_cui_search(codes=results$cui_drug,ontology=drug_mapping,source="cui",api_key=api_key)
     if("cui" %in% colnames(drugs)){
       results=merge(results,unique(merge(results,drugs,by.x="cui_drug",by.y="cui")),all.x=T)
+      colnames(results)[colnames(results)=="mapping"]="drug_mapping"
     }
   }
   
@@ -33,8 +34,9 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
     diagnostics=mapping_cui_search(codes=results$cui_diag,ontology=diagnostic_mapping,source="cui",api_key=api_key)
     if("cui" %in% colnames(diagnostics)){
       results=merge(results,unique(merge(results,diagnostics,by.x="cui_diag",by.y="cui")),all.x=T)
+      colnames(results)[colnames(results)=="mapping"]="diag_mapping"
     }
   }
   
   return(results)
-  }
+}
