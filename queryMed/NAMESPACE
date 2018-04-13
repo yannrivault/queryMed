@@ -22,4 +22,5 @@ export("uri2norm",
        "get_DID", 
        "get_DIKB",
        "NDFRT_CI_with",
-       "mapping_cui_search.R")
+       "mapping_cui_search",
+       "annotator")
