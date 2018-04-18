@@ -4,9 +4,9 @@ mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=T){
   
   n <- length(codes) %/% 800
   rest <- length(codes) %% 800
-  if(n<1) progress=F
   results <- data.frame()
   
+  cat("Querring Bioportal search REST API to retrieving mapping\n")
   if (progress) progress_bar <- tkProgressBar(title = "progress bar", label="Querring Bioportal search REST API: O%", width = 300,min=0,max=length(codes))
     
   if (n>0){

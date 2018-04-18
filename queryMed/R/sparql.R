@@ -10,7 +10,7 @@ sparql <- function(query="",url="",api_key=""){
     encoded_url=paste(encoded_url,"&apikey=",api_key,sep="")
   }
   
-  cat(paste("Querring ",url,sep=""))
+  cat(paste("Querring ",url,sep=""),"\n",append=T)
   json_doc=getURL(encoded_url,httpheader=c(Accept = "application/sparql-results+json"))
   document <- fromJSON(json_doc)
   

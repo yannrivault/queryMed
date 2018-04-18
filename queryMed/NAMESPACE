@@ -14,6 +14,8 @@ importFrom(openxlsx, read.xlsx)
 
 importFrom(stats, setNames)
 
+importFrom(tcltk, tkProgressBar, setTkProgressBar)
+
 export("uri2norm",
        "sparql",
        "search_endpoint",

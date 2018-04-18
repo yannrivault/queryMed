@@ -13,6 +13,7 @@ annotator <- function(text="",ontologies="",service="bioportal",api_key=""){
   text=gsub(" ","+",text)
   
   url <- paste(service,text,ontologies,sep="")
+  cat("Querring Bioportal annotator REST API\n")
   results<-content(GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep=""))))
   
   if ("errors" %in% names(results)){
