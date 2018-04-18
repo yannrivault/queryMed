@@ -2,13 +2,16 @@ sparql <- function(query="",url="",api_key=""){
   
   encoded_query=URLencode(gsub("[[:space:]]+", " ", query),reserved = TRUE)
   
-  url=paste(url,"?query=",encoded_query,sep="")
+  encoded_url=paste(url,"?query=",encoded_query,sep="")
+  
+  
   
   if(api_key!=""){
-    url=paste(url,"&apikey=",api_key,sep="")
+    encoded_url=paste(encoded_url,"&apikey=",api_key,sep="")
   }
   
-  json_doc=getURL(url,httpheader=c(Accept = "application/sparql-results+json"))
+  cat(paste("Querring ",url,sep=""))
+  json_doc=getURL(encoded_url,httpheader=c(Accept = "application/sparql-results+json"))
   document <- fromJSON(json_doc)
   
   if(length(document$results$bindings)!=0){
