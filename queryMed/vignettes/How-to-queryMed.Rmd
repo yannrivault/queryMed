@@ -20,11 +20,11 @@ Using ontologies in R has proven to be efficient and useful, notably in *omic fi
 
 Today the Linked Open Data and the Semantic Web provide the technical solutions for the integration of distributed data, their interrogation and their interpretation.
 
-sentence on RDF and SPARL
+sentence on RDF and SPARLQ
 
 These technologies allow reasoning through knowledge, especially in the form of ontologies, classifications or medical thesauri. Essential knowledge in pharmacoepidemiology, drug interactions, indications and contraindications has thus been taken into account in clinical data analyzes [@pathak13]. However, while works like the Drug Indication Database (DID) and Drug Interaction Knowledge Base (DIKB) have pooled different sources of medical knowledge from the Web of Data [@ayvaz15; @sharp17], the use and merging of knowledge is still well-to-do with the multitude of medical classifications and sources of knowledge.
 
-We propose a tool to integrate ontologies programmatically in the R environment. The queryMed package provides functions and algorithms to query the different sources of medical knowledge representations from the Web of data and to link them to the main medical classifications, for the enrichment of the analysis of clinical and clinical data.
+We propose a tool to integrate ontologies programmatically in the R environment. The queryMed package provides functions and algorithms to query the different sources of medical knowledge representations from the Web of data and to link them to the main medical classifications, for the enrichment and the analysis of medical data. The proposed functions are of two sort: for expert and non-expert. In this vignette, we first present in the material and methods the data sources and the query tools and methods. Next, we present application for SPARQL programmers and non-expert users of that query language. Finally, we illustrate the interest of our packages in the context of pharmacovigilance.
 
 
 ## Material and Methods 
@@ -152,12 +152,12 @@ dev.off()
 
 ```
 
-![Figure 1](Figure1.png)
+![Clopidogrel's friends](Figure1.png)
 
-```{r sessionInfo, eval=F}
+```{r sessionInfo, eval=T}
 sessionInfo()
 ```
 
 
-## References
+
 
