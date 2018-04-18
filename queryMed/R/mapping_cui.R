@@ -1,14 +1,14 @@
-mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=TRUE){
+mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=T){
   
   codes <- unique(codes)
   
   n <- length(codes) %/% 800
   rest <- length(codes) %% 800
-  
-  if(progress==TRUE) progress_bar <- txtProgressBar(min = 0, max = length(codes), style = 3)
-  
+  if(n<1) progress=F
   results <- data.frame()
   
+  if (progress) progress_bar <- tkProgressBar(title = "progress bar", label="Querring Bioportal search REST API: O%", width = 300,min=0,max=length(codes))
+    
   if (n>0){
     for(i in 1:n){
       S=search_endpoint(term = paste(codes[((i-1)*800):(i*800-1)],collapse="+"), ontologies = ontology, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
@@ -22,8 +22,9 @@ mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=TRUE){
           }
         }
       }
-      if(progress==TRUE) setTxtProgressBar(progress_bar, i*800)
+      if (progress) setTkProgressBar(progress_bar, i*800, label=paste("Querring Bioportal search REST API: ",round(800*i/length(codes)*100, 0),"%",sep=""))
     }
+    
   }
   if (rest>0){
     S=search_endpoint(term=paste(codes[(n*800):(n*800+rest)],collapse="+"), ontologies = ontology, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
@@ -35,10 +36,12 @@ mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=TRUE){
             results[dim(results)[1],"classe"]=S$collection[[j]]$"@id"
           }
         }
-        if(progress==TRUE) setTxtProgressBar(progress_bar, n*800+rest)
       }
     }
   }
-  if(progress==TRUE) close(progress_bar)
+  if (progress) {
+    setTkProgressBar(progress_bar, length(codes),label="Querring Bioportal search REST API: 10O%")
+    close(progress_bar)
+  }
   return(uri2norm(results))
 }
