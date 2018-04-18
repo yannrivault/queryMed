@@ -12,8 +12,8 @@ get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
   # And the first row, containing the BOM issue, is writted manualy and added as the last row of the database
   
   colnames=read.csv(file.path(path,"DIKB.csv.bz2"),sep="\t",header=T,fileEncoding = "UTF-8",nrows=1)
-  DIKB <- read.csv(file.path(path,"DIKB.csv.bz2"),sep="\t",header=F,fileEncoding = "UTF-8",skip=2)
-  first_row <- c("http://bio2rdf.org/drugbank:DB00073","Rituximab","http://bio2rdf.org/drugbank:DB00519","Trandolapril",rep("None",16),"Drugbank",rep("None",6))
+  DIKB <- read.csv(file.path(path,"DIKB.csv.bz2"),sep="\t",header=F,fileEncoding = "UTF-8",skip=2,na.strings=c("","None","unclassified"))
+  first_row <- c("http://bio2rdf.org/drugbank:DB00073","Rituximab","http://bio2rdf.org/drugbank:DB00519","Trandolapril",rep(NA,16),"Drugbank",rep(NA,6))
   DIKB[dim(DIKB)[1]+1,]=first_row
   colnames(DIKB)=colnames(colnames)
   
@@ -31,5 +31,5 @@ get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
     colnames(DIKB)[28:29]=c("atc1","atc2")
   }
   
-  return(subset(DIKB,select=-c(dateAnnotated,ddiPkEffect,homepage,numericVal,objectUri,pathway,precipUri,whoAnnotated,ddiType,evidence,evidenceSource,researchStatementLabel,researchStatement)))
+  return(subset(DIKB,select=-c(dateAnnotated,ddiPkEffect,homepage,numericVal,objectUri,pathway,precipUri,whoAnnotated,ddiType,evidence,evidenceSource,researchStatementLabel,researchStatement,certainty)))
 }
