@@ -1,6 +1,6 @@
 Package: queryMed
 Type: Package
-Title: queryMed: annotate medicine and pathology codes
+Title: queryMed: annotate medicine and pathology codes for pharmaco-epidemiological studies
 Version: 0.1
 Date: 2018-03-30
 Author: Y. Rivault, O. Dameron, N. Le Meur

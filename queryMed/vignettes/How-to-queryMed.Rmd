@@ -1,11 +1,14 @@
 ---
-  title: "queryMed package"
+title: "queryMed package: annotate medicine and pathology codes for pharmaco-epidemiological studies"
 author: "Y. Rivault, O.Dameron and N. Le Meur"
-date: "17/04/2018"
-output: pdf_document
+date: "version 0.1 - 17/04/2018"
+output: 
+  pdf_document:
+    citation_package: natbib
+bibliography: queryMed.bib
 ---
   
-  ```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -15,28 +18,47 @@ In the era of massive open-data access and big data in general, pharmaco-epidemi
 
 Using ontologies in R has proven to be efficient and useful, notably in *omic fields of research. For example, many genomes (including the Human genome) are available for downlaod through the BioConductor repository. Those genomes are annotated and statistical analyses of enrichment of standardised terms (commun or closely related) within part of living organisms have help discovering new or impaired functions.
 
-Today the Linked Open Data and the Semantic Web provide the technical solutions for the integration of distributed data, their interrogation and their interpretation. These technologies allow reasoning through knowledge, especially in the form of ontologies, classifications or medical thesauri. Essential knowledge in pharmacoepidemiology, drug interactions, indications and contraindications has thus been taken into account in clinical data analyzes [2]. However, while works like the Drug Indication Database (DID) and Drug Interaction Knowledge Base (DIKB) have pooled different sources of medical knowledge from the Web of Data [3, 4], the use and merging of knowledge is still well-to-do with the multitude of medical classifications and sources of knowledge.
+Today the Linked Open Data and the Semantic Web provide the technical solutions for the integration of distributed data, their interrogation and their interpretation.
 
-We propose a tool to integrate ontologies programmatically in the R environment. The queryMed package provides pharmacoepidemiologists and public health researchers with functions and algorithm to query the different sources of medical knowledge representations from the Web of data and to link them to the main medical classifications, for the enrichment of the analysis of clinical and clinical data.
+sentence on RDF and SPARL
+
+These technologies allow reasoning through knowledge, especially in the form of ontologies, classifications or medical thesauri. Essential knowledge in pharmacoepidemiology, drug interactions, indications and contraindications has thus been taken into account in clinical data analyzes [@pathak13]. However, while works like the Drug Indication Database (DID) and Drug Interaction Knowledge Base (DIKB) have pooled different sources of medical knowledge from the Web of Data [@ayvaz15; @sharp17], the use and merging of knowledge is still well-to-do with the multitude of medical classifications and sources of knowledge.
+
+We propose a tool to integrate ontologies programmatically in the R environment. The queryMed package provides functions and algorithms to query the different sources of medical knowledge representations from the Web of data and to link them to the main medical classifications, for the enrichment of the analysis of clinical and clinical data.
 
 
-## Material and Methods
+## Material and Methods 
 
-BIOPORTAL
+Sources
 
-SPARQL endpoints
+The queryMed package propose to access and link several data sources through semantic web tools. 
+BIOPORTAL [@whetzel11], the international repository of biomedical ontologies, that allows ... BIOPORTAL is through its SPARQL endpoints [@salvadores12; @salvadores13]
 
-List of accessible ontologies
+Drug Interaction Knowledge Base (DIKB) [@sharp17]
+
+Drug Indication Database (DID) [@ayvaz15]
+ 
+NDFRT
+
+ANSM
+
+Methods
+
+ SPARQL
+ REST API
+ R object
+
 
 ## Applications
 
+Using queryMed, the platelet antiaggregant CLOPIDOGREL presents 26 known interactions with other drugs according to DIKB (Fig1A). Some interactions are reported by more than one source (represented by the thinkness of the edge). Some drugs belong to the same ATC family (represented by the vertex color). When considering more general classes of the ATC nomenclature, the interactions concern 15 and 11 classes, respectively (Fig1B, Fig1C). Again some classes are characterized by a high number of interactions (size of the vertex) and sources (thinkness of the edge), notably the anti-thrombotic and gastro-esophageal family. In the context of pharmacovigilance, one could then make assumptions about the value of expanding the study of interactions between clopidogrel and the 26 known drugs to those between clopidogrel and the families they belong to. 
 
-
-```{r load, eval=F}
+```{r load library, eval=F}
 library(queryMed)
+library(data.table)
 ```
 
-```{r load, eval=F}
+```{r load data, eval=F}
 DIKB <- get_DIKB(path="/tmp",mapping="ATC")
 DIKB$object <- toupper(DIKB$object)
 DIKB$precipitant <- toupper(DIKB$precipitant)
@@ -55,7 +77,7 @@ statclop = clop2[, .N,by=list(precipitant, atc2, root)]
 
 ```{r igraph, eval=F}
 library(RColorBrewer)
-mypalette<-brewer.pal(11,"Spectral")
+mypalette<-brewer.pal(11,"Set3")
 mypalette = cbind(mypalette, "root"=unique(statclop$root))
 statclop<- merge(statclop, mypalette, by="root")
 
@@ -121,6 +143,7 @@ V(g3)$color <-  c("lightgrey", statclop2$mypalette)
 l3 <- layout_as_star(g3)
 plot(g3, vertex.label.cex= 0.8, layout=l3)
 
+png("queryMed/vignettes/Figure1.png")
 par(mfrow=c(2,2), mar=c(1,1,1,1)) 
 plot(g1, vertex.label.cex= 0.8, layout=l1*0.6, main="A - Drug")
 plot(g2, vertex.label.cex= 0.8, layout=l2*0.6, main="B - Ancestor I")
@@ -129,7 +152,7 @@ dev.off()
 
 ```
 
-
+![Figure 1](Figure1.png)
 
 ```{r sessionInfo, eval=F}
 sessionInfo()
@@ -137,6 +160,4 @@ sessionInfo()
 
 
 ## References
-\begin{thebibliography}{}
 
-\bibitem[Kurbatova {\it et~al}., 2011]{Kurbatova11} Kurbatova, N. , Adamusiak, T., Kurnosov, P., Swertz, MA., Kapushesky, M. ontoCAT: an R package for ontology traversal and search, {\it Bioinformatics}, {\bf 27}(17), 2468–2470.
