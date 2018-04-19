@@ -1,4 +1,4 @@
-mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=T){
+mapping_cui <- function(codes=NULL,ontologies="",api_key="",progress=T){
   
   codes <- unique(codes)
   
@@ -11,7 +11,7 @@ mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=T){
     
   if (n>0){
     for(i in 1:n){
-      S=search_endpoint(term = paste(codes[((i-1)*800):(i*800-1)],collapse="+"), ontologies = ontology, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+      S=search_endpoint(term = paste(codes[((i-1)*800):(i*800-1)],collapse="+"), ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
       if (!is.null(S)){
         for(j in 1:length(S$collection)){
           if((uri2norm(S$collection[[j]]$'@id') %in% codes) | (length(intersect(unlist(S$collection[[j]]$cui),codes))>0)){
@@ -27,7 +27,7 @@ mapping_cui <- function(codes=NULL,ontology="",api_key="",progress=T){
     
   }
   if (rest>0){
-    S=search_endpoint(term=paste(codes[(n*800):(n*800+rest)],collapse="+"), ontologies = ontology, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
+    S=search_endpoint(term=paste(codes[(n*800):(n*800+rest)],collapse="+"), ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
     if (!is.null(S)){
       for(j in 1:length(S$collection)){
         if((uri2norm(S$collection[[j]]$'@id') %in% codes) | (length(intersect(unlist(S$collection[[j]]$cui),codes))>0)){

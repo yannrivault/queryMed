@@ -16,7 +16,7 @@ annotator(text="",ontologies="",service="bioportal",api_key="")
 Text the user wants to annotate by ontology classes.
 }
   \item{ontologies}{
-A set of ontologies that can serve to annoptate text. By default, all available ontologies are used.
+A set of ontologies that can serve to annotate text. By default, all available ontologies are used.
 }
   \item{api_key}{
 An API Key is required to access any API call on Bioportal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
