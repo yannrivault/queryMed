@@ -2,10 +2,10 @@
 \alias{search_endpoint}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-~~function to do ... ~~
+Acces to search bioportal or SIFR REST API
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function allows retrieving knowledge from medical ontologies through Bioportal or SIFR search REST API.
 }
 \usage{
 search_endpoint(term = "", cui = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
@@ -13,22 +13,22 @@ search_endpoint(term = "", cui = "", ontologies = "", service = "bioportal", api
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{term}{
-%%     ~~Describe \code{term} here~~
+A list of terms to search for informations on Bioportal.
 }
   \item{cui}{
-%%     ~~Describe \code{cui} here~~
+A list of cui to constrain the search of informations.
 }
   \item{ontologies}{
-%%     ~~Describe \code{ontologies} here~~
+A list of ontologies to constrain the search of informations.
 }
   \item{service}{
-%%     ~~Describe \code{service} here~~
+"bioportal" or "sifr"
 }
   \item{api_key}{
-%%     ~~Describe \code{api_key} here~~
+An API Key is required to access any API call on Bioportal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
 }
   \item{extra_args}{
-%%     ~~Describe \code{extra_args} here~~
+Extra arguments to parse into the query.
 }
 }
 \details{
@@ -57,10 +57,6 @@ search_endpoint(term = "", cui = "", ontologies = "", service = "bioportal", api
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-api_key ="e6f2d058-f206-4ac7-a8f9-60b84c9e57dc"
-search_endpoint(term = c("B01AA02","N06AB08"), ontologies = "ATC", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
-
-search_endpoint(term = c("C43","J00-J99"), ontologies = "ICD10", service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
