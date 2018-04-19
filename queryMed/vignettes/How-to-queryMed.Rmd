@@ -34,7 +34,7 @@ For instance, Bioportal[@salvadores12;@salvadores13], DB-pedia and Bio2rdf[@call
 
 Medical informations from ontologies are also available through REST API. For instance, the REST api from BIOPORTAL[@whetzel11], allows us to retrieve mappings between main international medical nomenclatures via concept unique identifier (cui).
 
-queryMed also integrate the Drug Interaction Knowledge Base (DIKB) [@sharp17] and the Drug Indication Database (DID) [@ayvaz15], which are already inititives aiming at mutualise different sources of essential pharmacological knowledges.
+queryMed also integrates the Drug Interaction Knowledge Base (DIKB) [@sharp17] and the Drug Indication Database (DID) [@ayvaz15], which are already inititives aiming at mutualise different sources of essential pharmacological knowledges.
 
 
 
