@@ -13,13 +13,13 @@ sparql(query = "", url = "", api_key = "")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{query}{
-%%     ~~Describe \code{query} here~~
+The sparql query
 }
   \item{url}{
-%%     ~~Describe \code{url} here~~
+url of the sparql endpoint
 }
   \item{api_key}{
-%%     ~~Describe \code{api_key} here~~
+An api key if need be
 }
 }
 \details{
