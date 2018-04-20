@@ -48,13 +48,45 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-query="PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-      SELECT DISTINCT ?x ?label
-      WHERE  {?x skos:prefLabel ?label .}
-      limit 10"
+# Querryng SPARQL endpoints :
 
-sparql(query=query,url="bio2rdf.org/sparql/") #test of null result
-sparql(query=query,url="https://dbpedia.org/sparql")
+
+# Retrieving some informations about drugs that are available through db-pedia:
+
+  # Drugs and their labels:
+query="SELECT DISTINCT * 
+       WHERE {
+        ?drug rdf:type dbo:Drug .
+        ?drug rdfs:label ?label .
+        }"
+results <- sparql(query,url="https://dbpedia.org/sparql/")
+head(results)
+
+  # Drugs and their drugbank Id:
+query="SELECT DISTINCT * 
+       WHERE {
+        ?drug rdf:type dbo:Drug .
+        ?drug dbp:drugbank ?db_Id .
+        }"
+results <- sparql(query,url="https://dbpedia.org/sparql/")
+head(results)
+
+  # Drugs and their ATC Id:
+query="SELECT DISTINCT ?drug concat(str(?prefix),str(?suffix)) as ?atc 
+       WHERE {
+        ?drug dbo:atcPrefix ?prefix .
+        ?drug dbo:atcSuffix ?suffix .
+        }"
+results <- sparql(query,url="https://dbpedia.org/sparql/")
+head(results)
+
+# Retrieving some informations about drugs that are available through ontobee:
+
+query="SELECT DISTINCT *
+       WHERE {
+        ?drug <http://bio2rdf.org/kegg_vocabulary:formula> ?formula.}"
+results <- sparql(query,url="http://bio2rdf.org/sparql")
+head(results)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
