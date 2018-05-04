@@ -10,17 +10,22 @@ search_endpoint <- function(term="",cui="",ontologies="",service="bioportal",api
     ontologies=paste("&ontologies=",paste(ontologies,collapse=","),sep="")
   }
   
-  if (cui=="" && term==""){
+  if (length(cui)<1 && length(term)<1){
     warning("Give at least one term or CUI")
     return(NULL)
   }
   
-  if (cui!="" || term!=""){
+  if (length(cui)>0 || length(term)>0){
     term=paste("&q=",paste(term,collapse="+"),"",sep="")
     cui=paste("&cui={",paste(cui,collapse=","),"}",sep="")
+    term=gsub(">|<","",term)
+    term=gsub(" ","+",term)
+    cui=gsub(">|<","",cui)
   }
   
-  url <- paste(service,term,cui,ontologies,extra_args="&pagesize=1",sep="")
+  
+  
+  url <- paste(service,term,cui,ontologies,"&pagesize=1",sep="")
   results<-GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep="")))
   pagesize <- content(results)$totalCount
   
