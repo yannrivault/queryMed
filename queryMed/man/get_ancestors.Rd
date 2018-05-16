@@ -5,7 +5,7 @@
 get_ancestors
 }
 \description{
-Retrieving ancestors of a class from an ontology on Bioportal or SIFR
+Retrieving a list of ancestors of a class from ontologies available on Bioportal or SIFR web service.
 }
 \usage{
 get_ancestors(term = "", ontology = "", api_key = "")
@@ -13,23 +13,23 @@ get_ancestors(term = "", ontology = "", api_key = "")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{term}{
-%%     ~~Describe \code{term} here~~
+Term as character vector
 }
   \item{ontology}{
-%%     ~~Describe \code{ontology} here~~
+Name of the ontology as character vector
 }
   \item{api_key}{
-%%     ~~Describe \code{api_key} here~~
+An API Key is required to access any API call on Bioportal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+The available ontologies are for instance: ATC, ICD10, NDFRT,SNOMEDCT. See http://bioportal.bioontology.org/ for more details.
 }
 \value{
-%%  ~Describe the value returned
+Returns a list of ancestors.
 %%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+\item{id }{URI with ancestors' code}
+\item{prefLabel}{Labels of the retrieve term}
 %% ...
 }
 \references{
@@ -48,16 +48,12 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-api_key="e6f2d058-f206-4ac7-a8f9-60b84c9e57dc"
+# require api_key to run
 
-example1 <- get_ancestors("A05AA",ontology="ATC",api_key = api_key)
-example1
+# get_ancestors("A05AA",ontology="ATC",api_key = api_key)
+# get_ancestors("C50",ontology="ICD10",api_key = api_key)
+# get_ancestors("N0000153235",ontology="NDFRT",api_key = api_key)
 
-example2 <- get_ancestors("C50",ontology="ICD10",api_key = api_key)
-example2
-
-example3 <- get_ancestors("N0000153235",ontology="NDFRT",api_key = api_key)
-example3
 
 #example3 <- get_ancestors("test",ontology="NDFRT",api_key = api_key)
 # error test

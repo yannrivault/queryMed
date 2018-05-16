@@ -1,6 +1,6 @@
 ---
 title: "queryMed package: annotate medicine and pathology codes for pharmaco-epidemiological studies"
-author: "Y. Rivault, O.Dameron and N. Le Meur"
+author: "Y. Rivault, O.Dameron, and N. Le Meur"
 date: "version 0.1 - 17/04/2018"
 output: 
   pdf_document:

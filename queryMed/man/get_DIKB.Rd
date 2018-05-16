@@ -5,7 +5,7 @@
 get_DIKB
 }
 \description{
-Fonction that load the Drug Interaction Knowledge Base (DIKB)
+Function that download the Drug Interaction Knowledge Base (DIKB) from source.
 }
 \usage{
 get_DIKB(path = getwd(), url = NULL, mapping = NULL)
@@ -13,39 +13,31 @@ get_DIKB(path = getwd(), url = NULL, mapping = NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{path}{
-%%     ~~Describe \code{path} here~~
+filepath where to download the Drug Interaction Knowledge Base. By default it is the current working directory.
 }
   \item{url}{
-%%     ~~Describe \code{url} here~~
+URL of the location of the Drug Interaction Knowledge Base (DIKB). By default it is https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/ but the argument exists in case the url happens to change.
 }
   \item{mapping}{
-%%     ~~Describe \code{mapping} here~~
+Optional. Possible argument is ATC and the mapping is performed between DIKB and ATC information from  http://bio2rdf.org and https://dbpedia.org/
+.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+The function download the less concervative version of all PDDI datasets merged by Richard D. Boyce's group at University of Pittsburgh. See https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/ for details.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Data frame with all variables avaible from Drug Interaction Knowledge Base (DIKB).
 }
 \references{
-%% ~put references to the literature/web site here ~
+Ayvaz et al. (2015) Toward a Complete Dataset of Drug–drug Interaction Information from Publicly Available Sources. Journal of Biomedial Informtics, 55: 206-217.
 }
 \author{
 Y. Rivault
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also \code{\link{get_DIKB}} and \code{\link{mapping_atc_db}} functions
 }
 \examples{
 DIKB <- get_DIKB(path="/tmp",mapping="ATC")

@@ -5,32 +5,31 @@
 get_DID
 }
 \description{
-Fonction that load Drug Indication Database (DID)
+Function that load Drug Indication Database (DID) from source.
 }
 \usage{
-get_DID(mapping_atc = TRUE, mapping_icd10 = TRUE)
+get_DID(mapping_atc = TRUE, mapping_icd10 = TRUE, api_key=="")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{mapping_atc}{
-%%     ~~Describe \code{mapping_atc} here~~
+  By default the ragulent is FALSE. When TRUE an additional maping to ATC code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
 }
   \item{mapping_icd10}{
-%%     ~~Describe \code{mapping_icd10} here~~
+  By default the ragulent is FALSE. When TRUE an additional maping to ICD10 code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
+}
+\item{api_key}{
+  Optional argumant. A valid API Key is required to access any API call on Bioportal. To have one, you need to register at http://bioportal.bioontology.org/.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+See https://figshare.com/articles/Additional_file_1_of_Toward_a_comprehensive_drug_ontology_extraction_of_drug-indication_relations_from_diverse_information_sources/4535021 for details 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Data frame with all Drug Indication Database variables and possible mapping to ATC and/or ICD10 if arguments are set to TRUE and a valid API Key is provided.
 }
 \references{
-%% ~put references to the literature/web site here ~
+Sharp ME (2017). Toward a comprehensive drug ontology: extraction of drug-indication relations from diverse information sources. Journal of Biomedical Semantics,8:2.
 }
 \author{
 Y. Rivault
@@ -42,10 +41,10 @@ Y. Rivault
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also \code{\link{get_DIKB}} and \code{\link{mapping_cui}} functions
 }
 \examples{
-DID <- get_DID(mapping_atc=TRUE,mapping_icd10=TRUE)
+DID <- get_DID(mapping_atc=FALSE,mapping_icd10=FALSE)
 head(DID)
 dim(DID)
 colnames(DID)
