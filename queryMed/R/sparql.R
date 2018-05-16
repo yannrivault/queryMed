@@ -11,8 +11,7 @@ sparql <- function(query="",url="",api_key=""){
   }
   
   cat(paste("Querring ",url,sep=""),"\n",append=T)
-  json_doc=getURL(encoded_url,httpheader=c(Accept = "application/sparql-results+json"))
-  document <- fromJSON(json_doc)
+  document <- fromJSON(encoded_url)
   
   if(length(document$results$bindings)!=0){
     results=data.frame(matrix(nrow=dim(document$results$bindings)[1],ncol=dim(document$results$bindings)[2]))
