@@ -3,7 +3,7 @@ mapping_atc_db <- function(){
   query="SELECT DISTINCT ?atc ?db
          WHERE  {?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .}"
   
-  bio2rdf <- uri2norm(sparql(query,url="bio2rdf.org/sparql/"))
+  bio2rdf <- uri2norm(sparql(query,url="http://bio2rdf.org/sparql/"))
   
   query="select distinct concat(str(?prefix),str(?suffix)) as ?atc ?db where {
         ?drug dbo:atcPrefix ?prefix .
