@@ -1,7 +1,3 @@
-library(RColorBrewer)
-library(igraph)
-library(data.table)
-
 pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", mypalette=NULL, weight=NULL){
 
 # drug can be as a character be a character or a ATC code

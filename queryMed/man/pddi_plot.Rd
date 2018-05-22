@@ -28,7 +28,6 @@ pddi_plot(drug= , type="name", direction="object", mypalette=NULL, weight=NULL)
 
   }
 }
-}
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }

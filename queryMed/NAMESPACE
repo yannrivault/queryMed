@@ -16,6 +16,10 @@ importFrom(stats, setNames)
 
 importFrom(tcltk, tkProgressBar, setTkProgressBar)
 
+importFrom(igraph, graph_from_edgelist, layout_as_star, V, E)
+
+importFrom(RColorBrewer, brewer.pal)
+
 export("uri2norm",
        "sparql",
        "search_endpoint",
@@ -25,4 +29,6 @@ export("uri2norm",
        "get_DIKB",
        "NDFRT_CI_with",
        "mapping_cui",
-       "annotator")
+       "annotator", 
+       "pddi_plot",
+       "pddi_atc_plot")

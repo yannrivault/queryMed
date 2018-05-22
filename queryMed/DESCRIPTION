@@ -13,6 +13,9 @@ Imports:
   RCurl,
   hash,
   stringr,
-  xml2
+  xml2,
+  igraph,
+  RColorBrewer,
+  data.table
 Description:  By leveraging the web of data from R, queryMed allows you to retrieve essential medical and pharmacological knowledge. It thus makes it possible to extract knowledge on drug indications, their interactions, contraindications and to link this knowledge to different international medical classifications.
 License: Artistic-2.0
