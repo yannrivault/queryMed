@@ -4,8 +4,9 @@ function(X){
     X <- as.matrix(X)
     class(X) <- "character"}
   
-  X <- gsub(".*/|>", "", X)
-  X <- gsub("(^\\s*|\\s*$)","",X, perl=T)
+  uris <- str_detect(X,"http")
+  X[uris] <- gsub(".*/|>", "", X[uris])
+  X[uris] <- gsub("(^\\s*|\\s*$)","",X[uris], perl=T)
   
   if(!is.null(dim(X))) return(as.data.frame(X))
   else return(X)
