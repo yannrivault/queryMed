@@ -1,15 +1,50 @@
-pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", mypalette=NULL, weight=NULL){
+pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", source=NULL, contraindication= NULL, precaution = NULL, mypalette=NULL, weight=NULL){
 
-# drug can be as a character be a character or a ATC code
+# filter by data sources     
+if(!is.null(source)){
+  DIKB <-DIKB[which(DIKB$source%in%source),]
+  if(nrow(DIKB)==0) {
+    return(warning("No data for the source"))
+  }
+}
+
+# looking more specifically for contraindication (or not)
+if(!is.null(contraindication)){
+    if(contraindication==TRUE){
+      DIKB<-DIKB[DIKB$contraindication==TRUE,]
+    if(nrow(DIKB)==0) {
+      return(warning("No contraindication found"))
+      }
+  } 
+  if(contraindication==FALSE){
+    DIKB<-DIKB[DIKB$contraindication==FALSE,]
+  }
+}
+# looking more specifically for precaution (or not)
+if(!is.null(precaution)){
+  if(precaution==TRUE){
+    DIKB<-DIKB[DIKB$precaution==TRUE,]
+    if(nrow(DIKB)==0) {
+      return(warning("No precaution found"))
+    }
+  } 
+  if(precaution==FALSE){
+    DIKB<-DIKB[DIKB$precaution==FALSE,]
+  }
+}  
+# drug can be as a character,as a drung bank ID, or an ATC code
 if(direction=="object"){
   x <- switch(type,
          name = DIKB[DIKB$object==drug,],
          DBI = DIKB[DIKB$drug1==drug,],
          ATC = DIKB[DIKB$atc1==drug,])
+  if(dim(x)==0) {
+    return(warning("No data found"))
+  }
   x = as.data.table(x)
   x$root  <- substr(x$atc2,1, 4)
   x<- x[!is.na(x$atc2),]
-  statx = x[, .N,by=list(precipitant, object, root)]
+  statx = x[, .N,by=list(precipitant,object,root)]
 }
 
 if(direction=="precipitant"){
@@ -17,50 +52,56 @@ if(direction=="precipitant"){
               name = DIKB[DIKB$precipitant==drug,],
               DBI = DIKB[DIKB$drug2==drug,],
               ATC = DIKB[DIKB$atc2==drug,])
+  if(nrow(x)==0) {
+    return(warning("No data found"))
+  }
   x = as.data.table(x)
   x$root  <- substr(x$atc1,1, 4)
   x<- x[!is.na(x$atc2),]
   statx = x[, .N,by=list(object, precipitant, root)]
 }
 
-if(direction=="both"){
+# if(direction=="both"){
+#   x <- switch(type,
+#               name = DIKB[DIKB$object==drug | DIKB$precipitant==drug,],
+#               DBI = DIKB[DIKB$drug1==drug |  DIKB$drug2==drug,],
+#               ATC = DIKB[DIKB$atc1==drug | DIKB$atc2==drug,])
+#   x$atc2root  <- substr(x$atc2,1, 4)
+#   x$atc1root  <- substr(x$atc1,1, 4)
+#   x<- x[!is.na(x$atc2) ,]
+#   x<- x[!is.na(x$atc1), ]
+#   x <- as.data.table(x)
+#   print(head(x))
+#     if(type=="atc"){
+#     statObj = as.data.frame(x[, .N,by=list(atc1, atc2, atc2root)])
+#     statPre = as.data.frame(x[, .N,by=list(atc2, atc1, atc1root)])
+#     print(tail(statObj))
+#   }
+#   else{
+#     statObj = as.data.frame(x[, .N,by=list(precipitant, object)])
+#     statPre = as.data.frame(x[, .N,by=list(object, precipitant)])
+#   }
+#   colnames(statObj) <- colnames(statPre) <- c("name1","name2","N")
+#   statx = rbind(statObj, statPre)
+#   statx <- unique(statx)
+# }
 
-  x <- switch(type,
-              name = DIKB[DIKB$object==drug | DIKB$precipitant==drug,],
-              DBI = DIKB[DIKB$drug1==drug |  DIKB$drug2==drug,],
-              ATC = DIKB[DIKB$atc1==drug | DIKB$atc2==drug,])
-  x$atc2root  <- substr(x$atc2,1, 4)
-  x$atc1root  <- substr(x$atc1,1, 4)
-  x<- x[!is.na(x$atc2) ,]
-  x<- x[!is.na(x$atc1), ]
-  print("ok")
-  if(type=="atc"){
-    statObj = as.data.frame(x[, .N,by=list(atc1, atc2, atc2root)])
-    statPre = as.data.frame(x[, .N,by=list(atc2, atc1, atc1root)])
-    print(tail(statObj))
-  }
-  else{
-    statObj = as.data.frame(x[, .N,by=list(precipitant, object, atc2root)])
-    statPre = as.data.frame(x[, .N,by=list(object, precipitant, atc1root)])
-  }
-  colnames(statObj) <- colnames(statPre) <- c("name","atc","root","N")
-  statx = rbind(statObj, statPre)
-  statx <- unique(statx)
-  print(tail(statx))
-}
-
-if(is.null(mypalette) & type=="atc"){
+if(is.null(mypalette) & direction!="both"){
   statx <- as.data.table(statx)
-  mypalette<-brewer.pal(11,"Set3")
-  mypalette = cbind(mypalette, "root"=unique(statx$root))
+  root <- unique(statx$root)
+  n = length(root)
+  mypalette<-brewer.pal(n,"Set3")
+  mypalette = cbind(mypalette, "root"=root)
   statx <- merge(statx, mypalette, by="root")
+
 }
 
-  if(!is.null(weight)){
+if(!is.null(weight)){
     statx<- statx[N>=weight]
-  }
+}
 
 g1 <- graph_from_edgelist(as.matrix(cbind(drug, statx[,2])), directed=F)
+print(g1)
 statx$N[statx$N == 1 ] <- 0
 E(g1)$weight <- statx$N         
 E(g1)$width <- 1+E(g1)$weight*2

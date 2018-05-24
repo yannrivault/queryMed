@@ -20,6 +20,9 @@ importFrom(igraph, graph_from_edgelist, layout_as_star, V, E)
 
 importFrom(RColorBrewer, brewer.pal)
 
+
+importFrom(data.table, as.data.table)
+
 export("uri2norm",
        "sparql",
        "search_endpoint",
