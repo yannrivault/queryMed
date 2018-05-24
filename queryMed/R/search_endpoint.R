@@ -15,7 +15,7 @@ search_endpoint <- function(term="",ontologies="",service="bioportal",api_key=""
     return(NULL)
   }
   
-  if (length(cui)>0 || length(term)>0){
+  if (length(term)>0){
     term=paste("&q=",paste(term,collapse="+"),"",sep="")
     term=gsub(">|<","",term)
     term=gsub(" ","+",term)
