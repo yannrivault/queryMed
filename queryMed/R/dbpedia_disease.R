@@ -3,6 +3,7 @@ dbpedia_disease <- function(lang="en"){
   query=paste(
     c("SELECT DISTINCT * 
   WHERE {
+
   ?disease dbo:icd10|dbp:icd10 ?icd10 .
   OPTIONAL{?disease dbo:icd9|dbp:icd9 ?icd9 . }
 
