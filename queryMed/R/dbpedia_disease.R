@@ -1,5 +1,7 @@
 dbpedia_disease <- function(lang="en"){
   
+  lang=paste(lang,collapse="\",\"")
+  
   query=paste(
     c("SELECT DISTINCT * 
   WHERE {
@@ -8,13 +10,13 @@ dbpedia_disease <- function(lang="en"){
   OPTIONAL{?disease dbo:icd9|dbp:icd9 ?icd9 . }
 
   OPTIONAL{?disease dbo:abstract|dbp:abstract ?abstract .
-  FILTER (lang(?abstract) IN ('","'))}
+  FILTER (lang(?abstract) IN (\"","\"))}
 
   OPTIONAL{?disease rdfs:comment ?comment .
-  FILTER (lang(?comment) IN ('","'))}
+  FILTER (lang(?comment) IN (\"","\"))}
 
   OPTIONAL{?disease rdfs:label ?label .
-  FILTER (lang(?label) IN ('","'))}
+  FILTER (lang(?label) IN (\"","\"))}
 
   OPTIONAL{?disease dbp:synonyms ?synonyms .}
   
