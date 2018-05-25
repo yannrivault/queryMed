@@ -10,11 +10,10 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   FROM <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl>
   WHERE {
   
-  ?ndf_drug ndf:UMLS_CUI ?cui_drug .
-  
-  ?ndf_drug rdfs:subClassOf ?CI .
-  ?CI owl:onProperty ndf:CI_with .
-  ?CI owl:someValuesFrom ?ndf_diag .
+  ?ndf_drug ndf:UMLS_CUI ?cui_drug ;
+            rdfs:subClassOf ?CI .
+  ?CI owl:onProperty ndf:CI_with ;
+      owl:someValuesFrom ?ndf_diag .
   
   ?ndf_diag ndf:UMLS_CUI ?cui_diag .
   }
