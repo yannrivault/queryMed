@@ -1,6 +1,8 @@
 dbpedia_drug <- function(lang="en"){
   
-  query="select distinct ?drug ?atc ?db ?abstract ?smiles ?comment ?label ?synonyms
+  query=paste(
+  c(
+  "select distinct ?drug ?atc ?db ?abstract ?smiles ?comment ?label ?synonyms
   where {
   
   ?drug rdf:type dbo:Drug . 
@@ -15,17 +17,17 @@ dbpedia_drug <- function(lang="en"){
   OPTIONAL{?drug dbo:synonyms ?synonyms .}
   
   OPTIONAL{?drug dbo:abstract ?abstract .
-  FILTER (lang(?abstract) IN ('en'))}
-  
+  FILTER (lang(?abstract) IN ('","'))}
+
   OPTIONAL{?drug dbo:smiles ?smiles .}
   
   OPTIONAL{?drug rdfs:comment ?comment .
-  FILTER (lang(?comment) IN ('en'))}
+  FILTER (lang(?comment) IN ('","'))}
   
   OPTIONAL{?drug rdfs:label ?label .
-  FILTER (lang(?label) IN ('en'))}
+  FILTER (lang(?label) IN ('","'))}
   
-  }"
+  }"),collapse=lang)
 
 return(sparql(query,url="https://dbpedia.org/sparql"))
 }
