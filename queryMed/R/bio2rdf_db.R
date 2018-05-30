@@ -8,6 +8,7 @@ bio2rdf_db <- function(lang="en"){
     "SELECT DISTINCT *
   WHERE  {
     ?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .
+    OPTIONAL {?db dcterms:title ?title .}
     OPTIONAL {?db rdfs:label ?label .
     FILTER(lang(?label) IN (\"","\"))}
     OPTIONAL {?db dcterms:description ?description .
