@@ -4,7 +4,7 @@ function(X){
     X <- as.matrix(X)
     class(X) <- "character"}
   
-  uris <- str_detect(X,"http")
+  uris <- apply(X,FUN=function(x) str_detect(x,"http"),MARGIN=2)
   X[uris] <- gsub(".*/|>", "", X[uris])
   X[uris] <- gsub("(^\\s*|\\s*$)","",X[uris], perl=T)
   
