@@ -81,6 +81,7 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
       root <- unique(statx[, levm1])
       n = length(root)
       #mypalette<- colorRampPalette(brewer.pal(12,"Set3"))(n)
+      #mypalette<- colorRampPalette(brewer.pal(9,"YlOrRd"))(n)
       mypalette<- colorRampPalette(brewer.pal(11,"Spectral"))(n)
       mypalette = cbind(mypalette, "root"= as.character(root))
       statx <- merge(statx, mypalette, by.x=levm1, by.y="root")
@@ -91,7 +92,6 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
     if(nrow(x)== 0) {
       return(warning("No data found"))
     }
-    #print(head(statx))
 
     g1 <- graph_from_edgelist(as.matrix(cbind(drug, as.character(statx[,2]))), directed=F)
     statx$n[statx$n == 1 ] <- 0
@@ -99,7 +99,7 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
     E(g1)$width <- 1+E(g1)$weight*2
     V(g1)$size <- 20
     V(g1)$frame.color <- "white"
-    V(g1)$color <-  c("lightgrey", statx$mypalette)
+    V(g1)$color <-  c("#FFFFCC", as.character(statx$mypalette))
     l1 <- layout_as_star(g1)
     plot(g1, edge.color="grey", layout=l1)
   }
