@@ -33,4 +33,7 @@ export("uri2norm",
        "NDFRT_CI_with",
        "mapping_cui",
        "annotator", 
-       "pddi_plot")
+       "pddi_plot", 
+       "bio2rdf_db",
+       "dbpedia_disease",
+       "dbpedia_drug")
