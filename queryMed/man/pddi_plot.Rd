@@ -13,13 +13,13 @@ pddi_plot(drug= , type="name", direction="object", mypalette=NULL, weight=NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{drug}{
-
+  character vector that specify a drug name, Drug Bank Identifier \ref{https://www.drugbank.ca/} or ATC code \ref{http://www.who.int/classifications/atcddd/en/}
 }
   \item{type}{
-
+ character vector that specifies whether drug is a drug name (default), DBI or ATC code.
 }
   \item{direction}{
-
+ character vector that specifies whether the queried drug 
 }
   \item{mypalette}{
 
