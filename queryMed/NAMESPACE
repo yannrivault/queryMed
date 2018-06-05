@@ -33,5 +33,4 @@ export("uri2norm",
        "NDFRT_CI_with",
        "mapping_cui",
        "annotator", 
-       "pddi_plot",
-       "pddi_atc_plot")
+       "pddi_plot")
