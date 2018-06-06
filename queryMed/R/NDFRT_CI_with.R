@@ -1,21 +1,25 @@
 NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   
   query="
-  prefix owl: <http://www.w3.org/2002/07/owl#>
   prefix ndf: <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl#>
-  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   prefix umls: <http://bioportal.bioontology.org/ontologies/umls/>
   
   SELECT DISTINCT ?ndf_drug ?ndf_diag ?cui_drug ?cui_diag
   FROM <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl>
   WHERE {
   
-  ?ndf_drug ndf:UMLS_CUI ?cui_drug ;
-            rdfs:subClassOf ?CI .
+  {?ndf_drug ndf:UMLS_CUI ?cui_drug .}
+  UNION
+  {?ndf_drug_low rdfs:subClassOf ?ndf_drug .
+  ?ndf_drug_low ndf:UMLS_CUI ?cui_drug .
+  }
+
+  ?ndf_drug rdfs:subClassOf ?CI .
   ?CI owl:onProperty ndf:CI_with ;
       owl:someValuesFrom ?ndf_diag .
   
   ?ndf_diag ndf:UMLS_CUI ?cui_diag .
+
   }
   "
   
