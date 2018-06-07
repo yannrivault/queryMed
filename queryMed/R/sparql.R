@@ -14,8 +14,7 @@ sparql <- function(query="",url="",api_key=""){
   document <- fromJSON(encoded_url)
   
   if(length(document$results$bindings)!=0){
-    results=as.data.frame(map(document$results$bindings,~.x$value))
-    }
+    results=document$results$bindings %>% map_df("value")
   }
   else{results=NULL}
   
