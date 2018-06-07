@@ -13,21 +13,22 @@ annotator <- function(text="",ontologies="",service="bioportal",api_key=""){
   text=gsub(" ","+",text)
   
   url <- paste(service,text,ontologies,sep="")
+  test=paste(url,"&apikey=",api_key,sep="")
+  coucou <- fromJSON(test,flatten=TRUE)
   cat("Querring Bioportal annotator REST API\n")
-  results<-content(GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep=""))))
+  document<-content(GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep=""))))
   
   if ("errors" %in% names(results)){
     warning(results$errors)
   }
   else if(length(results)>0){
     
-    data_res <- data.frame()
+    results = data.frame(
+      id = document %>% map(.,~ .x[["annotatedClass"]]) %>% map(.,~ .x[["@id"]]) %>% unlist(),
+      ontology = document %>% map(.,~ .x[["annotatedClass"]]) %>% map(.,~ .x[["links"]]) %>% map(.,~ .x[["ontology"]]) %>% unlist(),
+      text = document %>% map(.,~ .x[["annotations"]]) %>% map(.,~ .x[[1]]) %>% map(.,~ .x[["text"]]) %>% unlist()
+    )
     
-    for(i in 1:length(results)){
-        data_res[i,"text"]=results[[i]]$annotations[[1]]$text
-        data_res[i,"ontology"]=results[[i]]$annotatedClass$links$ontology
-        data_res[i,"class"]=results[[i]]$annotatedClass$'@id'
-        }
-    return(data_res)
+    return(results)
   }
 }
