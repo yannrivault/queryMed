@@ -1,5 +1,5 @@
 ##################@
-pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", source=NULL, contraindication= NULL, precaution = NULL, plot=TRUE, level=2, mypalette=NULL, weight=NULL){
+pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
   
   data(DIKB)
   data(ATC)  
@@ -15,8 +15,8 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
   
   # filter by data sources     
   if(!is.null(source)){
-    DIKB <-DIKB[which(DIKB$source%in%source),]
-    if(nrow(DIKB)==0) {
+    DIKB <-DIKB[DIKB$source%in%source,]
+    if(is.null(nrow(x))) {
       return(warning("No data for the source"))
     }
   }
@@ -25,27 +25,27 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
   if(!is.null(contraindication)){
     if(contraindication==TRUE){
       DIKB<-DIKB[DIKB$contraindication==TRUE,]
-      if(nrow(DIKB)==0) {
+      if(is.null(nrow(x))) {
         return(warning("No contraindication found"))
       }
     } 
   }
-  # looking more specifically for precaution (or not)
-  if(!is.null(precaution)){
-    if(precaution==TRUE){
-      DIKB<-DIKB[DIKB$precaution==TRUE,]
-      if(nrow(DIKB)==0) {
-        return(warning("No precaution found"))
-      }
-    } 
-  }  
+  # # looking more specifically for precaution (or not)
+  # if(!is.null(precaution)){
+  #   if(precaution==TRUE){
+  #     DIKB<-DIKB[DIKB$precaution==TRUE,]
+  #     if(is.null(nrow(x))) {
+  #       return(warning("No precaution found"))
+  #     }
+  #   } 
+  # }  
   # drug can be as a character,as a drung bank ID, or an ATC code
   if(direction=="object"){
     x <- switch(type,
                 name = DIKB[DIKB$object==drug,],
                 DBI = DIKB[DIKB$drug1==drug, ],
                 ATC = DIKB[DIKB$atc1==drug, ])
-    if(nrow(x)==0) {
+    if(is.null(nrow(x))) {
       return(warning("No data found"))
     }
   }  
@@ -54,7 +54,7 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
                   name = DIKB[DIKB$precipitant==drug,],
                   DBI = DIKB[DIKB$drug2==drug, ],
                   ATC = DIKB[DIKB$atc2==drug, ])
-      if(nrow(x)== 0) {
+      if(is.null(nrow(x))) {
         return(warning("No data found"))
       }
   }    
@@ -77,19 +77,21 @@ pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", sour
     statx<-statx[,.(n=sum(n)), by=c(lab, levm1)]
     statx <- data.frame(statx)
 
-    if(is.null(mypalette)){
-      root <- unique(statx[, levm1])
-      n = length(root)
+   
+    root <- unique(statx[, levm1])
+    n = length(root)
       #mypalette<- colorRampPalette(brewer.pal(12,"Set3"))(n)
       #mypalette<- colorRampPalette(brewer.pal(9,"YlOrRd"))(n)
+    if(is.null(mypalette)){
       mypalette<- colorRampPalette(brewer.pal(11,"Spectral"))(n)
-      mypalette = cbind(mypalette, "root"= as.character(root))
-      statx <- merge(statx, mypalette, by.x=levm1, by.y="root")
     }
+    mypalette = cbind(mypalette, "root"= as.character(root))
+    statx <- merge(statx, mypalette, by.x=levm1, by.y="root")
+  
     if(!is.null(weight)){
       statx<- statx[statx$n>=weight, ]
     }
-    if(nrow(x)== 0) {
+    if(is.null(nrow(x))) {
       return(warning("No data found"))
     }
 

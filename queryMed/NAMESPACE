@@ -36,4 +36,5 @@ export("uri2norm",
        "pddi_plot", 
        "bio2rdf_db",
        "dbpedia_disease",
-       "dbpedia_drug")
+       "dbpedia_drug", 
+       "check_interaction")

@@ -2,10 +2,10 @@
 \alias{dbpedia_disease}
 
 \title{
-dbpedia_disease
+Retrieve disease information from dbpedia
 }
 \description{
-
+Retrieve disease information from dbpedia such as ...
 }
 \usage{
 dbpedia_disease(lang="en")
@@ -13,7 +13,7 @@ dbpedia_disease(lang="en")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{lang}{
-Language for character results
+  Character vector to specify the language of the results returned 
 }
 }
 \details{
@@ -42,6 +42,9 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+##--- do not run
+dbpedia_disease(lang="en")
+##---------
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
