@@ -14,11 +14,7 @@ sparql <- function(query="",url="",api_key=""){
   document <- fromJSON(encoded_url)
   
   if(length(document$results$bindings)!=0){
-    results=data.frame(matrix(nrow=dim(document$results$bindings)[1],ncol=dim(document$results$bindings)[2]))
-    colnames(results)=names(document$results$bindings)
-    for(i in colnames(results)){
-      results[,i]=document[["results"]][["bindings"]][[i]][["value"]]
-    }
+    results=document$results$bindings %>% map_df("value")
   }
   else{results=NULL}
   
