@@ -1,4 +1,4 @@
-search_endpoint <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
+search <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
   
   if(service=="bioportal"){service <- "http://data.bioontology.org/search?"}
   else if (service=="sifr"){service <- "http://data.bioportal.lirmm.fr/search?"}

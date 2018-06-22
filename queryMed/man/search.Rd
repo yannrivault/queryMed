@@ -1,5 +1,5 @@
-\name{search_endpoint}
-\alias{search_endpoint}
+\name{search}
+\alias{search}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Acces to search bioportal or SIFR REST API
@@ -8,7 +8,7 @@ Acces to search bioportal or SIFR REST API
 This function allows retrieving knowledge from medical ontologies through Bioportal or SIFR search REST API.
 }
 \usage{
-search_endpoint(term = "", cui = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
+search(term = "", cui = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

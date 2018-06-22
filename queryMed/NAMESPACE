@@ -26,7 +26,7 @@ importFrom(purrr, map)
 
 export("uri2norm",
        "sparql",
-       "search_endpoint",
+       "search",
        "get_ancestors",
        "mapping_atc_db",
        "get_DID", 
