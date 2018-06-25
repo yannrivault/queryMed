@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+save_data.R
+ATC.csv
+DIKB.csv.bz2
+queryMed.Rproj
