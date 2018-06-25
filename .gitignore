@@ -1,8 +1,10 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-save_data.R
 ATC.csv
 DIKB.csv.bz2
 queryMed.Rproj
+save_data.R
+.Rhistory
+.RDataTmp1
+.RDataTmp
+.RData
+.Rproj.user
+.gitignore
