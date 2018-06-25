@@ -32,7 +32,7 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
     warning(content$error)
     return(NULL)
   }
-  else if (pagesize==0){
+  else if (is.null(pagesize) || pagesize==0){
     return(NULL)
   }
   else{
