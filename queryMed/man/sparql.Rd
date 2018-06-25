@@ -1,5 +1,5 @@
 \name{sparql}
-\alias{sparql}
+\alias{}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 sparql
