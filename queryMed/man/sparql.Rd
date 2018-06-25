@@ -1,8 +1,7 @@
 \name{sparql}
 \alias{sparql}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-sparql
+Querying sparql endpoints
 }
 \description{
 Fonction that allow to send queries on sparql endpoints. Alternative to SPARQL() from SPARQL package, by allowing retrieving JSON.
@@ -13,13 +12,13 @@ sparql(query = "", url = "", api_key = "")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{query}{
-The sparql query
+The SPARQL query.
 }
   \item{url}{
-url of the sparql endpoint
+url of the sparql endpoint.
 }
   \item{api_key}{
-An api key if need be
+An api key if need be.
 }
 }
 \details{
@@ -50,7 +49,6 @@ Y. Rivault
 \examples{
 # Querryng SPARQL endpoints :
 
-
 # Retrieving some informations about drugs that are available through db-pedia:
 
   # Drugs and their labels:
@@ -60,7 +58,7 @@ query="SELECT DISTINCT *
         ?drug rdfs:label ?label .
         }"
 results <- sparql(query,url="https://dbpedia.org/sparql/")
-head(results)
+results
 
   # Drugs and their drugbank Id:
 query="SELECT DISTINCT * 
@@ -69,7 +67,7 @@ query="SELECT DISTINCT *
         ?drug dbp:drugbank ?db_Id .
         }"
 results <- sparql(query,url="https://dbpedia.org/sparql/")
-head(results)
+results
 
   # Drugs and their ATC Id:
 query="SELECT DISTINCT ?drug concat(str(?prefix),str(?suffix)) as ?atc 
@@ -78,16 +76,18 @@ query="SELECT DISTINCT ?drug concat(str(?prefix),str(?suffix)) as ?atc
         ?drug dbo:atcSuffix ?suffix .
         }"
 results <- sparql(query,url="https://dbpedia.org/sparql/")
-head(results)
+results
 
-# Retrieving some informations about drugs that are available through ontobee:
+# Retrieving some informations about drugs that are available through bio2rdf:
 
 query="SELECT DISTINCT *
        WHERE {
-        ?drug <http://bio2rdf.org/kegg_vocabulary:formula> ?formula.}"
+        ?drug <http://bio2rdf.org/kegg_vocabulary:formula> ?formula.
+        }"
 results <- sparql(query,url="http://bio2rdf.org/sparql")
-head(results)
+results
 }
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
