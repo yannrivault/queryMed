@@ -8,15 +8,12 @@ Acces to search bioportal or SIFR REST API
 This function allows retrieving knowledge from medical ontologies through Bioportal or SIFR search REST API.
 }
 \usage{
-search(term = "", cui = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
+search(term = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{term}{
-A list of terms to search for informations on Bioportal.
-}
-  \item{cui}{
-A list of cui to constrain the search of informations.
+A list of terms to search for informations on Bioportal. It can be codes from nomenclatures.
 }
   \item{ontologies}{
 A list of ontologies to constrain the search of informations.

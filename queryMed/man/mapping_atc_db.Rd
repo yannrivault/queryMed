@@ -2,10 +2,10 @@
 \alias{mapping_atc_db}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-mapping_atc_db
+Mapping ATC codes to CUI
 }
 \description{
-Mapping from atc codes to drugbank codes
+The function allows to get all the mapping from the Anatomical Therapeutic and Chemical classification to DrugBank, through the bio2rdf and dbpedia sparql endpoints.
 }
 \usage{
 mapping_atc_db()
@@ -37,16 +37,6 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function () 
-{
-    query = "SELECT DISTINCT ?atc ?db\n         WHERE  {?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .}"
-    return(sparql(query, url = "bio2rdf.org/sparql/"))
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

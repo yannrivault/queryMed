@@ -2,14 +2,14 @@
 \alias{mapping_cui}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-mapping_cui
+Mapping medical nomenclatures to CUI
 }
 \description{
-Mapping from concept unique identifier (cui UMLS) to medical nomenclatures available through Biopotal, and vice versa.
+The function allows mapping from concept unique identifier (cui - UMLS) to medical nomenclatures available through Biopotal, and vice versa.
 
 }
 \usage{
-Mapping(codes=NULL,ontologies="",api_key="",progress=T)
+Mapping(codes=NULL,ontologies="",api_key="")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,9 +21,6 @@ A set of ontologies where to find mappings if codes are cui. Or a set of ontolog
 }
   \item{api_key}{
 An API Key is required to access any API call on Bioportal and SIFR. To have one, you need to register at http://bioportal.bioontologies.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
-}
- \item{progress}{
-A boolean to display or not a progress bar.
 }
 }
 %- maybe also 'usage' for other objects documented here.

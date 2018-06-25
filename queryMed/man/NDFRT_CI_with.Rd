@@ -2,10 +2,10 @@
 \alias{NDFRT_CI_with}
 
 \title{
-NDFRT_CI_with
+Querying contraindications from the National Drug File - Reference Terminology (NDF-RT)
 }
 \description{
-Retrieve NDFRT contre-indication from drugs to diagnostics. NDF-RT codes can be mapped to CUI codes, then to ATC and ICD10 codes.
+Retrieve NDFRT contraindications from drugs to diagnostics. NDF-RT codes can be matched to CUI codes, then to ATC and ICD10 codes. The matching requires an api key to acces bioportal REST API.
 }
 \usage{
 NDFRT_CI_with(drug_mapping = NULL, diagnostic_mapping = NULL, api_key= "")

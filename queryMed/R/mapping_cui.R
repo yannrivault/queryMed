@@ -1,4 +1,4 @@
-mapping_cui <- function(codes=NULL,ontologies="",api_key="",progress=T){
+mapping_cui <- function(codes=NULL,ontologies="",api_key=""){
   
   codes <- unique(codes)
   
@@ -7,8 +7,7 @@ mapping_cui <- function(codes=NULL,ontologies="",api_key="",progress=T){
   results <- data.frame()
   
   cat("Querring Bioportal search REST API to retrieving mapping\n")
-  if (progress) progress_bar <- tkProgressBar(title = "progress bar", label="Querring Bioportal search REST API: O%", width = 300,min=0,max=length(codes))
-    
+
   if (n>0){
     for(i in 1:n){
       S=search(term = codes[((i-1)*800):(i*800-1)], ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false")
@@ -22,7 +21,6 @@ mapping_cui <- function(codes=NULL,ontologies="",api_key="",progress=T){
           }
         }
       }
-      if (progress) setTkProgressBar(progress_bar, i*800, label=paste("Querring Bioportal search REST API: ",round(800*i/length(codes)*100, 0),"%",sep=""))
     }
     
   }
@@ -38,10 +36,6 @@ mapping_cui <- function(codes=NULL,ontologies="",api_key="",progress=T){
         }
       }
     }
-  }
-  if (progress) {
-    setTkProgressBar(progress_bar, length(codes),label="Querring Bioportal search REST API: 10O%")
-    close(progress_bar)
   }
   return(uri2norm(results))
 }
