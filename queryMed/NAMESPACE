@@ -22,7 +22,7 @@ importFrom(RColorBrewer, brewer.pal)
 
 importFrom(data.table, as.data.table)
 
-importFrom(purrr, map)
+importFrom(purrr, map, '%>%')
 
 importFrom(plyr, dlply)
 
