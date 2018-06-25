@@ -24,6 +24,10 @@ importFrom(data.table, as.data.table)
 
 importFrom(purrr, map)
 
+importFrom(plyr, dlply)
+
+importFrom(tidyr, gather)
+
 export("uri2norm",
        "sparql",
        "search",
@@ -37,5 +41,6 @@ export("uri2norm",
        "pddi_plot", 
        "bio2rdf_db",
        "dbpedia_disease",
-       "dbpedia_drug", 
-       "check_interaction")
+       "dbpedia_drug",
+       "find_pairs",
+       "find_relations")
