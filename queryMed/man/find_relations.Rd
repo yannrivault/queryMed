@@ -14,16 +14,16 @@ Function to find relations like interactions, contraindications and indications 
   \item{data}{
   database where to search for relations.
   }
-  \item(data_indices){
+  \item{data_indices}{
   Rows containing Ids.
   }
-  \item(data_elements){
+  \item{data_elements}{
   Rows containing potential relations.
   }
-  \item(target){
+  \item{target}{
   Knowledge database (e.g. DIKB, DID, NDF-RT, etc)
   }
-  \item(target_elements){
+  \item{target_elements}{
   Rows representing the relations.
   }
 }
