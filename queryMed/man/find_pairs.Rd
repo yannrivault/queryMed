@@ -1,5 +1,5 @@
 \name{find_pairs}
-\alias{dinf_pairs}
+\alias{find_pairs}
 
 \title{
 find_pairs
