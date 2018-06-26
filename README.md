@@ -1,4 +1,4 @@
-# queryMed package: annotate medicine and pathology codes for pharmaco-epidemiological studies
+# queryMed R package: annotate medicine and pathology codes for pharmaco-epidemiological studies
 
 ## Introduction
 
