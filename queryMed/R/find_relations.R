@@ -1,4 +1,4 @@
-find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements){
+find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="text"){
   
   if(!is.null(data.y)){
     data_vocab = unique(c(as.vector(unlist(t(data.x[,data_elements.x]))),as.vector(unlist(t(data.y[,data_elements.y])))))
@@ -29,7 +29,7 @@ find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,
   target <- target[as.character(target[,target_elements[1]])%in%vocab & as.character(target[,target_elements[2]])%in%vocab, ]
   
   
-  temp=dlply(data, data_indices, function(x) find_pairs(x[,"elements"],target=target,target_elements=target_elements),.progress="text")
+  temp=dlply(data, data_indices, function(x) find_pairs(x[,"elements"],target=target,target_elements=target_elements),.progress=progress)
   return(temp)
   
 }
