@@ -1,4 +1,4 @@
-find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="text"){
+find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="none"){
   
   if(!is.null(data.y)){
     data_vocab = unique(c(as.vector(unlist(t(data.x[,data_elements.x]))),as.vector(unlist(t(data.y[,data_elements.y])))))
