@@ -20,7 +20,7 @@ find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,
     target_vocab = as.vector(unlist(t(target[,target_elements])))
     vocab = intersect(data_vocab,target_vocab)
     
-    data <- data[,c(data_indices,data_elements.x)]
+    data <- data.x[,c(data_indices,data_elements.x)]
     
     data <- gather(data,key=data_element_attribute,value=elements,data_elements.x)
     data <- data[(data[,"elements"]%in%vocab),]
