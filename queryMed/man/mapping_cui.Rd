@@ -9,7 +9,7 @@ The function allows mapping from concept unique identifier (cui - UMLS) to medic
 
 }
 \usage{
-Mapping(codes=NULL,ontologies="",api_key="")
+mapping_cui(codes=NULL,ontologies="",api_key="")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -50,5 +50,8 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-
+\dontrun{
+mcui <-  mapping_cui(codes="B01AA01",ontologies="ATC",api_key="youAPIKey")
+mcui
+}
 }

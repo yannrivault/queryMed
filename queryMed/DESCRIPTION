@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2018-03-30
 Author: Y. Rivault, O. Dameron, N. Le Meur
 Maintainer: Y. Rivault <yann.rivault@ehesp.fr>
-Depends: R (>= 3.4.3)
+Depends: R (>= 3.4.3), igraph
 Imports: 
   jsonlite,
   httr,

@@ -33,9 +33,9 @@ Y. Rivault
 get_DID
 }
 \examples{
-# Do not run
-xx = mapping_atc_db()
-#
+\dontrun{
+  xx = mapping_atc_db()
+}
 }
 \keyword{ATC}% use one of  RShowDoc("KEYWORDS")
 \keyword{DB}% __ONLY ONE__ keyword per line

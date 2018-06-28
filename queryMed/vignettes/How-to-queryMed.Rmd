@@ -45,7 +45,6 @@ Using queryMed, the platelet antiaggregant CLOPIDOGREL presents 26 known interac
 
 ```{r load library, eval=F}
 library(queryMed)
-library(data.table)
 ```
 
 ```{r load data, eval=F}

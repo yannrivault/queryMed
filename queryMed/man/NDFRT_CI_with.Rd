@@ -48,8 +48,10 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+\dontrun{
+   cindication <- NDFRT_CI_with(drug_mapping = "ATC", diagnostic_mapping = c("ICD10","ICD10CM"), api_key= "yourAPIkey")
+   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

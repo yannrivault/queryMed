@@ -2,10 +2,10 @@
 \alias{get_DIKB}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-get_DIKB
+Retrieve Drug Interaction Knowledge Base (DIKB) data
 }
 \description{
-Function that download the Drug Interaction Knowledge Base (DIKB) from source.
+This function downloads the Drug Interaction Knowledge Base (DIKB) from source.
 }
 \usage{
 get_DIKB(path = getwd(), url = NULL, mapping = NULL)

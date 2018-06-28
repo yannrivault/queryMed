@@ -54,10 +54,10 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-# Do not run
+\dontrun{
 disease72 = search(term = "I72", ontologies = "ICD10", service = "bioportal", api_key = "yourAPIkey")
 disease72$collection[[1]]$prefLabel
-#
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

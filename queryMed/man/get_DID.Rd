@@ -2,7 +2,7 @@
 \alias{get_DID}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-get_DID
+Retrieve Drug Indication Database (DID) data
 }
 \description{
 Function that load Drug Indication Database (DID) from source.

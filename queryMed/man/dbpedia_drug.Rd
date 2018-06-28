@@ -5,7 +5,7 @@
 dbpedia_drug
 }
 \description{
-
+Retrieve drug information from dbpedia such as atc and drug bank identifier codes
 }
 \usage{
 dbpedia_drug(lang="en")
@@ -20,14 +20,10 @@ Language for character results
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+data table of drug terms and their annotation : drug, atc code,  drug bank identifier,  abstract,   comment, label. When querying the whole dataset, the data table is of size 8712 rows by 6 columns.
 }
 \references{
-%% ~put references to the literature/web site here ~
+Lehmann, J. et al. (2015). Dbpedia - a large-scale, multilingual knowledge base extracted from wikipedia. Semantic Web, 6, 167–195.
 }
 \author{
 Y. Rivault
@@ -42,6 +38,10 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+\dontrun{
+drug_dbp <- dbpedia_drug(lang="en")
+head(drug_dbp)
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
