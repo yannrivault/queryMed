@@ -2,18 +2,27 @@
 \alias{find_pairs}
 
 \title{
-find_pairs
+Find pairs of relation
 }
 \description{
-Prerequisite function for find_relations
+Internal function for the find_relations function call
 }
 \usage{
+find_pairs(items = "", target = "", target_elements = "")
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
+ \item{items}{
+  database where to search for relations.
+  }
+  \item{target}{
+  Knowledge database (e.g. DIKB, DID, NDF-RT, etc)
+  }
+  \item{target_elements}{
+  Rows representing the relations.
+  }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+No meant to be used by itself
 }
 \value{
 }

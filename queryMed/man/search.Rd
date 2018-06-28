@@ -29,20 +29,20 @@ Extra arguments to parse into the query.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This is a low level function. The return are return as JSON list of lists.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+The return value is a list of lists of elements that define the request term
 }
 \references{
-%% ~put references to the literature/web site here ~
+Clement Jonquet, Amina Annane, Khedidja Bouarech, Vincent Emonet & Soumia Melzi. SIFR BioPortal : Un portail ouvert et générique d’ontologies et de terminologies biomédicales françaises au service de l’annotation sémantique, In 16th Journées Francophones d'Informatique Médicale, JFIM'16. Genève, Suisse, July 2016. pp. 16.
+
+Whetzel PL, Noy NF, Shah NH, Alexander PR, Nyulas C, Tudorache T, Musen MA. BioPortal: enhanced functionality via new Web services from the National Center for Biomedical Ontology to access and use ontologies in software applications. Nucleic Acids Res. 2011 Jul;39(Web Server issue):W541-5. Epub 2011 Jun 14.
+
+Salvadores M, Horridge M, Alexander PR, Fergerson RW, Musen MA, and Noy NF. Using SPARQL to Query BioPortal Ontologies and Metadata. International Semantic Web Conference. Boston US. LNCS 7650, pp. 180195, 2012.
 }
 \author{
-%%  ~~who you are~~
+Y. Rivault
 }
 \note{
 %%  ~~further notes~~
@@ -54,7 +54,10 @@ Extra arguments to parse into the query.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-
+# Do not run
+disease72 = search(term = "I72", ontologies = "ICD10", service = "bioportal", api_key = "yourAPIkey")
+disease72$collection[[1]]$prefLabel
+#
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
