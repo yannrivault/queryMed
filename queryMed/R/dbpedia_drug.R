@@ -1,4 +1,4 @@
-dbpedia_drug <- function(lang="en"){
+dbpedia_drug <- function(lang="en",atc=NULL,db=NULL){
   
   lang=paste(lang,collapse="\",\"")
   
@@ -30,6 +30,14 @@ dbpedia_drug <- function(lang="en"){
   FILTER (lang(?label) IN (\"","\"))}
   
   }"),collapse=lang)
-
-return(sparql(query,url="https://dbpedia.org/sparql"))
+  
+  res=sparql(query,url="https://dbpedia.org/sparql")
+  
+  if(!is.null(atc)){
+    res <- res[res$atc %in% atc,]
+  }
+  if(!is.null(db)){
+    res <- res[res$db %in% db,]
+  }
+return(res)
 }
