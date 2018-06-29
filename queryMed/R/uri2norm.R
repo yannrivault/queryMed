@@ -1,5 +1,7 @@
 uri2norm <- function(X){
-
+  
+  class.X <- class(X)
+  
   if(!is.null(dim(X))){
     X <- as.matrix(X)
     class(X) <- "character"
@@ -7,7 +9,10 @@ uri2norm <- function(X){
 
     X[which(uris)] <- gsub(".*/|>", "", X[which(uris)])
     X[which(uris)] <- gsub("(^\\s*|\\s*$)","",X[which(uris)], perl=T)
-    return(as.data.frame(X))
+    X[which(uris)] <- gsub("[A-z0-9]*:","",X[which(uris)])
+    
+    if("tbl" %in% class.X){return(as_tibble(X))}
+    else{return(as.data.frame(X))}
     }
   else {
     X <- gsub(".*/|>", "", X)
