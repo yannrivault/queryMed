@@ -8,12 +8,18 @@ Retrieve disease information from dbpedia
 Retrieve disease information from dbpedia such as ICD10-ICD9 matching, label, synonyms etc.
 }
 \usage{
-dbpedia_disease(lang="en")
+dbpedia_disease(lang="en",icd10=NULL,icd9=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{lang}{
   Character vector to specify the language of the results returned 
+}
+  \item{icd10}{
+A vector of icd10 codes for which to retrieve informations
+}
+  \item{icd9}{
+A vector of icd9 codes for which to retrieve informations
 }
 }
 \details{

@@ -1,4 +1,4 @@
-dbpedia_disease <- function(lang="en"){
+dbpedia_disease <- function(lang="en",icd10=NULL,icd9=NULL){
   
   lang=paste(lang,collapse="\",\"")
   
@@ -22,5 +22,13 @@ dbpedia_disease <- function(lang="en"){
   
 }"),collapse=lang)
   
-  return(sparql(query,url="https://dbpedia.org/sparql"))
+  res=sparql(query,url="https://dbpedia.org/sparql")
+  
+  if(!is.null(icd10)){
+    res <- res[res$icd10 %in% icd10,]
+  }
+  if(!is.null(icd9)){
+    res <- res[res$icd9 %in% icd9,]
+  }
+  return(res)
 }

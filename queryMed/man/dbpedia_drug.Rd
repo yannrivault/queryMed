@@ -16,10 +16,10 @@ dbpedia_drug(lang="en",atc=NULL,db=NULL)
 Language for character results
 }
   \item{atc}{
-A vector of ATC codes for with to retrieve informations
+A vector of ATC codes for which to retrieve informations
 }
   \item{db}{
-A vector of DrugBank codes for with to retrieve informations
+A vector of DrugBank codes for which to retrieve informations
 }
 }
 \details{
