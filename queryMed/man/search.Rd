@@ -2,10 +2,10 @@
 \alias{search}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Acces to search bioportal or SIFR REST API
+Acces to search BioPortal or SIFR REST API
 }
 \description{
-This function allows retrieving knowledge from medical ontologies through Bioportal or SIFR search REST API.
+This function allows retrieving knowledge from medical ontologies through BioPortal or SIFR search REST API.
 }
 \usage{
 search(term = "", ontologies = "", service = "bioportal", api_key = "", extra_args = "")
@@ -22,7 +22,7 @@ A list of ontologies to constrain the search of informations.
 "bioportal" or "sifr"
 }
   \item{api_key}{
-An API Key is required to access any API call on Bioportal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
+An API Key is required to access any API call on BioPortal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.
 }
   \item{extra_args}{
 Extra arguments to parse into the query.
