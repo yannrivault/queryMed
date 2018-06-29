@@ -39,5 +39,6 @@ dbpedia_drug <- function(lang="en",atc=NULL,db=NULL){
   if(!is.null(db)){
     res <- res[res$db %in% db,]
   }
+
 return(res)
 }

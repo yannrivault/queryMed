@@ -26,7 +26,9 @@ importFrom(purrr, map, map_df, '%>%')
 
 importFrom(plyr, dlply)
 
-importFrom(tidyr, gather)
+importFrom(tidyr, gather, unnest)
+
+importFrom(dplyr, mutate)
 
 export("uri2norm",
        "sparql",
