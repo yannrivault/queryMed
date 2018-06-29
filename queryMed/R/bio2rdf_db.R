@@ -1,6 +1,6 @@
 # bio2rdf
 
-bio2rdf_db <- function(lang="en"){
+bio2rdf_db <- function(lang="en",atc=NULL,db=NULL){
   
   lang=paste(lang,collapse="\",\"")
   
@@ -17,5 +17,16 @@ bio2rdf_db <- function(lang="en"){
     
   }"),collapse=lang)
   
-  return(sparql(query,url="http://bio2rdf.org/sparql"))
+  res=sparql(query,url="http://bio2rdf.org/sparql")
+  res=uri2norm(res)
+  
+  if(!is.null(db)){
+    res <- res[res$db %in% db,]
+  }
+  if(!is.null(atc)){
+    res <- res[res$atc %in% atc,]
+  }
+  
+  return(res)
+  
 }
