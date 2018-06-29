@@ -24,14 +24,14 @@ dbpedia_disease <- function(lang="en",icd10=NULL,icd9=NULL){
   
   res=sparql(query,url="https://dbpedia.org/sparql")
   
+  res <- res %>% mutate(icd10 = strsplit(as.character(icd10), ",")) %>% unnest(icd10)
+  
   if(!is.null(icd10)){
     res <- res[res$icd10 %in% icd10,]
   }
   if(!is.null(icd9)){
     res <- res[res$icd9 %in% icd9,]
   }
-  
-  res <- res %>% mutate(icd10 = strsplit(as.character(icd10), ",")) %>% unnest(icd10)
   
   return(res)
 }
