@@ -2,7 +2,7 @@
 \alias{mapping_atc_db}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Mapping ATC codes to CUI
+Mapping the Anatomical Therapeutic and Chemical classidication to DrugBank
 }
 \description{
 The function allows to get all the mapping from the Anatomical Therapeutic and Chemical classification to DrugBank, through the bio2rdf and dbpedia sparql endpoints.
