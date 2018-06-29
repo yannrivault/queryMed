@@ -28,7 +28,7 @@ importFrom(plyr, dlply)
 
 importFrom(tidyr, gather, unnest)
 
-importFrom(dplyr, mutate)
+importFrom(dplyr, mutate, as_tibble)
 
 export("uri2norm",
        "sparql",
