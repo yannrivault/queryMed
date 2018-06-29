@@ -5,7 +5,7 @@
 Querying contraindications from the National Drug File - Reference Terminology (NDF-RT)
 }
 \description{
-Retrieve NDFRT contraindications from drugs to diagnostics. NDF-RT codes can be matched to CUI codes, then to ATC and ICD10 codes. The matching requires an api key to acces bioportal REST API.
+Retrieve NDF-RT contraindications from drugs to diagnostics. NDF-RT codes can be matched to CUI codes, then to ATC and ICD10 codes. The matching requires an api key to acces BioPortal REST API.
 }
 \usage{
 NDFRT_CI_with(drug_mapping = NULL, diagnostic_mapping = NULL, api_key= "")
@@ -13,13 +13,13 @@ NDFRT_CI_with(drug_mapping = NULL, diagnostic_mapping = NULL, api_key= "")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{drug_mapping}{
-If you want to mapp NDF-RT drug codes to other drug classification available on BIOPORTAL (e.g. "ATC").
+If you want to mapp NDF-RT drug codes to other drug classification available on BioPortal (e.g. "ATC").
 }
   \item{diagnostic_mapping}{
-If you want to mapp NDF-RT diagnostic codes to other diagnostic classification available on BIOPORTAL (e.g. "ICD10").
+If you want to mapp NDF-RT diagnostic codes to other diagnostic classification available on BioPortal (e.g. "ICD10").
 }
   \item{api_key}{
-An API Key is required to access any API call on Bioportal. To have one, you need to register at http://bioportal.bioontology.org/.
+An API Key is required to access any API call on BioPortal. To have one, you need to register at http://bioportal.bioontology.org/.
 }
 }
 \details{
