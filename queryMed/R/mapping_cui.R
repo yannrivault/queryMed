@@ -6,7 +6,7 @@ mapping_cui <- function(codes=NULL,ontologies="",api_key=""){
   rest <- length(codes) %% 800
   results <- data.frame()
   
-  cat("Querring Bioportal search REST API to retrieving mapping\n")
+  cat("Querying Bioportal search REST API to retrieving mapping\n")
 
   if (n>0){
     for(i in 1:n){
