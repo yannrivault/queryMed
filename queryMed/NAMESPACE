@@ -1,34 +1,34 @@
 exportPattern("^[[:alpha:]]+")
 
-importFrom(utils, URLencode)
+importFrom("utils", URLencode)
 
-importFrom(RCurl, getURL)
+importFrom("RCurl", getURL)
 
-importFrom(jsonlite, fromJSON)
+importFrom("jsonlite", fromJSON)
 
-importFrom(httr, GET, content, add_headers, set_config, write_disk, config)
+importFrom("httr", GET, content, add_headers, set_config, write_disk, config)
 
-importFrom(stringr, str_extract_all, str_detect)
+importFrom("stringr", str_extract_all, str_detect)
 
-importFrom(openxlsx, read.xlsx)
+importFrom("openxlsx", read.xlsx)
 
-importFrom(stats, setNames)
+importFrom("stats", setNames)
 
-importFrom(tcltk, tkProgressBar, setTkProgressBar)
+importFrom("tcltk", tkProgressBar, setTkProgressBar)
 
-importFrom(igraph, graph_from_edgelist, layout_as_star, V, E)
+importFrom("igraph", graph_from_edgelist, layout_as_star, V, E)
 
-importFrom(RColorBrewer, brewer.pal)
+importFrom("RColorBrewer", brewer.pal)
 
-importFrom(data.table, as.data.table)
+importFrom("data.table", as.data.table)
 
-importFrom(purrr, map, map_df, '%>%')
+importFrom("purrr", map, map_df, '%>%')
 
-importFrom(plyr, dlply)
+importFrom("plyr", dlply)
 
-importFrom(tidyr, gather, unnest)
+importFrom("tidyr", gather, unnest)
 
-importFrom(dplyr, mutate, as_tibble)
+importFrom("dplyr", mutate, as_tibble)
 
 export("uri2norm",
        "sparql",
