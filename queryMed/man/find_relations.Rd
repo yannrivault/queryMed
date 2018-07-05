@@ -25,7 +25,7 @@ find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,
   Data frame ....
   }
   \item{data_elements.y}{
-  column names of data.x that contains medical term of interest.
+  column names of data.y that contains medical term of interest.
   }
   \item{target}{
   Knowledge database (e.g. DIKB, DID, NDF-RT, etc)
