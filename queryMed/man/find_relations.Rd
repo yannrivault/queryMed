@@ -8,7 +8,7 @@ Find relation between medical terms and pairs of known biomedical relations list
 Function to find intersection between medical terms (disease, drugs...) and pairs defining a biomedical relationship like interactions, contraindications and indications through database .
 }
 \usage{
-find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="none")
+find_relations(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="none")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

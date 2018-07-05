@@ -35,6 +35,7 @@ get_DID
 \examples{
 \dontrun{
   xx = mapping_atc_db()
+  head(xx)
 }
 }
 \keyword{ATC}% use one of  RShowDoc("KEYWORDS")

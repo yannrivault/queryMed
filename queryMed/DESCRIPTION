@@ -5,19 +5,16 @@ Version: 0.1
 Date: 2018-03-30
 Author: Y. Rivault, O. Dameron, N. Le Meur
 Maintainer: Y. Rivault <yann.rivault@ehesp.fr>
-Depends: R (>= 3.4.3), igraph
+Depends: R (>= 3.4.3)
 Imports: 
   jsonlite,
   httr,
   openxlsx,
   RCurl,
-  hash,
   stringr,
-  xml2,
   igraph,
   RColorBrewer,
   data.table, 
-  RCurl,
   tcltk,
   purrr,
   plyr,

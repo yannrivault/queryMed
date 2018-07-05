@@ -8,7 +8,7 @@ Potential drug-drug interaction graph
 This function proposes a graph representation of potential drug-drug interaction as listed in DIKB data base.
 }
 \usage{
-pddi_plot(drug="" , type="name", direction="object",source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NUL)
+pddi_plot(drug="" , type="name", direction="object",source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL)
 }
 \arguments{
   \item{drug}{
@@ -52,7 +52,7 @@ IF the argument graph is set to TRUE a graph is plotted and the associated data.
 N. Le Meur
 }
 \seealso{
-See Also as \code{\link{DIKB}}, \code{\link{igraph}}
+See Also as \code{\link[pkg:queryMed]{DIKB}}, \code{\link{igraph}}
 }
 \examples{
 pddi_plot("CLOPIDOGREL", "name", level=1)

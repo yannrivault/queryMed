@@ -39,7 +39,7 @@ Y. Rivault
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also as \code{\link[pkg:queryMed]{find_relations}}, ~~~
 }
 \examples{
 }

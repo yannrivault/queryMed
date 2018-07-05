@@ -19,7 +19,7 @@ A list of terms to search for informations on Bioportal. It can be codes from no
 A list of ontologies to constrain the search of informations.
 }
   \item{service}{
-"bioportal" or "sifr"
+Character vector that specifies the web service to query either "bioportal" or "sifr".
 }
   \item{api_key}{
 An API Key is required to access any API call on BioPortal and SIFR. To have one, you need to register at http://bioportal.bioontology.org/, respectively to http://bioportal.lirmm.fr/ for SIFR.

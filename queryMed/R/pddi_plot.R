@@ -1,5 +1,5 @@
 ##################@
-pddi_plot <- function(drug= "CLOPIDOGREL", type="name", direction="object", source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
+pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
   
   data(DIKB)
   data(ATC)  

@@ -46,7 +46,7 @@ head(DIKB)
 colnames(DIKB)
 dim(DIKB)
 
-head(DIKB[DIKB$source=="FrenchDB",])
+head(DIKB[DIKB$source%in%c("FrenchDB"),])
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

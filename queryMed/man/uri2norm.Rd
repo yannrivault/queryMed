@@ -13,7 +13,7 @@ uri2norm(X)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{X}{
-1 URI, a vector composed of URIs, a URI matrix, a URI dataframe.
+One URI, a vector composed of URIs, a URI matrix, a URI dataframe.
 }
 }
 \details{
