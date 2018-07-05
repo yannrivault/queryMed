@@ -1,8 +1,8 @@
 ##################@
 pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
   
-  data(DIKB)
-  data(ATC)  
+  DIKB<- utils::data(DIKB)
+  ATC <- utils::data(ATC)  
   lev <- paste("atc",level, sep="")
   if(level >1){
   levm1 <- paste("atc",level-1, sep="")
@@ -11,7 +11,6 @@ pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, co
     levm1 <- lev
   }
   lab <- paste("label",level, sep="")
-
   
   # filter by data sources     
   if(!is.null(source)){
@@ -62,23 +61,23 @@ pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, co
   x <- x[!is.na(x$atc2)|!is.na(x$atc1),]
    
   if(direction=="object"){
-    statx <- x[, .N,by=list(precipitant, atc2, drug2)]
+    statx <- x[, .N, by=list("precipitant", "atc2", "drug2")]
   }
   if(direction=="precipitant"){
-    statx <- x[, .N, by=list(object, atc1, drug1)]
+    statx <- x[, .N, by=list("object", "atc1", "drug1")]
   }
   statx <- data.frame(statx)
   names(statx) <-   c("interact", "atc5", "dbi", "n")
-  statx <- merge(statx, ATC[, c("atc5", lev, lab, levm1)], by="atc5")
+  statx <- merge(statx, ATC[, c("atc5", "lev", "lab", "levm1")], by="atc5")
   
   if(plot==TRUE){
 
     statx <- as.data.table(statx)
-    statx<-statx[,.(n=sum(n)), by=c(lab, levm1)]
+    statx<-statx[,.(n=sum(n)), by=c("lab", "levm1")]
     statx <- data.frame(statx)
 
    
-    root <- unique(statx[, levm1])
+    root <- unique(statx[, "levm1"])
     n = length(root)
       #mypalette<- colorRampPalette(brewer.pal(12,"Set3"))(n)
       #mypalette<- colorRampPalette(brewer.pal(9,"YlOrRd"))(n)

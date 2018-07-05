@@ -1,3 +1,5 @@
+if(getRversion()>="2.15.1") utils::globalVariables(c("."))
+
 annotator <- function(text="",ontologies="",service="bioportal",api_key=""){
   
   if(service=="bioportal"){service <- "http://data.bioontology.org/annotator?text="}
@@ -23,7 +25,7 @@ annotator <- function(text="",ontologies="",service="bioportal",api_key=""){
     
     results = data.frame(
       id = document %>% map(.,~ .x[["annotatedClass"]]) %>% map(.,~ .x[["@id"]]) %>% unlist(),
-      ontology = document %>% map(.,~ .x[["annotatedClass"]]) %>% map(.,~ .x[["links"]]) %>% map(.,~ .x[["ontology"]]) %>% unlist(),
+      ontology = document %>% map(.~ .x[["annotatedClass"]]) %>% map(.,~ .x[["links"]]) %>% map(.,~ .x[["ontology"]]) %>% unlist(),
       text = document %>% map(.,~ .x[["annotations"]]) %>% map(.,~ .x[[1]]) %>% map(.,~ .x[["text"]]) %>% unlist()
     )
     

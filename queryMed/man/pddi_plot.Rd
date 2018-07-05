@@ -43,11 +43,9 @@ pddi_plot(drug="" , type="name", direction="object",source=NULL, contraindicatio
 the graph is a star graph centered on the drug of interest. The color of the nodes depends on the ATC level specified in the function cal; grouping molecules by ATC classes. The thickness of the edges depends on the number of times the  potential drug-drug interaction is listed by different sources.
 }
 \value{
-IF the argument graph is set to TRUE a graph is plotted and the associated data.frame is returned. When the graph argument is set to FALSE anly the data.frame is returned.
+If the argument graph is set to TRUE a graph is plotted and the associated data.frame is returned. When the graph argument is set to FALSE anly the data.frame is returned.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 N. Le Meur
 }
@@ -57,7 +55,6 @@ See Also as \code{\link[pkg:queryMed]{DIKB}}, \code{\link{igraph}}
 \examples{
 pddi_plot("CLOPIDOGREL", "name", level=1)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{pddi}% use one of  RShowDoc("KEYWORDS")
+
+\keyword{pddi}
 

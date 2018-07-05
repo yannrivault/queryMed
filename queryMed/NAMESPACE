@@ -16,11 +16,11 @@ importFrom("stats", setNames)
 
 importFrom("tcltk", tkProgressBar, setTkProgressBar)
 
-importFrom("igraph", graph_from_edgelist, layout_as_star, V, E)
+importFrom("igraph", graph_from_edgelist, layout_as_star, V, E, "E<-", "V<-")
 
 importFrom("RColorBrewer", brewer.pal)
 
-importFrom("data.table", as.data.table)
+importFrom("data.table", as.data.table, .N)
 
 importFrom("purrr", map, map_df, '%>%')
 
@@ -30,6 +30,8 @@ importFrom("tidyr", gather, unnest)
 
 importFrom("dplyr", mutate, as_tibble)
 
+importFrom("grDevices", colorRampPalette)
+ 
 export("uri2norm",
        "sparql",
        "search",
