@@ -6,13 +6,14 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
     warning("Wrong search service given")
   }
   
-  if(sum(ontologies=="")==0){
-    ontologies=paste("&ontologies=",paste(ontologies,collapse=","),sep="")
-  }
   
   if (length(term)<1){
     warning("Give at least one term")
     return(NULL)
+  }
+  
+  if (ontologies=="ICD10"|| ontologies=="ICD10CM"){
+    term <- gsub('^([A-Z]{1}[0-9]{2})([0-9]+)$', '\\1.\\2', term)  
   }
   
   if (length(term)>0){
@@ -21,7 +22,9 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
     term=gsub(" ","+",term)
   }
   
-  
+  if(sum(ontologies=="")==0){
+    ontologies=paste("&ontologies=",paste(ontologies,collapse=","),sep="")
+  }
   
   url <- paste(service,term,ontologies,"&pagesize=1",sep="")
   results<-GET(url,add_headers(Authorization= paste("apikey token=",api_key,sep="")))
