@@ -31,6 +31,8 @@ importFrom("tidyr", gather, unnest)
 importFrom("dplyr", mutate, as_tibble)
 
 importFrom("grDevices", colorRampPalette)
+
+importFrom("rrdf", load.rdf)
  
 export("uri2norm",
        "sparql",
