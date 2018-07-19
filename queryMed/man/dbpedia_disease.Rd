@@ -10,7 +10,6 @@ Retrieve disease information from dbpedia such as ICD10-ICD9 matching, label, sy
 \usage{
 dbpedia_disease(lang="en",icd10=NULL,icd9=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{lang}{
   Character vector to specify the language of the results returned 
@@ -22,9 +21,6 @@ A vector of icd10 codes for which to retrieve informations
 A vector of icd9 codes for which to retrieve informations
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 data table of disease terms and their annotation : disease name, icd10, icd9,   abstract, comment, label, synonyms. When querying the whole dataset, the data table is of size 5523 rows by 6 columns.
 }
@@ -34,14 +30,8 @@ Lehmann, J. et al. (2015). Dbpedia - a large-scale, multilingual knowledge base 
 \author{
 Y. Rivault
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also as \code{\link[pkg:queryMed]{dbpedi_drug}}
 }
 \examples{
 \dontrun{

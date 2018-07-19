@@ -43,7 +43,7 @@ Y. Rivault
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-# Querryng SPARQL endpoints :
+# Querying SPARQL endpoints :
 
 # Retrieving some informations about drugs that are available through db-pedia:
 
@@ -54,7 +54,7 @@ query="SELECT DISTINCT *
         ?drug rdfs:label ?label .
         }"
 results <- sparql(query,url="https://dbpedia.org/sparql/")
-results
+results[1:2,]
 
   # Drugs and their drugbank Id:
 query="SELECT DISTINCT * 

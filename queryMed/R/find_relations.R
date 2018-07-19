@@ -8,8 +8,8 @@ find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,
     data.x <- data.x[,c(data_indices,data_elements.x)]
     data.y <- data.y[,c(data_indices,data_elements.y)]
     
-    data.x <- gather(data.x,key=data_element_attribute,value=elements,data_elements.x)
-    data.y <- gather(data.y,key=data_element_attribute,value=elements,data_elements.y)
+    data.x <- gather(data.x,key=data_indices,value="elements",data_elements.x)
+    data.y <- gather(data.y,key=data_indices,value="elements",data_elements.y)
     
     data <- rbind(data.x,data.y)
     data <- data[(data[,"elements"]%in%vocab),]
@@ -22,7 +22,7 @@ find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,
     
     data <- data.x[,c(data_indices,data_elements.x)]
     
-    data <- gather(data,key=data_element_attribute,value=elements,data_elements.x)
+    data <- gather(data,key=data_indices,value="elements",data_elements.x)
     data <- data[(data[,"elements"]%in%vocab),]
   }
   

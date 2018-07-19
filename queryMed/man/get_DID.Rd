@@ -8,18 +8,18 @@ Retrieve Drug Indication Database (DID) data
 Function that load Drug Indication Database (DID) from source.
 }
 \usage{
-get_DID(mapping_atc = TRUE, mapping_icd10 = TRUE, api_key=="")
+get_DID(mapping_atc = FALSE, mapping_icd10 = FALSE, api_key = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{mapping_atc}{
-  By default the ragulent is FALSE. When TRUE an additional maping to ATC code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
+  By default the argument is FALSE. When TRUE an additional mapping to ATC code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
 }
   \item{mapping_icd10}{
-  By default the ragulent is FALSE. When TRUE an additional maping to ICD10 code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
+  By default the argument is FALSE. When TRUE an additional mapping to ICD10 code is performed but a valid API Key is required to connect to and query BIOPORTAL services.
 }
 \item{api_key}{
-  Optional argumant. A valid API Key is required to access any API call on Bioportal. To have one, you need to register at http://bioportal.bioontology.org/.
+  Optional argument. A valid API Key is required to access any API call on Bioportal. To have one, you need to register at http://bioportal.bioontology.org/.
 }
 }
 \details{

@@ -24,26 +24,13 @@ find_pairs(items = "", target = "", target_elements = "")
 \details{
 No meant to be used by itself
 }
-\value{
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Y. Rivault
 }
 \note{
-%%  ~~further notes~~
+internal function
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also as \code{\link[pkg:queryMed]{find_relations}}
 }
-\examples{
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+

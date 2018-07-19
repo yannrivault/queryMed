@@ -40,14 +40,12 @@ Y. Rivault
 See Also \code{\link{get_DIKB}} and \code{\link{mapping_atc_db}} functions
 }
 \examples{
+\dontrun{
 DIKB <- get_DIKB(path="/tmp",mapping="ATC")
-
 head(DIKB)
 colnames(DIKB)
 dim(DIKB)
-
-head(DIKB[DIKB$source=="FrenchDB",])
-
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
