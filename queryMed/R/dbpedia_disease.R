@@ -27,6 +27,7 @@ dbpedia_disease <- function(lang="en",icd10=NULL,icd9=NULL){
   res <- res %>% mutate(icd10 = strsplit(as.character(icd10), ",")) %>% unnest(icd10)
   
   if(!is.null(icd10)){
+    icd10 <- gsub('^([A-Z]{1}[0-9]{2})([0-9]+)$', '\\1.\\2', icd10)  
     res <- res[res$icd10 %in% icd10,]
   }
   if(!is.null(icd9)){
