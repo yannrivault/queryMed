@@ -32,7 +32,7 @@ importFrom("dplyr", mutate, as_tibble)
 
 importFrom("grDevices", colorRampPalette)
 
-import(rrdf)
+import("rrdf")
  
 export("uri2norm",
        "sparql",
