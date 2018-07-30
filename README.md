@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The queryMed package purpose is to provide to pharmaco-epidemiologists easiest ways of accessing and linking medical and pharmacological knowledges to electronic heath record.
+The queryMed package purpose is to provide to pharmaco-epidemiologists easiest ways of accessing and linking medical and pharmacological knowledges to electronic health record.
 
 The package leverages the Semantic Web technologies and the Linked Data to retrieve pharmacological and medical annotations, and to link it to the main medical nomenclatures.
 For example, queryMed allows to search for drug contraindications, indications and interactions in a database of electronic health records.
