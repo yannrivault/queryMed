@@ -6,5 +6,5 @@ mapping_cui <- function(codes=NULL,ontologies_source="",ontologies_target="",api
   res <- merge(cui_source,target,by="cui",all=T)
   colnames(res)=c("cui","source","target")
   
-  return(res)
+  return(unique(res))
 }
