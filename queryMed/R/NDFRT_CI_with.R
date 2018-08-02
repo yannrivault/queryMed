@@ -26,7 +26,7 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   results=sparql(url="http://sparql.hegroup.org/sparql/",query=query)
   
   if(!is.null(drug_mapping)){
-    drugs=mapping_cui(codes=results$cui_drug,ontologies=drug_mapping,api_key=api_key)
+    drugs=codes2cui(codes=results$cui_drug,ontologies=drug_mapping,api_key=api_key)
     if("cui" %in% colnames(drugs)){
       results=merge(results,unique(merge(results,drugs,by.x="cui_drug",by.y="cui")),all.x=T)
       colnames(results)[colnames(results)=="classe"]="drug_mapping"
@@ -34,7 +34,7 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   }
   
   if(!is.null(diagnostic_mapping)){
-    diagnostics=mapping_cui(codes=results$cui_diag,ontologies=diagnostic_mapping,api_key=api_key)
+    diagnostics=codes2cui(codes=results$cui_diag,ontologies=diagnostic_mapping,api_key=api_key)
     if("cui" %in% colnames(diagnostics)){
       results=merge(results,unique(merge(results,diagnostics,by.x="cui_diag",by.y="cui")),all.x=T)
       colnames(results)[colnames(results)=="classe"]="diag_mapping"

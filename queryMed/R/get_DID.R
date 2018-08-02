@@ -14,13 +14,13 @@ get_DID <- function(mapping_atc=FALSE,mapping_icd10=FALSE,api_key=""){
   
   
   if(mapping_icd10 & api_key!=""){
-    cui_icd10 <- mapping_cui(codes=DID$indication.UMLS_phenotype.CUI,ontologies=c("ICD10","ICD10CM"),api_key=api_key)
+    cui_icd10 <- codes2cui(codes=DID$indication.UMLS_phenotype.CUI,ontologies=c("ICD10","ICD10CM"),api_key=api_key)
     DID <- merge(DID,cui_icd10,by.x="indication.UMLS_phenotype.CUI" ,by.y="cui",all.x=T)
     colnames(DID)[colnames(DID)=="classe"]="icd10"
   }
   
   if(mapping_atc & api_key!=""){
-    atc_cui <- mapping_cui(codes=DID$drug.UMLS.CUI,ontologies="ATC",api_key=api_key)
+    atc_cui <- codes2cui(codes=DID$drug.UMLS.CUI,ontologies="ATC",api_key=api_key)
     DID <- merge(DID,atc_cui,by.x="drug.UMLS.CUI",by.y="cui",all.x=T)
     colnames(DID)[colnames(DID)=="classe"]="atc"
   }
