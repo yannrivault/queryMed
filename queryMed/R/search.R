@@ -1,5 +1,7 @@
 search <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
   
+  options(warn=2)
+  
   if(service=="bioportal"){service <- "http://data.bioontology.org/search?"}
   else if (service=="sifr"){service <- "http://data.bioportal.lirmm.fr/search?"}
   else {
@@ -9,11 +11,10 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
   
   if (length(term)<1){
     warning("Give at least one term")
-    return(NULL)
   }
   
   if (ontologies=="ICD10"|| ontologies=="ICD10CM"){
-    term <- gsub('^([A-Z]{1}[0-9]{2})([0-9]+)$', '\\1.\\2', term)  
+    term <- gsub('^([A-Z]{1}[0-9]{2})([0-9]+)$', '\\1.\\2', term)
   }
   
   if (length(term)>0){
@@ -31,9 +32,8 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
   pagesize <- content(results)$totalCount
   
   
-  if ("error" %in% names(content)){
-    warning(content$error)
-    return(NULL)
+  if ("error" %in% names(content(results))){
+    warning(content(results)$error)
   }
   else if (is.null(pagesize) || pagesize==0){
     return(NULL)
@@ -44,4 +44,7 @@ search <- function(term="",ontologies="",service="bioportal",api_key="",extra_ar
     content <- content(results)
     return(content)
   }
+  
+  options(warn=1)
+  
 }
