@@ -103,7 +103,7 @@ But drugs are not always codified according to the ATC nomenclature. Linked Data
 This kind of mapping is not always easy to use. We provide a function, *mapping_cui()*, that allows to search for a CUI mapping between medical terms. Because the function programmatically access to BioPortal API [@whetzel11] to search for a potential mapping, it needs an API key. To have one, you need to register at [BioPortal](http://bioportal.bioontology.org/).
 
 ```{r mapping_cui, eval=F}
-drug_ATC_NDFRT <- mapping_cui(drug_set$ATC,
+drug_ATC_NDFRT <- mapping_cui(codes=drug_set$ATC,
                               ontologies_source="ATC",
                               ontologies_target="NDFRT",
                               api_key="your_api_key")
