@@ -3,8 +3,8 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
   query="
   prefix ndf: <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl#>
   prefix umls: <http://bioportal.bioontology.org/ontologies/umls/>
-  
-  SELECT DISTINCT ?ndf_drug ?ndf_diag ?cui_drug ?cui_diag
+
+  SELECT DISTINCT ?ndf_drug ?cui_drug ?label_drug ?ndf_diag ?cui_diag ?label_diag
   FROM <http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl>
   WHERE {
   
@@ -19,6 +19,9 @@ NDFRT_CI_with <- function(drug_mapping=NULL,diagnostic_mapping=NULL,api_key=""){
       owl:someValuesFrom ?ndf_diag .
   
   ?ndf_diag ndf:UMLS_CUI ?cui_diag .
+
+  OPTIONAL{?ndf_diag rdfs:label ?label_diag .}
+  OPTIONAL{?ndf_drug rdfs:label ?label_drug .}
 
   }
   "
