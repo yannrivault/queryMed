@@ -1,0 +1,231 @@
+---
+title: "queryMed package: how to annotate medicine and pathology codes for pharmaco-epidemiological studies"
+author: "Y. Rivault, O.Dameron, and N. Le Meur"
+date: "03/08/2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction :
+
+Because medical data, for example drugs and diseases, is often codified according to international nomenclatures, it can be linked to knowledge representations from medical and pharmacological domains. This can help improving data analysis by adding information to data, for exemple by mining drug-drug interactions in a database of drug consumption [@pathak13].
+
+Semantic Web technologies and Linked Data initiatives have led to the spread of knowledge representations through ontologies, thesauri, taxonomies and nomenclatures. By providing standards and technologies for knowledge representation, integration and interrogation, the Semantic Web supports both technical and semantic interoperability for knowledge sharing and reuse. But if several Linked Data initiatives have published medical and pharmacological ontologies, the use of these standards, technologies and knowledge representations is still hesitant by the statisticians who deal with healthcare databases.
+
+The queryMed package purpose is to provide a user-friendly way to access the main medical and pharmacological knowledge sources from the Linked Data, through R, and linking them to healthcare data, so that the biostatisticians, epidemiologist and pharmaco-epidemiologists could enrich the data they analyze.
+
+## Installing queryMed 
+
+To retrieve and install queryMed, for the first time through github, you can use *devtools* R package:
+
+```{r install, eval=F}
+install.packages("devtools")
+devtools::install_github("yannrivault/queryMed/queryMed")
+```
+
+To load queryMed call the *library()* function:
+```{r loading, message=F}
+library(queryMed)
+```
+
+## SPARQL
+
+SPARQL is one of the standards from the Semantic Web. It allows to query knowledge and data written in the Semantic Web representation standards (e.g. RDF and OWL). Some remote servers, called SPARQL endpoints, give acces to such data and knowledge. As you might already guessed, it can be queried with SPARQL.
+There are many SPARQL endpoints that are fully or partly dedicated to biomedical knowledge : [BioPortal](http://sparql.bioontology.org/)[@salvadores13], [Bio2rdf](http://bio2rdf.org/sparql) [@callahan13], [Ontobee](http://sparql.hegroup.org/sparql/) [@ong17] or also [DB-pedia](https://dbpedia.org/sparql) [@lehmann15].
+
+*queryMed* offers an elementary function to send SPARQL queries over SPARQL endpoints from the Web.
+
+Here is an example of a SPARQL query, sent on [bio2rdf](http://bio2rdf.org/sparql) :
+
+```{r first sparql query}
+query=
+"SELECT DISTINCT *
+  WHERE  {
+    ?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .
+    ?db dcterms:title ?title .
+    ?db rdfs:label ?label .
+    ?db dcterms:description ?description .
+    ?db <http://bio2rdf.org/drugbank_vocabulary:category> ?category .
+  }
+limit 5
+"
+  
+res=sparql(query,url="http://bio2rdf.org/sparql")
+res
+```
+
+If Uniform Resource Identifier (URI) is a standard in the Semantic Web, it is not so convenient from a statistician point of vue.
+Let's turn it into normal data with *uri2norm()*.
+
+```{r uri2norm}
+uri2norm(res)
+```
+
+The query results give some informations about drugs that are both in drugbank nomenclature and Anatomical Therapeutic and Chemical classification (ATC).
+
+But querying knowledge and data through SPARQL endpoints on the Web requires an expertise in SPARQL syntax, the knowledge of potential useful SPARQL endpoints and also the representation of the knowledge they contain. This is probably why their use remains shy in some domains, for example in epidemiology and more generally in public health [@ferreira13].
+
+*queryMed* provides predefined SPARQL queries dedicated to medical and pharmacological domains --drugs and diseases-- embeded in R functions.
+
+## Could we retrieve some information about the drugs present in a healthcare database ?
+
+The example dataset *drug_set* is a dataframe that contains patients Id and prescribed drugs, codified according to the ATC.
+
+```{r load drug_set}
+data(drug_set)
+drug_set[1:5,1:2]
+```
+To retrieve  some information about drugs we could call *bio2rdf()* or *dbpedia()*.
+These functions send predefined querries on [Bio2RDF](http://bio2rdf.org/sparql) and respectivelly [DBpedia](https://dbpedia.org/sparql).
+
+```{r bio2rdf and dbpedia}
+bio2rdf <- uri2norm(bio2rdf_db(lang="en"))
+dbpedia <- uri2norm(dbpedia_drug(lang="en"))
+```
+
+And then we could apply a filter on the drug present in our database :
+
+```{r filter}
+drug_set_bio2rdf <- bio2rdf[bio2rdf$atc %in% drug_set$ATC,]
+drug_set_dbpedia <- dbpedia[dbpedia$atc %in% drug_set$ATC,]
+head(drug_set_bio2rdf)
+head(drug_set_dbpedia)
+```
+
+But drugs are not always codified according to the ATC nomenclature. Linked Data initiatives have made significant effors to provide links --or mappings-- between the main nomenclatures. For example, the Concept Unique Identifier(CUI) from the Unified Medical Language System has been used to annotate codes of drugs and diagnoses from several nomenclatures.
+This kind of mapping is not always easy to use. We provide a function, *mapping_cui()*, that allows to search for a CUI mapping between medical terms. Because the function programmatically access to BioPortal API [@whetzel11] to search for a potential mapping, it needs an API key. To have one, you need to register at [BioPortal](http://bioportal.bioontology.org/).
+
+```{r mapping_cui, eval=F}
+drug_ATC_NDFRT <- mapping_cui(drug_set$ATC,
+                              ontologies_source="ATC",
+                              ontologies_target="NDFRT",
+                              api_key="your_api_key")
+head(drug_ATC_NDFRT)
+```
+It gives us a mapping between ATC codes from *drug_set* and the National Drug File - Reference Terminology (NDF-RT), using CUI, when it exists.
+
+Then we can merge this mapping table to our initial database :
+```{r merging, eval=F}
+drug_set_ATC_CUI_NDFRT <- merge(drug_set[,c("patient","ATC")],
+                                drug_ATC_NDFRT,by.x="ATC",
+                                by.y="source",
+                                all.x=T)
+head(drug_set_ATC_CUI_NDFRT)
+```
+
+This allows to extend the approach to the main medical and pharmacological nomenclatures.
+For the next examples, we added NDF-RT mapping in *drug_set* and *disease_set* databases.
+
+This is for the moment quite simple annotation. queryMed offers also the possibility to retrieve more complex informations, such as drug interactions, drug-disease contraindications and drug indications.
+
+
+## Drug-disease contraindications from the National Drug File - Reference Terminology
+
+The *NDFRT_CI_with()* function send a SPARQL query on [Ontobee SPARQL endpoint](http://sparql.hegroup.org/sparql/) to retrieve contraindications between drugs and diseases :
+
+```{r NDF-RT CI}
+NDFRT_CI <- NDFRT_CI_with()
+NDFRT_CI <- uri2norm(NDFRT_CI)
+head(NDFRT_CI)
+```
+
+If SPARQL endpoints and medical ontologies are quite dispersed over the Web, some initiatives have tried to gather similar knowledge from different sources from the Linked Data. Hence, the Drug Indication Database (DID) have pooled twelve sources of knowledge about drug indications [@sharp17]. Similarly, the Drug Interaction Knowledge Base (DIKB) have collected forteen sources of knowledge about potential drug interactions [@ayvaz15].
+
+## DID and DIKB
+
+Curated versions of DID and DIKB are available in *queryMed* as build-in datasets.
+
+```{r DID and DIKB}
+data(DIKB)
+data(DID)
+```
+
+We have now simple knowledge (e.g. definitions, synonyms, comments) as well as complex knowledge to annotate health data.
+If the simple knowledge is easy to merge with a health database of diseases or drugs, complex knowledge such as contraindications, interactions or indications, needs a more complexe function to search for semantic relations (here specifically pairs of codes) in a database.
+
+*find_relations()* function aims to perform this kind of mining.
+And with the appropriate knowledge, it can help to answer the following questions :
+
+* Do patients have drug-disease contraindications ?
+* Do patients have drug interaction ?
+* Do patients have drug indicated for their disease or health status ?
+
+Let us answer to these questions on the test databases present in *queryMed* : *drug_set* and *disease_set*.
+Similarly to *drug_set*, *disease_set* is a test dataframe that contains diseases codes for patients, codified according to the International Classification of Diseases - 10th revision (ICD10), and mapped to CUI and NDF-RT when the mapping exists.
+
+```{r load disease_set}
+data(disease_set)
+head(disease_set)
+```
+
+## Do patients have drug-disease contraindications ?
+
+NDF-RT can offer a part of the answer :
+
+```{r find drug-disease contraindications}
+contraindications <- find_relations(data.x=drug_set,
+                                    data.y=disease_set,
+                                    data_indices = "patient",
+                                    data_elements.x = "NDF-RT",
+                                    data_elements.y = "NDF-RT",
+                                    target=NDFRT_CI,
+                                    target_elements = c("ndf_drug","ndf_diag"), 
+                                    progress="none")
+
+nb_contraindications <- sum(contraindications != "No known relations")
+
+```
+We identified `r nb_contraindications` patients having at least one drug-disease contraindication, according to NDF-RT.
+
+```{r CI}
+contraindications[contraindications != "No known relations"][1]
+```
+
+
+## Do patients have drug interaction ?
+
+DIKB can offer a part of the answer :
+
+```{r find drug interactions}
+interactions <- find_relations(data.x=drug_set,
+                               data_indices = "patient",
+                               data_elements.x = "ATC",
+                               target=DIKB,
+                               target_elements = c("atc1","atc2"), 
+                               progress="none")
+
+nb_interact<- sum(interactions != "No known relations")
+
+```
+We identified `r nb_interact` patients who have at least one drug interaction, according to DIKB.
+Here is an example :
+```{r one drug interaction}
+interactions[interactions != "No known relations"][1]
+```
+
+## Do patients have drug indicated for their disease or health status ?
+
+DID can offer a part of the answer :
+
+```{r indication}
+indications <- find_relations(data.x=drug_set, data.y=disease_set,
+                              data_indices = "patient",
+                              data_elements.x= "ATC",
+                              data_elements.y ="ICD10",
+                              target=DID,
+                              target_elements=c("atc","icd10"),
+                              progress="none")
+
+nb_indication <- sum(indications != "No known relations")
+```
+We identified `r nb_indication` patients having at least one relation of indication between their drugs and their diseases, according to DID.
+
+
+## References
