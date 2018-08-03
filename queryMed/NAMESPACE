@@ -28,7 +28,7 @@ importFrom("plyr", dlply)
 
 importFrom("tidyr", gather, unnest)
 
-importFrom("dplyr", mutate, as_tibble, filter_at, vars, all_vars())
+importFrom("dplyr", mutate, as_tibble, filter_at, vars, all_vars)
 
 importFrom("grDevices", colorRampPalette)
 
