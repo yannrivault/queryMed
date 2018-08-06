@@ -1,5 +1,6 @@
 # queryMed R package: annotate medicine and pathology codes for pharmaco-epidemiological studies
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1323482.svg)](https://doi.org/10.5281/zenodo.1323482)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1337914.svg)](https://doi.org/10.5281/zenodo.1337914)
 
 ## Introduction
 
