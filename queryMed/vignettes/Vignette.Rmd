@@ -48,11 +48,11 @@ Here is an example of a SPARQL query, sent on [bio2rdf](http://bio2rdf.org/sparq
 query=
 "SELECT DISTINCT *
   WHERE  {
-    ?db <http://bio2rdf.org/access_vocabulary:x-atc> ?atc .
+    ?db <http://bio2rdf.org/drugbank_vocabulary:x-atc> ?atc .
     ?db dcterms:title ?title .
     ?db rdfs:label ?label .
     ?db dcterms:description ?description .
-    ?db <http://bio2rdf.org/access_vocabulary:category> ?category .
+    ?db <http://bio2rdf.org/drugbank_vocabulary:category> ?category .
   }
 limit 5
 "
