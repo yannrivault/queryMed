@@ -2,7 +2,7 @@
 \alias{search}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Acces to search BioPortal or SIFR REST API
+Access to BioPortal or SIFR search REST API
 }
 \description{
 This function allows retrieving knowledge from medical ontologies through BioPortal or SIFR search REST API.

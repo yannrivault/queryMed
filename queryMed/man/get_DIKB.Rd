@@ -27,7 +27,7 @@ Optional. Possible argument is ATC and the mapping is performed between DIKB and
 The function download the less concervative version of all PDDI datasets merged by Richard D. Boyce's group at University of Pittsburgh. See https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/ for details.
 }
 \value{
-Data frame with all variables avaible from Drug Interaction Knowledge Base (DIKB).
+Data frame with all variables available from Drug Interaction Knowledge Base (DIKB).
 }
 \references{
 Ayvaz et al. (2015) Toward a Complete Dataset of Drug–drug Interaction Information from Publicly Available Sources. Journal of Biomedial Informtics, 55: 206-217.

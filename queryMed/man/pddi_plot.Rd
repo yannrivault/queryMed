@@ -8,7 +8,7 @@ Potential drug-drug interaction graph
 This function proposes a graph representation of potential drug-drug interaction as listed in DIKB data base.
 }
 \usage{
-pddi_plot(drug="" , type="name", direction="object",source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL)
+pddi_plot(drug="" , type="name", direction="object", nbinteractions= 1, source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL)
 }
 \arguments{
   \item{drug}{
@@ -19,6 +19,9 @@ pddi_plot(drug="" , type="name", direction="object",source=NULL, contraindicatio
 }
   \item{direction}{
  character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB 
+}
+\item{nbinteractions}{
+ numeric that states the minimun number of sources listing the interaction or the number of time the interactions have been listed by a source.
 }
 \item{source}{
  character vector that specifies the original source of the potential drug-drug interaction. It could be CredibleMeds, DDI-Corpus-2011, DDI-Corpus-2013, Drugbank, FrenchDB,  HEP,  HIV,   NDF-RT, NLM-Corpus, ONC-HighPriority, ONC-NonInteruptive, OSCAR,  PK-Corpus, World-Vista, Kegg (See https://github.com/dbmi-pitt/public-PDDI-analysis for more details). 
@@ -53,7 +56,8 @@ N. Le Meur
 See Also as \code{\link[pkg:queryMed]{DIKB}}, \code{\link{igraph}}
 }
 \examples{
-pddi_plot("CLOPIDOGREL", "name", level=1)
+pddi_plot("CLOPIDOGREL", "name", level=4)
+pddi_plot("CLOPIDOGREL", "name", level=5, nbinteractions=2)
 }
 
 \keyword{pddi}

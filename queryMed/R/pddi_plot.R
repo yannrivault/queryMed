@@ -1,5 +1,5 @@
 ##################@
-pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
+pddi_plot <- function(drug= "", type="name", direction="object", nbinteractions= 1, source=NULL, contraindication= NULL, plot=TRUE, level=4, mypalette=NULL, weight=NULL){
 
   utils::data(DIKB)
   utils::data(ATC)  
@@ -68,16 +68,22 @@ pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, co
     statx <- x[, .N, by=list(object, atc1, drug1)]
   }
   statx <- data.frame(statx)
+# filter on number of sources stating the interaction
+  statx <- statx[statx$N >= nbinteractions, ]
   names(statx) <-   c("interact", "atc5", "dbi", "n")
-  statx <- merge(statx, ATC[, c("atc5", lev, lab, levm1)], by="atc5")
-  
+  if(level==5){
+    statx <- merge(statx, ATC[, c("atc5", lab, levm1)], by="atc5")
+  }else{
+    statx <- merge(statx, ATC[, c("atc5", lev, lab, levm1)], by="atc5")
+  }
+
+
   if(plot==TRUE){
 
     statx <- as.data.table(statx)
     statx<-statx[,.(n=sum(n)), by=c(lab, levm1)]
     statx <- data.frame(statx)
 
-   
     root <- unique(statx[, levm1])
     n = length(root)
       #mypalette<- colorRampPalette(brewer.pal(12,"Set3"))(n)
@@ -87,7 +93,6 @@ pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, co
     }
     mypalette = cbind(mypalette, "root"= as.character(root))
     statx <- merge(statx, mypalette, by.x=levm1, by.y="root")
-  
     if(!is.null(weight)){
       statx<- statx[statx$n>=weight, ]
     }
@@ -102,7 +107,12 @@ pddi_plot <- function(drug= "", type="name", direction="object", source=NULL, co
     E(g1)$width <- 1+E(g1)$weight*2
     V(g1)$size <- 20
     V(g1)$frame.color <- "white"
-    V(g1)$color <-  c("#FFFFCC", as.character(statx$mypalette))
+    if(level==5 & nbinteractions==1){
+      V(g1)$color <-  c(as.character(statx$mypalette))
+    }
+    else{
+      V(g1)$color <-  c("#FFFFCC", as.character(statx$mypalette))
+    }
     l1 <- layout_as_star(g1)
     plot(g1, edge.color="grey", layout=l1)
   }

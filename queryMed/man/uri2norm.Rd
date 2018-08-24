@@ -5,7 +5,7 @@
 uri2norm
 }
 \description{
-fonction that turn URI(s) into exploitable data:
+fonction that turn URI(s) into variable
 }
 \usage{
 uri2norm(X)
@@ -13,7 +13,7 @@ uri2norm(X)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{X}{
-One URI, a vector composed of URIs, a URI matrix, a URI dataframe.
+One URI, a vector composed of URIs, a matrix of URIs or a dataframe of URIs.
 }
 }
 \details{
