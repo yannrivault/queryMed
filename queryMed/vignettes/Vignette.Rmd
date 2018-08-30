@@ -109,7 +109,7 @@ drug_ATC_NDFRT <- mapping_cui(codes=drug_set$ATC,
                               api_key="your_api_key")
 head(drug_ATC_NDFRT)
 ```
-It gives you a mapping between ATC codes from *drug_set* and the National Drug File - Reference Terminology (NDF-RT), using CUI, when it exists.
+It gives you a mapping between ATC codes from *drug_set* and the National Drug File - Reference Terminology (NDF-RT), using CUI, when it exists (an ATC or NDF-RT code usually leads to at least one CUI code, but a term in NDF-RT could not exist in ATC, or vice versa).
 
 Then we can merge this mapping table to our initial database :
 ```{r merging, eval=F}
