@@ -53,7 +53,7 @@ If the argument graph is set to TRUE a graph is plotted and the associated data.
 N. Le Meur
 }
 \seealso{
-See Also as \code{\link[pkg:queryMed]{DIKB}}, \code{\link{igraph}}
+See Also \code{\link[pkg:queryMed]{DIKB}} dataset and \code{\link{igraph}} package
 }
 \examples{
 pddi_plot("CLOPIDOGREL", "name", level=4)

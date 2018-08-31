@@ -5,7 +5,7 @@
 Find relation between medical terms and pairs of known biomedical relations listed in Knowledge database
 }
 \description{
-Function to find intersection between medical terms (disease, drugs...) and pairs defining a biomedical relationship like interactions, contraindications and indications through database .
+Function to find intersection between medical terms (disease, drugs...) and pairs defining a biomedical relationship like interactions, contraindications and indications.
 }
 \usage{
 find_relations(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="none")
@@ -43,7 +43,9 @@ find_relations(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_element
 \value{
 }
 \references{
-%% ~put references to the literature/web site here ~
+Ayvaz et al. (2015) Toward a Complete Dataset of Drug–drug Interaction Information from Publicly Available Sources. Journal of Biomedial Informtics, 55: 206-217.
+
+Sharp ME (2017). Toward a comprehensive drug ontology: extraction of drug-indication relations from diverse information sources. Journal of Biomedical Semantics,8:2.
 }
 \author{
 Y. Rivault
@@ -55,7 +57,7 @@ Y. Rivault
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+See Also \code{\link[pkg:queryMed]{DIKB}}, \code{\link[pkg:queryMed]{DID}} datasets
 }
 \examples{
 # Do patients have drug interaction ?
