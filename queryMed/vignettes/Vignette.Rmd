@@ -182,7 +182,7 @@ contraindications <- find_relations(data.x=drug_set,
 nb_contraindications <- sum(contraindications != "No known relations")
 
 ```
-We identified `r nb_contraindications` patient(s) having at least one drug-disease contraindication, according to NDF-RT.
+We identified `r nb_contraindications` patient having at least one drug-disease contraindication, according to NDF-RT.
 
 ```{r CI}
 contraindications[contraindications != "No known relations"][1]
