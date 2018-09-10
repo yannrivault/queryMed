@@ -1,3 +1,21 @@
+#' Find pairs of relation
+#'
+#'Internal function for the find_relations function call
+#'
+#' @importFrom dplyr filter_at vars all_vars
+#'
+#' @param items database where to search for relations.
+#' @param target Knowledge database (e.g. DIKB, DID, NDF-RT, etc)
+#' @param target_elements Rows representing the relations.
+#'
+#' @details No meant to be used by itself
+#' 
+#' @export
+#'
+#' @author Y. Rivault
+#' @note internal function
+#' @seealso [find_relations()]
+
 find_pairs<- function(items,target,target_elements){
   
   items <- items[!is.na(items)]

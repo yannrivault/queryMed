@@ -1,3 +1,27 @@
+#' Information retrieval from DBpedia drug
+#' 
+#' Retrieve drug information from dbpedia such as atc and drug bank identifier codes
+#'   
+#' @param lang Language for character results
+#' @param atc A vector of ATC codes for which to retrieve informations
+#' @param db A vector of DrugBank codes for which to retrieve informations
+#' 
+#' @return data table of drug terms and their annotation : drug, atc code,  drug bank identifier,  abstract,   comment, label. When querying the whole dataset, the data table is of size 8712 rows by 6 columns.
+#' 
+#' @references Lehman, J et al (2015) Dbpedia: a large-scale, multilingual knowledge extracted from wikipedia. Semantic Web, 6: 167-195 
+#' @export
+#' 
+#' @author Y. Rivault
+#' 
+#' @seealso [dbpedia_disease]
+#' 
+#' @examples
+#'   \dontrun{
+#'     drug_dbp <- dbpedia_drug(lang="en")
+#'     head(drug_dbp)
+#'   }
+
+
 dbpedia_drug <- function(lang="en",atc=NULL,db=NULL){
   
   lang=paste(lang,collapse="\",\"")

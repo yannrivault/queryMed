@@ -1,3 +1,30 @@
+#' Disease information from dbpedia
+#' 
+#' Retrieve disease information from dbpedia such as ICD10-ICD9 matching, label, synonyms etc.
+#' 
+#' @param lang Character vector to specify the language of the results returned 
+#' @param icd10 A vector of icd10 codes for which to retrieve informations
+#' @param icd9 A vector of icd9 codes for which to retrieve informations
+#'   
+#' @importFrom dplyr mutate
+#' @importFrom tidyr unnest
+#'     
+#' @return data table of disease terms and their annotation: disease name, icd10, icd9,   abstract, comment, label, synonyms. When querying the whole dataset, the data table is of size 5523 rows by 6 columns.
+#' 
+#' @references Lehman, J et al (2015) Dbpedia: a large-scale, multilingual knowledge extracted from wikipedia. Semantic Web, 6: 167-195 
+#' 
+#' @export
+#' 
+#' @author Y. Rivault
+#' 
+#' @seealso [dbpedia_drug]
+#' 
+#' @examples
+#'  \dontrun{
+#'     disease_dbp <- dbpedia_disease(lang="en")
+#'     head(disease_dbp)
+#'   }
+
 dbpedia_disease <- function(lang="en",icd10=NULL,icd9=NULL){
   
   lang=paste(lang,collapse="\",\"")

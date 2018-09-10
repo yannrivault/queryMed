@@ -1,4 +1,20 @@
-# bio2rdf
+#' Retrieve drug informations from bio2rdf
+#' 
+#' Retrieve drug informations from bio2rdf SPARQL endpoint such as label, description, category, etc.
+#'
+#' @param lang Character vector to specify the language of the results returned 
+#' @param atc A vector of atc codes for which to retrieve informations
+#' @param db A vector of db codes for which to retrieve informations
+#' 
+#' @export
+#' 
+#' @author Y. Rivault
+#' @examples
+#'  \dontrun{
+#'    bio2rdf <- bio2rdf_db(lang="en")
+#'    head(bio2rdf)
+#' }
+#' 
 
 bio2rdf_db <- function(lang="en",atc=NULL,db=NULL){
   

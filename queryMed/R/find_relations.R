@@ -1,3 +1,35 @@
+#' Find relation between medical terms 
+#' 
+#' Function to find intersection between medical terms (disease, drugs...) and pairs defining a biomedical relationship like interactions, contraindications and indications listed in Knowledge database.
+#' 
+#' @importFrom dplyr filter_at vars all_vars
+#' @importFrom tidyr gather 
+#' @importFrom plyr dlply
+#' 
+#' @param data.x Data frame with one column of identifier and one column of medical terms
+#' @param data_indices column names of data.x that contains identifiers.
+#' @param data_elements.x column names of data.x that contains medical term of interest.
+#' @param data.y  Data frame with one column of identifier and one column of medical terms
+#' @param data_elements.y column names of data.y that contains medical term of interest.
+#' @param target Knowledge database (e.g. DIKB, DID, NDF-RT, etc)
+#' @param target_elements Column names where to look for relations (in pairs).
+#' @param progress Whether or not to display progress bar. Default is set to "none"
+#' 
+#' @references Ayvaz et al (2015) Toward complete dataset of drug-drug interaction information from publicly available sources. Journal of Biomedical Informatics, 55: 206-217.
+#' @references Sharp ME (2017). Toward a comprehensive drug ontology: extraction of drug-indication relations from diverse information sources. Journal of Biomedical Semantics,8:2.
+#' @author Y. Rivault
+#' @seealso [DIKB] dataset and [DID] dataset
+#' 
+#' @export 
+#' 
+#' @examples 
+#' # Do patients have drug interaction
+#' data(drug_set)
+#' data(DIKB)
+#' interactions <- find_relations(data.x=drug_set,   data_indices = "patient",  
+#' data_elements.x = "drugs", target=DIKB, target_elements = c("atc1","atc2"),  progress="none")
+#'  interactions[[1]]
+
 find_relations <- function(data.x,data_indices,data.y=NULL,data_elements.x=NULL,data_elements.y=NULL,target,target_elements,progress="none"){
   
   options(warn=2)

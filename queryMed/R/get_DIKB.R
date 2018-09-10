@@ -1,4 +1,28 @@
-# I don't know yet if it is preferable to load the database in the package, instead of having a function that load it.
+#' Retrieve Drug Interaction Knowledge Base (DIKB) data
+#'
+#' This function downloads the Drug Interaction Knowledge Base (DIKB) from source.
+#'
+#' @param path filepath where to download the Drug Interaction Knowledge Base. By default it is the current working directory.
+#' @param url URL of the location of the Drug Interaction Knowledge Base (DIKB). By default it is <https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/> but the argument exists in case the url happens to change.
+#' @param mapping Optional. Possible argument is ATC and the mapping is performed between DIKB and ATC information from  <http://bio2rdf.org and https://dbpedia.org/>
+#'
+#' @importFrom httr set_config config write_disk
+#'
+#' @details The function download the less conservative version of all PDDI datasets merged by Richard D. Boyce's group at University of Pittsburgh. See <https://dbmi-icode-01.dbmi.pitt.edu/dikb-evidence/pddi-sets/> for details.
+#' @return Data frame with all variables available from Drug Interaction Knowledge Base (DIKB).
+#' 
+#' @references Ayvaz et al (2015) Toward complete dataset of drug-drug interaction information from publicly available sources. Journal of Biomedical Informatics, 55: 206-217.
+#' @export
+#' 
+#' @author Y. Rivault
+#' @seealso [get_DIKB()] and [mapping_atc_db()]
+#' @examples
+#' \dontrun{
+#' DIKB <- get_DIKB(path="/tmp",mapping="ATC")
+#' head(DIKB)
+#' colnames(DIKB)
+#' dim(DIKB)
+#' }
 
 get_DIKB <- function(path=getwd(),url=NULL,mapping=NULL){
   # In case of replaced url, user can specify the new url

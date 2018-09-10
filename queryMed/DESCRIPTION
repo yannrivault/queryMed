@@ -3,9 +3,12 @@ Type: Package
 Title: queryMed: annotate medicine and pathology codes for pharmaco-epidemiological studies
 Version: 0.1
 Date: 2018-03-30
-Author: Y. Rivault, O. Dameron, N. Le Meur
-Maintainer: Y. Rivault <yann.rivault@ehesp.fr>
-Depends: R (>= 3.4.3)
+Authors@R: c(
+    person("Yann", "Rivault", email="yann.rivault@ehesp.fr", role=c("aut", "cre")),
+    person("Olivier", "Dameron",email="olivier.dameron@univ-rennes1.fr", role=c("aut")),
+    person("Nolwenn", "Le Meur", email="nolwenn.lemeur@ehesp.fr", role=c("aut","ctb"))
+    )
+Depends: R (>= 3.4.0)
 Imports:
   jsonlite,
   httr,
@@ -25,6 +28,26 @@ Imports:
   rrdf,
   remotes,
 Remotes: github::egonw/rrdf/rrdflibs, github::egonw/rrdf/rrdf
-Description:  By leveraging the web of data from R, queryMed allows you to retrieve essential medical and pharmacological knowledge. It thus makes it possible to extract knowledge on drug indications, their interactions, contraindications and to link this knowledge to different international medical classifications.
+Description: By leveraging the web of data from R, queryMed allows you to retrieve essential medical and pharmacological knowledge. It thus makes it possible to extract knowledge on drug indications, their interactions, contraindications and to link this knowledge to different international medical classifications.
 License: Artistic-2.0
-
+RoxygenNote: 6.1.0
+Collate: 
+    'NDFRT_CI_with.R'
+    'annotator.R'
+    'bio2rdf_db.R'
+    'codes2cui.R'
+    'data.R'
+    'dbpedia_disease.R'
+    'dbpedia_drug.R'
+    'find_pairs.R'
+    'find_relations.R'
+    'get_DID.R'
+    'get_DIKB.R'
+    'get_ancestors.R'
+    'helper_functions.R'
+    'mapping_atc_db.R'
+    'mapping_cui.R'
+    'plot_functions.R'
+    'search.R'
+    'sparql.R'
+    'uri2norm.R'
