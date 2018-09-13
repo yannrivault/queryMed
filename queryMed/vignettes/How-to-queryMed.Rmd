@@ -27,7 +27,7 @@ To retrieve and install queryMed, for the first time through github, you can use
 
 ```{r install, eval=F}
 install.packages("devtools")
-devtools::install_github("yannrivault/queryMed/queryMed")
+devtools::install_github("yannrivault/queryMed/queryMed@queryMed_0.5.1")
 ```
 
 To load queryMed call the *library()* function:
