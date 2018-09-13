@@ -64,15 +64,7 @@ pddi_plot <- function(drug, type="name", direction="object",
       }
     } 
   }
-  # # looking more specifically for precaution (or not)
-  # if(!is.null(precaution)){
-  #   if(precaution==TRUE){
-  #     DIKB<-DIKB[DIKB$precaution==TRUE,]
-  #     if(is.null(nrow(x))) {
-  #       return(warning("No precaution found"))
-  #     }
-  #   } 
-  # }  
+ 
   # drug can be as a character,as a drung bank ID, or an ATC code
   if(direction=="object"){
     x <- switch(type,
@@ -121,8 +113,7 @@ pddi_plot <- function(drug, type="name", direction="object",
 
     root <- unique(statx[, levm1])
     n <- length(root)
-      #mypalette<- colorRampPalette(brewer.pal(12,"Set3"))(n)
-      #mypalette<- colorRampPalette(brewer.pal(9,"YlOrRd"))(n)
+
     if(is.null(mypalette)){
       mypalette <- colorRampPalette(brewer.pal(11,"Spectral"))(n)
     }
