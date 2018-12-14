@@ -3,22 +3,31 @@
 \name{is.atc}
 \alias{is.atc}
 \alias{is.icd10}
+\alias{icd10decimal}
 \title{Test validity of ATC or ICD10 code}
 \usage{
 is.atc(x)
 
 is.icd10(x)
+
+icd10decimal(x)
 }
 \arguments{
-\item{x}{Character vector to test as ATC code.}
+\item{x}{Character vector to test or convert}
 }
 \value{
-logical vector that indicates which elements are ATC code
+For the is.atc and is.icd10 function call a logical vector is retruened. 
+It indicates which elements are ATC or ICD10 codes. 
+For icd10decimal fuction call a Character vector of ICD10 codes with decimal is return.
 }
 \description{
 `is.atc` verify that the given character vector is an ATC code
+`is.icd10` verify that the given character vector is an ICD10 code
+`icd10decimal` convert given character vector of plain ICD10 codes (ex S743) to decimal ICD10 codes (ex S74.3)
 }
 \examples{
 is.atc(c("C10AB01", "N07BB01"))
 is.atc(c("C10AB01", "N07"))
+is.icd10(c("I70.2", "S74.3"))
+icd10decimal(c("I70.21", "S743")) 
 }

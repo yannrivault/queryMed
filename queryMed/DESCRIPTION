@@ -1,7 +1,7 @@
 Package: queryMed
 Type: Package
 Title: queryMed: annotate medicine and pathology codes for pharmaco-epidemiological studies
-Version: 0.1
+Version: 0.2
 Date: 2018-03-30
 Authors@R: c(
     person("Yann", "Rivault", email="yann.rivault@ehesp.fr", role=c("aut", "cre")),
@@ -9,6 +9,7 @@ Authors@R: c(
     person("Nolwenn", "Le Meur", email="nolwenn.lemeur@ehesp.fr", role=c("aut","ctb"))
     )
 Depends: R (>= 3.4.0)
+Encoding: UTF-8
 Imports:
   jsonlite,
   httr,

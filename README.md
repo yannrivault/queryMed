@@ -15,4 +15,4 @@ For example, queryMed allows to search for drug contraindications, indications a
 
 queryMed is released as an open source software available on github.
 
-To install it from github, first install the devtools package and and then run ``devtools::install_github("yannrivault/queryMed/queryMed@queryMed_0.5.1")``.
+To install it from github, first install the devtools package and then run ``devtools::install_github("yannrivault/queryMed/queryMed@queryMed_0.5.1")``.
