@@ -33,9 +33,9 @@ uri2norm <- function(X){
     else{return(as.data.frame(X))}
     }
   else {
-    X <- llply(X,function(x){gsub(".*[#/]|>", "", x)})
-    X <- llply(X,function(x){gsub("(^\\s*|\\s*$)", "", x)})
-    X <- llply(X,function(x){gsub("[A-z0-9]*[:]", "", x)})
+    X <- gsub(".*[#/]|>", "", X)
+    X <- gsub("(^\\s*|\\s*$)", "", X)
+    X <- gsub("[A-z0-9]*[:]", "", X)
     return(X)
    }
 }
