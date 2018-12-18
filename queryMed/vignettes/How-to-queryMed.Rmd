@@ -27,7 +27,7 @@ To retrieve and install queryMed, for the first time through github, you can use
 
 ```{r install, eval=F}
 install.packages("devtools")
-devtools::install_github("yannrivault/queryMed/queryMed@queryMed_0.5.1")
+devtools::install_github("yannrivault/queryMed/queryMed")
 ```
 
 To load queryMed call the *library()* function:
@@ -220,7 +220,7 @@ indications <- find_relations(data.x=drug_set, data.y=disease_set,
                               data_elements.x= "ATC",
                               data_elements.y ="ICD10",
                               target=DID,
-                              target_elements=c("atc","icd10"),
+                              target_elements=c("atc_flattened","icd10_flattened"),
                               progress="none")
 
 nb_indication <- sum(indications != "No known relations")
