@@ -17,7 +17,7 @@
 #'  mcui
 #'  }
 
-codes2cui <- function(codes=NULL, ontologies="", api_key="",encoding=encoding){
+codes2cui <- function(codes=NULL, ontologies="", api_key=""){
   options(warn=2)
   
   codes <- unique(codes)
