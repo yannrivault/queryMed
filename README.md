@@ -26,12 +26,12 @@ To cite queryMed in publications, please use:
 
 A BibTeX entry for LaTeX users is
 
-  @Misc{,
-    author = {Yann Rivault and Olivier Dameron and Nolwenn {Le Meur}},
-    title = {ueryMed: Semantic Web functions for linking pharmacological and medical knowledge to data},
-    publisher = {Bioinformatics},
-    year = {2019},
-    doi = {https://doi.org/10.1093/bioinformatics/btz03},
+  @Misc{,<br/>
+    author = {Yann Rivault and Olivier Dameron and Nolwenn {Le Meur}},<br/>
+    title = {queryMed: Semantic Web functions for linking pharmacological and medical knowledge to data},<br/>
+    publisher = {Bioinformatics},<br/>
+    year = {2019},<br/>
+    doi = {https://doi.org/10.1093/bioinformatics/btz03},<br/>
   }
 
 
