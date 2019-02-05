@@ -2,11 +2,9 @@ citHeader("To cite queryMed in publications, please use:")
 
 citEntry(entry = "misc",
   author = "Yann Rivault, Olivier Dameron and Nolwenn Le Meur",
-  title = "queryMed: annotate medicine and pathology codes for pharmaco-epidemiological studies",
-  publisher = "Zenodo",
-  repository = "Github",
-  year = "2018",
-  doi = "10.5281/zenodo.1409452",
-  url = "https://github.com/yannrivault/queryMed",
-  textVersion = "Y. Rivault, O. Dameron and N. Le Meur.queryMed: annotate medicine and pathology codes for pharmaco-epidemiological studies,GitHub repository, 2018. DOI:10.5281/zenodo.1409452"
+  title = "ueryMed: Semantic Web functions for linking pharmacological and medical knowledge to data",
+  publisher = "Bioinformatics",
+  year = "2019",
+  doi = "https://doi.org/10.1093/bioinformatics/btz03",
+  textVersion = "Y Rivault, O Dameron, N Le Meur; queryMed: Semantic Web functions for linking pharmacological and medical knowledge to data, Bioinformatics, btz034, https://doi.org/10.1093/bioinformatics/btz034"
 )
