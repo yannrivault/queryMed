@@ -2,7 +2,7 @@ citHeader("To cite queryMed in publications, please use:")
 
 citEntry(entry = "misc",
   author = "Yann Rivault, Olivier Dameron and Nolwenn Le Meur",
-  title = "ueryMed: Semantic Web functions for linking pharmacological and medical knowledge to data",
+  title = "queryMed: Semantic Web functions for linking pharmacological and medical knowledge to data",
   publisher = "Bioinformatics",
   year = "2019",
   doi = "https://doi.org/10.1093/bioinformatics/btz03",
