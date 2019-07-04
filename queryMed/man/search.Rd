@@ -28,13 +28,11 @@ This function allows retrieving knowledge from medical ontologies through BioPor
 This is a low level function. The return are return as JSON list of lists.
 }
 \examples{
-\donttest{
-  \dontrun{
-    disease72 = search(term = "I72", ontologies = "ICD10", 
+ \dontrun{
+    disease72 = queryMed::search(term = "I72", ontologies = "ICD10", 
     service = "bioportal", api_key = "yourAPIkey")
     disease72$collection[[1]]$prefLabel
-  }   
-  }
+ }   
   
 }
 \references{

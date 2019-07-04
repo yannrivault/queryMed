@@ -2,18 +2,18 @@
 % Please edit documentation in R/plot_functions.R
 \name{pddi_plot}
 \alias{pddi_plot}
-\title{Potential drug-drug interaction graph
+\title{Potential drug-drug interaction visualization
   
- This function proposes a graph representation of potential drug-drug interaction as listed in DIKB data base.}
+ This function proposes a graph or a radarplot representation of potential drug-drug interaction as listed in DIKB data base.}
 \usage{
 pddi_plot(drug, type = "name", direction = "object",
   nbinteractions = 1, source = NULL, contraindication = NULL,
-  plot = TRUE, level = 4, mypalette = NULL, weight = NULL)
+  plot = "graph", level = 4, mypalette = NULL, weight = NULL)
 }
 \arguments{
-\item{drug}{character vector that specifies one drug name or one Drug Bank Identifier (<https://www.drugbank.ca/>) (DBI) or one Anatomical Therapeutic Chemical compound's code (<http://www.who.int/classifications/atcddd/en/>) (ATC)}
+\item{drug}{character vector that specifies drug names or Drug Bank Identifiers (<https://www.drugbank.ca/>) (DBI) or Anatomical Therapeutic Chemical compound's codes (<http://www.who.int/classifications/atcddd/en/>) (ATC)}
 
-\item{type}{character vector that specifies whether drug is a drug name (default), DBI or ATC code.}
+\item{type}{character vector that specifies whether drugs are drug name (default), DBI or ATC code.}
 
 \item{direction}{character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB}
 
@@ -23,7 +23,7 @@ pddi_plot(drug, type = "name", direction = "object",
 
 \item{contraindication}{If true filter on the contraindication listed in the Kegg data source.}
 
-\item{plot}{Logical whether or not to display the plot. If False the function return the data.frame used to build the plot.}
+\item{plot}{character vector that specifies the type of graph. If "graph" is used a star graph will be displayed for one drug and its interactant. If "radar" is used a radarplot will be displayed to compare two or more drugs and their interactants. If NULL (default) the function return a data.frame of counted interactions.}
 
 \item{level}{numeric ranging from 1 to 5 that indicates the ATC level to use to display the potential interacting drugs with the drug of interest.}
 
@@ -32,19 +32,20 @@ pddi_plot(drug, type = "name", direction = "object",
 \item{weight}{numeric defining a threshold to filter out graph nodes and edges when the potential drug-drug interaction are listed less than  that threshold by different sources.}
 }
 \value{
-If the argument graph is set to TRUE a graph is plotted and the associated data.frame is returned. When the graph argument is set to FALSE anly the data.frame is returned.
+If the argument graph is set to "graph" or "radard" a plot is returned and the associated data.frame is returned. When the graph argument is set to FALSE anly the data.frame is returned.
 }
 \description{
-Potential drug-drug interaction graph
+Potential drug-drug interaction visualization
   
- This function proposes a graph representation of potential drug-drug interaction as listed in DIKB data base.
+ This function proposes a graph or a radarplot representation of potential drug-drug interaction as listed in DIKB data base.
 }
 \details{
-the graph is a star graph centered on the drug of interest. The color of the nodes depends on the ATC level specified in the function cal; grouping molecules by ATC classes. The thickness of the edges depends on the number of times the  potential drug-drug interaction is listed by different sources.
+For the star graph centered on the drug of interest. The color of the nodes depends on the ATC level specified in the function cal; grouping molecules by ATC classes. The thickness of the edges depends on the number of times the  potential drug-drug interaction is listed by different sources.
 }
 \examples{
-pddi_plot("CLOPIDOGREL", "name", level=4)
-pddi_plot("CLOPIDOGREL", "name", level=5, nbinteractions=2)
+pddi_plot("CLOPIDOGREL", "name", plot="graph", level=4)
+pddi_plot("CLOPIDOGREL", "name", plot="graph", level=5, nbinteractions=2)
+pddi_plot(c("CLOPIDOGREL","PRASUGREL"), "name",  plot="radar", level=3, nbinteractions=2)
 }
 \seealso{
 [DIKB] dataset and igraph package

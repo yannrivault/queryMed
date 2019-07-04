@@ -19,14 +19,12 @@
 #' @export
 #'
 #' @author Y. Rivault
-#' @examples
-#' \donttest{
-#'   \dontrun{
-#'     disease72 = search(term = "I72", ontologies = "ICD10", 
+#' @examples 
+#'  \dontrun{
+#'     disease72 = queryMed::search(term = "I72", ontologies = "ICD10", 
 #'     service = "bioportal", api_key = "yourAPIkey")
 #'     disease72$collection[[1]]$prefLabel
-#'   }   
-#'   }
+#'  }   
 #'   
  
 search <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
