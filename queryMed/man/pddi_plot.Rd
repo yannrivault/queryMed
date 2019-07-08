@@ -13,7 +13,7 @@ pddi_plot(drug, type = "name", direction = "object",
 \arguments{
 \item{drug}{character vector that specifies drug names or Drug Bank Identifiers (<https://www.drugbank.ca/>) (DBI) or Anatomical Therapeutic Chemical compound's codes (<http://www.who.int/classifications/atcddd/en/>) (ATC)}
 
-\item{type}{character vector that specifies whether drugs are drug name (default), DBI or ATC code.}
+\item{type}{character vector that specifies whether drugs are drug "name" (default), "dbi" or "atc" code.}
 
 \item{direction}{character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB}
 

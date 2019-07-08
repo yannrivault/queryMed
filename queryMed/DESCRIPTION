@@ -48,6 +48,6 @@ Collate:
     'mapping_atc_db.R'
     'mapping_cui.R'
     'plot_functions.R'
-    'search.R'
+    'search_term.R'
     'sparql.R'
     'uri2norm.R'

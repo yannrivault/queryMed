@@ -3,7 +3,7 @@
 #'  This function proposes a graph or a radarplot representation of potential drug-drug interaction as listed in DIKB data base.
 #' 
 #' @param drug character vector that specifies drug names or Drug Bank Identifiers (<https://www.drugbank.ca/>) (DBI) or Anatomical Therapeutic Chemical compound's codes (<http://www.who.int/classifications/atcddd/en/>) (ATC)
-#' @param type   character vector that specifies whether drugs are drug name (default), DBI or ATC code.
+#' @param type   character vector that specifies whether drugs are drug "name" (default), "dbi" or "atc" code.
 #' @param direction character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB 
 #' @param nbinteractions numeric that states the minimun number of sources listing the interaction or the number of time the interactions have been listed by a source.
 #' @param source character vector that specifies the original source of the potential drug-drug interaction. It could be CredibleMeds, DDI-Corpus-2011, DDI-Corpus-2013, Drugbank, FrenchDB,  HEP,  HIV,   NDF-RT, NLM-Corpus, ONC-HighPriority, ONC-NonInteruptive, OSCAR,  PK-Corpus, World-Vista, Kegg (See <https://github.com/dbmi-pitt/public-PDDI-analysis> for more details). 
@@ -13,12 +13,13 @@
 #' @param mypalette character vector that specifies color of the nodes. If null the default is defined using brewer.pal and colorRampPalette from RBrewerColor and grDevices, respectively.
 #' @param weight numeric defining a threshold to filter out graph nodes and edges when the potential drug-drug interaction are listed less than  that threshold by different sources.
 #'
-#' @importFrom grDevices colorRampPalette
-#' @importFrom igraph graph_from_edgelist layout_as_star V E "E<-" "V<-"
+#' @importFrom grDevices colorRampPalette rgb
+#' @importFrom igraph graph_from_edgelist layout_as_star V E "E<-" "V<-" plot.igraph
 #' @importFrom fmsb radarchart
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom utils data
 #' @importFrom data.table as.data.table .N
+#' @importFrom graphics legend
 #' 
 #' @details For the star graph centered on the drug of interest. The color of the nodes depends on the ATC level specified in the function cal; grouping molecules by ATC classes. The thickness of the edges depends on the number of times the  potential drug-drug interaction is listed by different sources.
 #'  
@@ -51,7 +52,7 @@ pddi_plot <- function(drug, type="name", direction="object",
   # filter by data sources     
   if(!is.null(source)){
     DIKB <-DIKB[DIKB$source%in%source,]
-    if(is.null(nrow(x))) {
+    if(is.null(nrow(DIKB))) {
       return(warning("No data for the source"))
     }
   }
@@ -60,7 +61,7 @@ pddi_plot <- function(drug, type="name", direction="object",
   if(!is.null(contraindication)){
     if(contraindication==TRUE){
       DIKB<-DIKB[DIKB$contraindication==TRUE,]
-      if(is.null(nrow(x))) {
+      if(is.null(nrow(DIKB))) {
         return(warning("No contraindication found"))
       }
     } 
@@ -70,8 +71,8 @@ pddi_plot <- function(drug, type="name", direction="object",
   if(direction=="object"){
     x <- switch(type,
                 name = DIKB[DIKB$object%in%drug,],
-                DBI = DIKB[DIKB$drug1%in%drug, ],
-                ATC = DIKB[DIKB$atc1%in%drug, ])
+                dbi = DIKB[DIKB$drug1%in%drug, ],
+                atc = DIKB[DIKB$atc1%in%drug, ])
     if(is.null(nrow(x))) {
       return(warning("No data found"))
     }
@@ -80,8 +81,8 @@ pddi_plot <- function(drug, type="name", direction="object",
   if(direction=="precipitant"){
       x <- switch(type,
                   name = DIKB[DIKB$precipitant%in%drug,],
-                  DBI = DIKB[DIKB$drug2%in%drug, ],
-                  ATC = DIKB[DIKB$atc2%in%drug, ])
+                  dbi = DIKB[DIKB$drug2%in%drug, ],
+                  atc = DIKB[DIKB$atc2%in%drug, ])
       if(is.null(nrow(x))) {
         return(warning("No data found"))
       }
@@ -118,7 +119,7 @@ pddi_plot <- function(drug, type="name", direction="object",
     }
   }
   if(verif1==0){
-    warning("No match in ATC database")
+    errorCondition("No match in ATC database")
   }
   return(statx)
 }
@@ -127,16 +128,15 @@ pddi_plot <- function(drug, type="name", direction="object",
 # for 1 drug
 pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=NULL, weight=NULL){
   
-    print(x)
     x <- as.data.table(x)
     x<-x[,.(n=sum(n)), by=c("target", lab, level)]
     x <- data.frame(x)
 
     root <- unique(x[, level])
-    n <- length(root)
+    #n <- length(root)
 
     if(is.null(mypalette)){
-      mypalette <- colorRampPalette(brewer.pal(11,"Spectral"))(n)
+      mypalette <- colorRampPalette(brewer.pal(11,"Spectral"))(length(root))
     }
     mypalette <- cbind(mypalette, "root"= as.character(root))
     x <- merge(x, mypalette, by.x=level, by.y="root")
@@ -167,10 +167,8 @@ pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=NULL, weig
       V(g1)$color <-  colorRampPalette(brewer.pal(11,"Spectral"))(length(V(g1)))
     #}
     l1 <- layout_as_star(g1)
-    plot(g1, edge.color="grey", layout=l1)
+    plot.igraph(g1, edge.color="grey", layout=l1)
 }
-
-
 
 
 

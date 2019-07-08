@@ -20,14 +20,14 @@
 #'
 #' @author Y. Rivault
 #' @examples 
-#'  \dontrun{
-#'     disease72 = queryMed::search(term = "I72", ontologies = "ICD10", 
+#'  \donttest{
+#'     disease72 = queryMed::search_term(term = "I72", ontologies = "ICD10", 
 #'     service = "bioportal", api_key = "yourAPIkey")
 #'     disease72$collection[[1]]$prefLabel
 #'  }   
 #'   
  
-search <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
+search_term <- function(term="",ontologies="",service="bioportal",api_key="",extra_args=""){
   
   options(warn=2)
   

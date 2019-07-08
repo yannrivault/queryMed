@@ -32,7 +32,7 @@ codes2cui <- function(codes=NULL, ontologies="", api_key=""){
   
   if (n>0){
     for(i in 1:n){
-      S=suppressMessages(search(term = codes[((i-1)*step):(i*step-1)], ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false"))
+      S=suppressMessages(search_term(term = codes[((i-1)*step):(i*step-1)], ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false"))
       if (!is.null(S)){
         for(j in 1:length(S$collection)){
           if((uri2norm(S$collection[[j]]$'@id') %in% codes) | (length(intersect(unlist(S$collection[[j]]$cui),codes))>0)){
@@ -47,7 +47,7 @@ codes2cui <- function(codes=NULL, ontologies="", api_key=""){
     
   }
   if (rest>0){
-    S=suppressMessages(search(term=paste(codes[(n*step):(n*step+rest)],collapse="+"), ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false"))
+    S=suppressMessages(search_term(term=paste(codes[(n*step):(n*step+rest)],collapse="+"), ontologies = ontologies, service = "bioportal", api_key = api_key, extra_args = "&display_context=false&display_links=false"))
     if (!is.null(S)){
       for(j in 1:length(S$collection)){
         if((uri2norm(S$collection[[j]]$'@id') %in% codes) | (length(intersect(unlist(S$collection[[j]]$cui),codes))>0)){
