@@ -126,21 +126,21 @@ pddi_plot <- function(drug, type="name", direction="object",
 
 #--------------------- graph plot
 # for 1 drug
-pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=NULL, weight=NULL){
+pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=mypalette, weight=NULL){
   
     x <- as.data.table(x)
     x<-x[,.(n=sum(n)), by=c("target", lab, level)]
     x <- data.frame(x)
 
     root <- unique(x[, level])
-    #n <- length(root)
+    n <- length(root)
 
     if(is.null(mypalette)){
       mypalette <- colorRampPalette(brewer.pal(11,"Spectral"))(length(root))
     }
     mypalette <- cbind(mypalette, "root"= as.character(root))
     x <- merge(x, mypalette, by.x=level, by.y="root")
-    
+
     if(!is.null(weight)){
       x <- x[x$n>=weight, ]
     }
@@ -151,21 +151,21 @@ pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=NULL, weig
     g1 <- graph_from_edgelist(as.matrix(cbind(as.character(x[,2]), as.character(x[,3]))), directed=F)
 
     x$n[x$n == 1 ] <- 0
-    #g1 <- set_edge_attr(g1, weight, E(g1),  statx$n)
+    #g1 <- set_edge_attr(g1, weight, E(g1),  x$n)
     E(g1)$weight <- x$n
     E(g1)$width <- 1+E(g1)$weight*2
     V(g1)$size <- 20
     V(g1)$frame.color <- "white"
+    print(x)
 
-
-    #if(level==5 & nbinteractions==1){
-    #  V(g1)$color <-  c(as.character(x$mypalette))
-    #}
-   # else{
-    #  print( V(g1))
-     # V(g1)$color <-  c(rep("#FFFFCC", length(drug)) , as.character(x$mypalette))
-      V(g1)$color <-  colorRampPalette(brewer.pal(11,"Spectral"))(length(V(g1)))
-    #}
+    if(level==5 & nbinteractions==1){
+     V(g1)$color <-  c(as.character(x$mypalette))
+    }
+   else{
+   # print( V(g1))
+     V(g1)$color <-  c(rep("#FFFFCC", length(drug)) , as.character(x$mypalette))
+    #V(g1)$color <-  colorRampPalette(brewer.pal(11,"Spectral"))(length(V(g1)))
+    }
     l1 <- layout_as_star(g1)
     plot.igraph(g1, edge.color="grey", layout=l1)
 }
