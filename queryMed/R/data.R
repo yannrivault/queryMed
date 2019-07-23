@@ -24,7 +24,7 @@
 #' 
 #'@format   Data frame of 15 variables by 202 363 rows.
 #'  \describe{
-#'    \item{drug2}{Drug bank ID of the second (precipitant) interacting drug}
+#'    \item{drug1}{Drug bank ID of the second (precipitant) interacting drug}
 #'    \item{drug2}{Drug bank ID of the first (object) interacting drug}
 #'    \item{object}{Full name of the the first interacting drug}
 #'    \item{precipitant}{Full name of the the second interacting drug}
