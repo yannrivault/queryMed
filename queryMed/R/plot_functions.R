@@ -3,13 +3,9 @@
 #'  This function proposes a graph or a radarplot representation of potential drug-drug interaction as listed in DIKB data base.
 #' 
 #' @param drug character vector that specifies drug names or Drug Bank Identifiers (<https://www.drugbank.ca/>) (DBI) or Anatomical Therapeutic Chemical compound's codes (<http://www.who.int/classifications/atcddd/en/>) (ATC)
-#' @param type   character vector that specifies whether drugs are drug "name" (default), "dbi" or "atc" code.
-#' @param direction character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB 
-#' @param nbinteractions numeric that states the minimun number of sources listing the interaction or the number of time the interactions have been listed by a source.
-#' @param source character vector that specifies the original source of the potential drug-drug interaction. It could be CredibleMeds, DDI-Corpus-2011, DDI-Corpus-2013, Drugbank, FrenchDB,  HEP,  HIV,   NDF-RT, NLM-Corpus, ONC-HighPriority, ONC-NonInteruptive, OSCAR,  PK-Corpus, World-Vista, Kegg (See <https://github.com/dbmi-pitt/public-PDDI-analysis> for more details). 
-#' @param contraindication If true filter on the contraindication listed in the Kegg data source.
-#' @param plot character vector that specifies the type of graph. If "graph" is used a star graph will be displayed for one drug and its interactant. If "radar" is used a radarplot will be displayed to compare two or more drugs and their interactants. If NULL (default) the function return a data.frame of counted interactions.  
+#' @param nbsources numeric that states the minimun number of sources listing the interaction.
 #' @param level numeric ranging from 1 to 5 that indicates the ATC level to use to display the potential interacting drugs with the drug of interest.  
+#' @param plot character vector that specifies the type of graph. If "graph" is used a star graph will be displayed for one drug and its interactant. If "radar" is used a radarplot will be displayed to compare two or more drugs and their interactants. If NULL (default) the function return a data.frame of counted interactions.  
 #' @param mypalette character vector that specifies color of the nodes. If null the default is defined using brewer.pal and colorRampPalette from RBrewerColor and grDevices, respectively.
 #' @param weight numeric defining a threshold to filter out graph nodes and edges when the potential drug-drug interaction are listed less than  that threshold by different sources.
 #'
@@ -29,118 +25,68 @@
 #' @seealso [DIKB] dataset and igraph package
 #' @export
 #' @examples
-#' pddi_plot("CLOPIDOGREL", "name", plot="graph", level=4)
-#' pddi_plot("CLOPIDOGREL", "name", plot="graph", level=5, nbinteractions=2)
-#' pddi_plot(c("CLOPIDOGREL","PRASUGREL"), "name",  plot="radar", level=3, nbinteractions=2)
+#' pddi_plot("clopidogrel", level=4,  plot="graph")
+#' pddi_plot("clopidogrel", level=5, plot="graph", weight=1.5)
+#' pddi_plot(c("clopidogrel","prasugrel"), nbsources = 2, level=5, plot="radar")
 
-pddi_plot <- function(drug, type="name", direction="object", 
-                      nbinteractions= 1, source=NULL, contraindication= NULL, 
-                      plot="graph", level=4, mypalette=NULL, weight=NULL){
+pddi_plot <- function(drug, nbsources= 1, level=4, plot="graph",  mypalette=NULL, weight=NULL){
 
   utils::data(DIKB)
-  utils::data(ATC)  
-  precipitant <- atc2 <- drug2 <- object <- atc1 <- drug1 <- NULL
-
-  lev <- paste("atc",level, sep="")
-  if(level >1){
-  levm1 <- paste("atc",level-1, sep="")
-  } else{
-    levm1 <- lev
-  }
-  lab <- paste("label",level, sep="")
-
-  # filter by data sources     
-  if(!is.null(source)){
-    DIKB <-DIKB[DIKB$source%in%source,]
-    if(is.null(nrow(DIKB))) {
-      return(warning("No data for the source"))
-    }
-  }
-
-  # looking more specifically for contraindication (or not)
-  if(!is.null(contraindication)){
-    if(contraindication==TRUE){
-      DIKB<-DIKB[DIKB$contraindication==TRUE,]
-      if(is.null(nrow(DIKB))) {
-        return(warning("No contraindication found"))
-      }
-    } 
-  }
 
   # drug can be as a character,as a drung bank ID, or an ATC code
-  if(direction=="object"){
-    x <- switch(type,
-                name = DIKB[DIKB$object%in%drug,],
-                dbi = DIKB[DIKB$drug1%in%drug, ],
-                atc = DIKB[DIKB$atc1%in%drug, ])
-    if(is.null(nrow(x))) {
-      return(warning("No data found"))
+  type <- ifelse( (length(grep("^DB", drug))/length(drug))>=1, "dbi", 
+                  ifelse( length(grep("^[A-V][0-9].*[0-9]$", drug))/length(drug) >= 1 & nchar(drug)==7, "atc", "name"))
+  
+
+  statx <- switch(type,
+                name = DIKB[DIKB$label5.atc.object%in%drug,],
+                dbi = DIKB[DIKB$drug.id.object%in%drug, ],
+                atc = DIKB[DIKB$atc.object%in%drug, ])
+    if(is.null(nrow(statx))) {
+      return(warning("No data found, verify that all you drug ids or name are of the same type (DBI, ATC or name)"))
     }
-  }
-
-  if(direction=="precipitant"){
-      x <- switch(type,
-                  name = DIKB[DIKB$precipitant%in%drug,],
-                  dbi = DIKB[DIKB$drug2%in%drug, ],
-                  atc = DIKB[DIKB$atc2%in%drug, ])
-      if(is.null(nrow(x))) {
-        return(warning("No data found"))
-      }
-  }    
-  x = as.data.table(x)
-  x <- x[!is.na(x$atc2)|!is.na(x$atc1),]
-
-  if(direction=="object"){
-    statx <- x[, .N, by=list(precipitant, atc2, drug2, object)]
-  }
-  if(direction=="precipitant"){
-    statx <- x[, .N, by=list(object, atc1, drug1, precipitant)]
-  }
-  statx <- data.frame(statx)
-
-# filter on number of sources stating the interaction
-  statx <- statx[statx$N >= nbinteractions, ]
-  names(statx) <-   c("interact", "atc5", "dbi", "target", "n")
-
-  verif1 <- sum(ATC$atc5%in%statx$atc5)
-
-  if(verif1>1){
-    if(level==5){
-      statx <- merge(statx, ATC[, c("atc5", lab, levm1)], by="atc5")
-    }else{
-      statx <- merge(statx, ATC[, c("atc5", lev, lab, levm1)], by="atc5")
-    }
-    
+  
+  statx = as.data.table(statx)
+  
+  # filter on number of sources stating the interaction
+  statx <- statx[rowSums(statx[, 2:6], na.rm=T) >= nbsources, ]
+ 
+  print(statx)
     if(plot=="graph"){
-      pddi_graph(x=statx, drug=drug, lab=lab, level=levm1, nbinteractions=nbinteractions, mypalette=mypalette, weight=weight)
+      pddi_graph(x=statx, drug=drug, level=level, nbsources=nbsources, mypalette=mypalette, weight=weight)
     }
     if(plot=="radar"){
-      pddi_radar(x=statx, drug=drug, lab=lab, level=levm1)
+      pddi_radar(x=statx, drug=drug, level=level)
     }
-  }
-  if(verif1==0){
-    errorCondition("No match in ATC database")
-  }
+
   return(statx)
 }
 
 #--------------------- graph plot
 # for 1 drug
-pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=mypalette, weight=NULL){
+pddi_graph <- function(x, drug, nbsources, level, mypalette=mypalette, weight=NULL){
   
+    level <- paste("label", level, ".atc.precipitant", sep="")
     x <- as.data.table(x)
-    x<-x[,.(n=sum(n)), by=c("target", lab, level)]
+    # add root atc info for future color palette
+    x <- cbind(x, "root"=substr(unlist(x[,14]), 1, 1))
+    # mean score to integrate levels
+    x<-x[,.(n=mean(score.max, na.rm=T)), by=c("drug.id.object", level, "root")]
     x <- data.frame(x)
-
-    root <- unique(x[, level])
+    # remove drug with no atc label (-need to see how to do for DBI queries)
+    x<- x[!is.na(x[,2]), ]
+    
+    # compute color palette
+    root <- unique(x$root)
     n <- length(root)
-
     if(is.null(mypalette)){
       mypalette <- colorRampPalette(brewer.pal(11,"Spectral"))(length(root))
     }
-    mypalette <- cbind(mypalette, "root"= as.character(root))
-    x <- merge(x, mypalette, by.x=level, by.y="root")
+    mypalette <- cbind(mypalette, "root"= root)
+    print(mypalette)
+    x <- merge(x, mypalette, by="root")
 
+    print(x)
     if(!is.null(weight)){
       x <- x[x$n>=weight, ]
     }
@@ -148,17 +94,16 @@ pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=mypalette,
       return(warning("No data found"))
     }
     
-    g1 <- graph_from_edgelist(as.matrix(cbind(as.character(x[,2]), as.character(x[,3]))), directed=F)
+    g1 <- graph_from_edgelist(as.matrix(cbind(drug, as.character(x[,3]))), directed=F)
 
-    x$n[x$n == 1 ] <- 0
-    #g1 <- set_edge_attr(g1, weight, E(g1),  x$n)
+
     E(g1)$weight <- x$n
-    E(g1)$width <- 1+E(g1)$weight*2
+    E(g1)$width <- 3^E(g1)$weight
     V(g1)$size <- 20
     V(g1)$frame.color <- "white"
     print(x)
 
-    if(level==5 & nbinteractions==1){
+    if(level==5 & nbsources==1){
      V(g1)$color <-  c(as.character(x$mypalette))
     }
    else{
@@ -167,28 +112,34 @@ pddi_graph <- function(x, drug, lab, level, nbinteractions, mypalette=mypalette,
     #V(g1)$color <-  colorRampPalette(brewer.pal(11,"Spectral"))(length(V(g1)))
     }
     l1 <- layout_as_star(g1)
-    plot.igraph(g1, edge.color="grey", layout=l1)
+    if(level==5){
+      plot.igraph(g1, edge.color="grey", layout=l1, edge.label = E(g1)$weight)
+    }
+    else{
+      plot.igraph(g1, edge.color="grey", layout=l1)
+    }
 }
 
 
 
 #----------------------- Radard plots
 # for 2 drugs
-pddi_radar <- function(x, drug, lab, level){
+pddi_radar <- function(x, drug, level){
     
-    x <- as.data.table(x)
-    x<-as.data.frame(x[,.(n=sum(n)), by=c("target", lab, level)])
-    
-    v<- tidyr::spread(x[, -3], lab, n)
-    rownames(v) <- v[,1]
-    v <- v[,-1]
-    v[is.na(v)] <- 0
+  level <- paste("label", level, ".atc.precipitant", sep="")
+  x <- as.data.table(x)
+  x<-as.data.frame(x[,.(n=mean(score.max, na.rm=T)), by=c("drug.id.object", level)])
+print(x)
+  v<- tidyr::spread(x, level, n)
+  rownames(v) <- drug
+  v <- v[,-1]
+  v[is.na(v)] <- 0
 
     v2 = data.frame(rbind(rep(max(v), ncol(v)) , rep(-1, ncol(v)) , v))
    
     colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9) , rgb(0.7,0.5,0.1,0.9) )
     colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4) , rgb(0.7,0.5,0.1,0.4) )
-    
+    # import from library fmsb
     radarchart(v2,
                axistype=2 , 
                #custom polygon
