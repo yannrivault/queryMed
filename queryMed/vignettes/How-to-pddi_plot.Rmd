@@ -1,11 +1,17 @@
 ---
-title: "queryMed package: how to display drug interactions"
+title: 'queryMed package: how to display drug interactions'
 author: "Y. Rivault, O.Dameron, and N. Le Meur"
 date: "version 0.1 - 17/04/2018"
-output: 
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     citation_package: natbib
 bibliography: queryMed.bib
+vignette: |
+  %VignetteIndexEntry{Vignette Title} 
+  %VignetteEngine{knitr::rmarkdown} 
+  usepackage[utf8]{inputenc}
 ---
   
 ```{r setup, include=FALSE}

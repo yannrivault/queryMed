@@ -6,14 +6,18 @@
 #' @param object character vector that specifies drug name(s)
 #' @param level.precipitant numeric that states the interaction level number between choosen object and precipitants (between 1 and 5, from largest ATC level to precipitant drugs name)
 #'  
+#' @importFrom ggplot2 ggplot aes theme_minimal theme element_text scale_fill_gradient2 geom_tile geom_text xlab ylab
+#' @importFrom plotly ggplotly
+#'  
 #' @return  A heatmap plot is returned.
 #' @author S. Tessier
 #'  
 #' @seealso [DIKB] dataset
 #' @export
 #' @examples
-# pddi_heatmap(data = DIKB, object = "LEPIRUDIN", level.precipitant = 5)
-# pddi_heatmap(data = DIKB, object = c("TADALAFIL","MORPHINE"), level.precipitant = 1)
+#' data(DIKB)
+#' pddi_heatmap(data = DIKB, object = "CLOPIDOGREL", level.precipitant = 4)
+#' pddi_heatmap(data = DIKB, object = c("TADALAFIL","MORPHINE"), level.precipitant = 1)
 
 
 pddi_heatmap <- function(data, object, level.precipitant){

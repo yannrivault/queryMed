@@ -33,7 +33,7 @@ Function to find intersection between medical terms (disease, drugs...) and pair
 data(drug_set)
 data(DIKB)
 interactions <- find_relations(data.x=drug_set,   data_indices = "patient",  
-data_elements.x = "ATC", target=DIKB, target_elements = c("atc1","atc2"),  progress="none")
+data_elements.x = "ATC", target=DIKB, target_elements = c("atc.object","atc.precipitant"),  progress="none")
  interactions[[1]]
 }
 \references{

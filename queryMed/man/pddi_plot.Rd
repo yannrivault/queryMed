@@ -6,26 +6,17 @@
   
  This function proposes a graph or a radarplot representation of potential drug-drug interaction as listed in DIKB data base.}
 \usage{
-pddi_plot(drug, type = "name", direction = "object",
-  nbinteractions = 1, source = NULL, contraindication = NULL,
-  plot = "graph", level = 4, mypalette = NULL, weight = NULL)
+pddi_plot(drug, nbsources = 1, level = 4, plot = "graph",
+  mypalette = NULL, weight = NULL)
 }
 \arguments{
 \item{drug}{character vector that specifies drug names or Drug Bank Identifiers (<https://www.drugbank.ca/>) (DBI) or Anatomical Therapeutic Chemical compound's codes (<http://www.who.int/classifications/atcddd/en/>) (ATC)}
 
-\item{type}{character vector that specifies whether drugs are drug "name" (default), "dbi" or "atc" code.}
-
-\item{direction}{character vector that specifies whether the queried drug is an object or an precipitant as defined by DIKB}
-
-\item{nbinteractions}{numeric that states the minimun number of sources listing the interaction or the number of time the interactions have been listed by a source.}
-
-\item{source}{character vector that specifies the original source of the potential drug-drug interaction. It could be CredibleMeds, DDI-Corpus-2011, DDI-Corpus-2013, Drugbank, FrenchDB,  HEP,  HIV,   NDF-RT, NLM-Corpus, ONC-HighPriority, ONC-NonInteruptive, OSCAR,  PK-Corpus, World-Vista, Kegg (See <https://github.com/dbmi-pitt/public-PDDI-analysis> for more details).}
-
-\item{contraindication}{If true filter on the contraindication listed in the Kegg data source.}
-
-\item{plot}{character vector that specifies the type of graph. If "graph" is used a star graph will be displayed for one drug and its interactant. If "radar" is used a radarplot will be displayed to compare two or more drugs and their interactants. If NULL (default) the function return a data.frame of counted interactions.}
+\item{nbsources}{numeric that states the minimun number of sources listing the interaction.}
 
 \item{level}{numeric ranging from 1 to 5 that indicates the ATC level to use to display the potential interacting drugs with the drug of interest.}
+
+\item{plot}{character vector that specifies the type of graph. If "graph" is used a star graph will be displayed for one drug and its interactant. If "radar" is used a radarplot will be displayed to compare two or more drugs and their interactants. If NULL (default) the function return a data.frame of counted interactions.}
 
 \item{mypalette}{character vector that specifies color of the nodes. If null the default is defined using brewer.pal and colorRampPalette from RBrewerColor and grDevices, respectively.}
 
@@ -43,9 +34,9 @@ Potential drug-drug interaction visualization
 For the star graph centered on the drug of interest. The color of the nodes depends on the ATC level specified in the function cal; grouping molecules by ATC classes. The thickness of the edges depends on the number of times the  potential drug-drug interaction is listed by different sources.
 }
 \examples{
-pddi_plot("CLOPIDOGREL", "name", plot="graph", level=4)
-pddi_plot("CLOPIDOGREL", "name", plot="graph", level=5, nbinteractions=2)
-pddi_plot(c("CLOPIDOGREL","PRASUGREL"), "name",  plot="radar", level=3, nbinteractions=2)
+pddi_plot("CLOPIDOGREL", level=2,  plot="graph")
+pddi_plot("CLOPIDOGREL", level=5, plot="graph", weight=1.25)
+pddi_plot(c("CLOPIDOGREL", "PRASUGREL"), nbsources = 2, level=5, plot="radar")
 }
 \seealso{
 [DIKB] dataset and igraph package

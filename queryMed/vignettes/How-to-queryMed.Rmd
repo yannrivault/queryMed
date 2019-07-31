@@ -6,6 +6,10 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
+vignette: >
+  %VignetteIndexEntry{Vignette Title}
+  %VignetteEngine{knitr::rmarkdown}
+  usepackage[utf8]{inputenc}
 bibliography: references.bib
 ---
 
