@@ -25,7 +25,7 @@ pddi_heatmap <- function(data, object, level.precipitant){
                               ifelse(level.precipitant==1, level <- 16))))
   )
   
-  work.data <- data[which(DIKB2$object==object),c(17,level,10)]
+  work.data <- data[which(DIKB$object==object),c(17,level,10)]
   
   if(level!=18){
     if(length(object)>=2){
@@ -34,7 +34,7 @@ pddi_heatmap <- function(data, object, level.precipitant){
         
         if(i == 1){
           
-          a <- data[which(DIKB2$object==object[1]),c(17,level,10)]
+          a <- data[which(DIKB$object==object[1]),c(17,level,10)]
           
           a <- data.frame(object[1],
                           rownames(data.frame(tapply(a[,3], as.character(a[,2]), mean))),
@@ -46,7 +46,7 @@ pddi_heatmap <- function(data, object, level.precipitant){
           
         }else{
           
-          a <- data[which(DIKB2$object==object[i]),c(17,level,10)]
+          a <- data[which(DIKB$object==object[i]),c(17,level,10)]
           
           a <- data.frame(object[i],
                           rownames(data.frame(tapply(a[,3], as.character(a[,2]), mean))),
