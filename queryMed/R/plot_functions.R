@@ -25,21 +25,23 @@
 #' @seealso [DIKB] dataset and igraph package
 #' @export
 #' @examples
-#' pddi_plot("clopidogrel", level=4,  plot="graph")
-#' pddi_plot("clopidogrel", level=5, plot="graph", weight=1.5)
-#' pddi_plot(c("clopidogrel","prasugrel"), nbsources = 2, level=5, plot="radar")
+#' pddi_plot("CLOPIDOGREL", level=2,  plot="graph")
+#' pddi_plot("CLOPIDOGREL", level=5, plot="graph", weight=1.25)
+#' pddi_plot(c("CLOPIDOGREL", "PRASUGREL"), nbsources = 2, level=5, plot="radar")
 
 pddi_plot <- function(drug, nbsources= 1, level=4, plot="graph",  mypalette=NULL, weight=NULL){
 
   utils::data(DIKB)
-
   # drug can be as a character,as a drung bank ID, or an ATC code
-  type <- ifelse( (length(grep("^DB", drug))/length(drug))>=1, "dbi", 
+  type <- ifelse( (length(grep("^DB", drug))/length(drug))>=1 & nchar(drug)==7, "dbi", 
                   ifelse( length(grep("^[A-V][0-9].*[0-9]$", drug))/length(drug) >= 1 & nchar(drug)==7, "atc", "name"))
   
-
+  type <- unique(type)
+  if(length(type)>1) {
+    return(warning("No data found, verify that all you drug ids or name are of the same type (DBI, ATC or name)"))
+  }
   statx <- switch(type,
-                name = DIKB[DIKB$label5.atc.object%in%drug,],
+                name = DIKB[DIKB$object%in%drug,],
                 dbi = DIKB[DIKB$drug.id.object%in%drug, ],
                 atc = DIKB[DIKB$atc.object%in%drug, ])
     if(is.null(nrow(statx))) {
@@ -86,7 +88,6 @@ pddi_graph <- function(x, drug, nbsources, level, mypalette=mypalette, weight=NU
     print(mypalette)
     x <- merge(x, mypalette, by="root")
 
-    print(x)
     if(!is.null(weight)){
       x <- x[x$n>=weight, ]
     }
@@ -101,19 +102,18 @@ pddi_graph <- function(x, drug, nbsources, level, mypalette=mypalette, weight=NU
     E(g1)$width <- 3^E(g1)$weight
     V(g1)$size <- 20
     V(g1)$frame.color <- "white"
-    print(x)
 
     if(level==5 & nbsources==1){
      V(g1)$color <-  c(as.character(x$mypalette))
     }
    else{
-   # print( V(g1))
      V(g1)$color <-  c(rep("#FFFFCC", length(drug)) , as.character(x$mypalette))
-    #V(g1)$color <-  colorRampPalette(brewer.pal(11,"Spectral"))(length(V(g1)))
     }
     l1 <- layout_as_star(g1)
-    if(level==5){
-      plot.igraph(g1, edge.color="grey", layout=l1, edge.label = E(g1)$weight)
+    print(length(g1))
+    if(length(g1)<=10){
+      plot.igraph(g1, edge.color="grey", layout=l1, edge.label = round(E(g1)$weight,2))
+      print("ok")
     }
     else{
       plot.igraph(g1, edge.color="grey", layout=l1)
@@ -129,7 +129,7 @@ pddi_radar <- function(x, drug, level){
   level <- paste("label", level, ".atc.precipitant", sep="")
   x <- as.data.table(x)
   x<-as.data.frame(x[,.(n=mean(score.max, na.rm=T)), by=c("drug.id.object", level)])
-print(x)
+
   v<- tidyr::spread(x, level, n)
   rownames(v) <- drug
   v <- v[,-1]
