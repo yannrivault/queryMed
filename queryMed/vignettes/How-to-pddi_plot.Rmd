@@ -39,22 +39,22 @@ data(DIKB)
 head(DIKB, n=3)
 ```
 
-We subset the dataset and select only the rows where the object (drug of interest) is the CLOPIDOGREL.
+We subset the dataset and select only the rows where the drug of interest is the *clopidogrel* (object).
 
 ```{r clopidogrel data, eval=T}
-clopData <- DIKB[DIKB$object=="CLOPIDOGREL",]
+clopData <- DIKB[DIKB$label5.atc.object=="CLOPIDOGREL",]
 dim(clopData)
-# unique interactions
-dim(unique(clopData[,c("object","precipitant")]))
 ```
 
-Overall `r nrow(clopData)` rows are selected. Although, some interactions are reported by more than one source, thus it corresponds to  `r nrow(unique(clopData[,3:4]))` unique interactions. The sources are:
+Overall it corresponds to `r nrow(clopData)` unique interactions. The main source is:
 
 ```{r source data, eval=T}
- table(clopData[,"source"])
+ colSums(clopData[, c("Kegg","FrenchDB","NDFRT","WorldVista")]>=1, na.rm=T)
 ```
 
-To visualize the interactions we propose to use network representation. Currently, one can look at one drug (object) and its precipitants at a time. The circle layout positionned the object of interest at the center (see Figure below). The thickness of the edge represents the fact that some interactions are reported by more than one source. The graphs below display the interactions listed by at least 2 sources (nbinteractions=2). Some drugs belong to the same ATC family and are represented by the same vertex color. When considering more general classes of the ATC nomenclature, the interactions concern 11 and 15 classes, respectively (Fig1B, Fig1C). Again some classes are characterized by a high number of interactions (size of the vertex) and sources (thickness of the edge), notably the anti-thrombotic and gastro-esophageal family. In the context of pharmacovigilance, one could then make assumptions about the value of expanding the study of interactions between clopidogrel and the 26 known drugs to those between clopidogrel and the families they belong to. 
+To visualize the interactions we propose to use network representation. Currently, one can look at one drug (object) and its precipitants as a graph. The circle layout positionned the object of interest at the center (see Figure below). The thickness of the edge represents the fact that some interactions are reported by more than one source. The graphs below display the interactions listed by at least 2 sources (nbinteractions=2). Some drugs belong to the same ATC family and are represented by the same vertex color. When considering more general classes of the ATC nomenclature, the interactions concern 11 and 15 classes, respectively (Fig1B, Fig1C). Again some classes are characterized by a high number of interactions (size of the vertex) and sources (thickness of the edge), notably the anti-thrombotic and gastro-esophageal family. In the context of pharmacovigilance, one could then make assumptions about the value of expanding the study of interactions between clopidogrel and the 26 known drugs to those between clopidogrel and the families they belong to. 
+For more then one drug a radarplot is proposed with the border of the graph being the score of interaction as define by the combinasion of the different sources and their relative level of precaution (see help page for more details).
+
 
 ```{r igraph, eval=T}
 par(mfrow=c(2,2), mar=c(2,2,2,2)) 
@@ -64,8 +64,9 @@ pddi_plot("CLOPIDOGREL", level=4 , nbinteractions=2)
 text(-1.5,1 ,"B", cex=2)
 pddi_plot("CLOPIDOGREL", level=3, nbinteractions=2)
 text(-2,1 ,"C", cex=2)
+pddi_plot(c("CLOPIDOGREL","PRASURGEL"), level=5, plot="radar", nbinteractions=2)
+text(-2,1 ,"D", cex=2)
 ```
-
 
 
 ```{r sessionInfo, eval=T}

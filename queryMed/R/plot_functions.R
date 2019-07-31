@@ -24,6 +24,7 @@
 #'  
 #' @seealso [DIKB] dataset and igraph package
 #' @export
+#' 
 #' @examples
 #' pddi_plot("CLOPIDOGREL", level=2,  plot="graph")
 #' pddi_plot("CLOPIDOGREL", level=5, plot="graph", weight=1.25)

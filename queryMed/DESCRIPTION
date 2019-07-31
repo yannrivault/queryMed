@@ -48,6 +48,7 @@ Collate:
     'helper_functions.R'
     'mapping_atc_db.R'
     'mapping_cui.R'
+    'pddi_heatmap.r'
     'plot_functions.R'
     'search_term.R'
     'sparql.R'
